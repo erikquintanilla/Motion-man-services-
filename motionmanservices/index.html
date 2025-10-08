@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Motion Man Services — Erik Quintanilla (Oakland)</title>
+		<meta name="description" content="Erik Quintanilla — Weekend-only moving, yard cleanup, and car interior cleaning in Oakland. Affordable, friendly, local service." />
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="container header-inner">
+				<div class="brand">
+					<a class="logo" href="#home">Motion Man</a>
+					<div class="small-muted">by <strong>Erik Quintanilla</strong> · Weekend availability only</div>
+				</div>
+				<nav class="nav" aria-label="Main navigation">
+					<ul>
+						<li><a href="#services">Services</a></li>
+						<li><a href="#pricing">Pricing</a></li>
+						<li><a href="#how">How it Works</a></li>
+						<li><a href="#contact" class="cta">Book</a></li>
+					</ul>
+				</nav>
+				<button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation">Menu</button>
+			</div>
+		</header>
+
+		<main id="home">
+			<section class="hero">
+				<div class="container hero-inner">
+					<div class="hero-copy">
+						<h1><span class="accent">Cheap & Reliable</span> moving, yard cleanup, and car detailing — Oakland</h1>
+						<p class="lead">Weekend-only service from Erik: honest pricing, focused work, and flexible weekend slots. Perfect for small moves and quick cleanups.</p>
+						<div class="hero-cta">
+							<a class="btn primary" href="#contact">Book a Weekend Slot</a>
+							<a class="btn ghost" href="#services">See Services & Prices</a>
+						</div>
+						<div class="badges">
+							<span class="badge highlight">Weekend hours only</span>
+							<span class="badge cheap">Low starting prices</span>
+						</div>
+					</div>
+					<div class="hero-art">
+						<div class="card-illustration">🚚✨</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="services" class="container services">
+				<h2>Services I Offer</h2>
+				<p class="section-sub">One-person operation — affordable and direct. If you need a large crew, I can quote that too but note it may require a partner crew.</p>
+				<div class="grid services-grid">
+					<article class="service-card">
+						<h3>Moving Help</h3>
+						<p>Single-person local moves, loading/unloading, furniture moving inside a home or short-distance runs. Good for studio/1-bedroom or add-on help.</p>
+						<ul class="features">
+							<li>Single mover (Erik) — careful handling</li>
+							<li>Blanket wrapping & dolly available</li>
+							<li>2 hour minimum</li>
+						</ul>
+						<div class="price"><span class="price-amount">$70/hr</span> <span class="muted">(1 mover, 2 hr min)</span></div>
+						<a class="btn" href="#contact">Book Moving</a>
+					</article>
+
+					<article class="service-card">
+						<h3>Yard Cleanup</h3>
+						<p>Debris removal, leaf & branch pickup, bagging, and light pruning. Smaller yards best suited for a single person visit.</p>
+						<ul class="features">
+							<li>One-visit cleanups</li>
+							<li>Debris hauling for small loads</li>
+							<li>Seasonal refreshes</li>
+						</ul>
+						<div class="price"><span class="price-amount">$85</span> <span class="muted">per small-yard visit</span></div>
+						<a class="btn" href="#contact">Book Yard Cleanup</a>
+					</article>
+
+					<article class="service-card">
+						<h3>Car Interior Cleaning</h3>
+						<p>Standard vacuum & wipe-down or deep shampoo/steam for stains and heavy soiling. Mobile service — I come to you.</p>
+						<ul class="features">
+							<li>Standard detail: vacuum, wipe, windows</li>
+							<li>Deep clean: shampoo/steam & stain treatment</li>
+							<li>Mobile (on-site) — small travel fee may apply</li>
+						</ul>
+						<div class="price"><span class="price-amount">$45</span> <span class="muted">(standard) — Deep from $90</span></div>
+						<a class="btn" href="#contact">Book Car Cleaning</a>
+					</article>
+				</div>
+			</section>
+
+			<section id="pricing" class="container pricing">
+				<h2>Quick Pricing (Oakland)</h2>
+				<p class="section-sub">Low starting prices aimed for smaller jobs — I keep costs down by operating solo and focusing on weekends.</p>
+				<div class="grid price-grid">
+					<div class="price-card">
+						<h4>Moving Help</h4>
+						<p><strong class="accent">$70/hr</strong> — Single mover (2 hour min). Larger jobs quoted separately.</p>
+					</div>
+					<div class="price-card">
+						<h4>Yard Cleanup</h4>
+						<p><strong class="accent">$85</strong> — Small yard starting price. Larger jobs quoted after a visit.</p>
+					</div>
+					<div class="price-card">
+						<h4>Car Interior Cleaning</h4>
+						<p><strong class="accent">$45</strong> — Standard. Deep clean <strong class="accent">$90+</strong>.</p>
+					</div>
+				</div>
+			</section>
+
+			<section id="how" class="container how">
+				<h2>How Booking Works</h2>
+				<ol class="steps">
+					<li><strong>Choose a service</strong> and pick a weekend date & time.</li>
+					<li><strong>I confirm</strong> — You get an instant calendar file to add to your calendar and I’ll follow up by email.</li>
+					<li><strong>I show up</strong> — Pay after the job. Exact pricing confirmed before work starts.</li>
+				</ol>
+				<div class="note important">Important: I operate on weekends only (Sat & Sun). Please select a weekend date when booking.</div>
+			</section>
+
+			<section id="contact" class="container contact">
+				<h2>Book a Weekend Slot</h2>
+				<p class="section-sub">Pick a weekend date/time below. You’ll get a downloadable calendar file and a confirmation message.</p>
+				<form class="contact-form" id="bookingForm" action="#" onsubmit="handleBooking(event)">
+					<div class="form-row">
+						<label for="name">Your full name</label>
+						<input id="name" name="name" type="text" required placeholder="Your name" />
+					</div>
+
+					<div class="form-row">
+						<label for="email">Email</label>
+						<input id="email" name="email" type="email" required placeholder="you@example.com" value="Erikquintanilla990@gmail.com" />
+					</div>
+
+					<div class="form-row">
+						<label for="phone">Phone</label>
+						<input id="phone" name="phone" type="tel" placeholder="(510) 978-0413" value="5109780413" />
+					</div>
+
+					<div class="form-row">
+						<label for="service">Service</label>
+						<select id="service" name="service">
+							<option>Moving Help</option>
+							<option>Yard Cleanup</option>
+							<option>Car Interior Cleaning</option>
+						</select>
+					</div>
+
+					<div class="form-row">
+						<label for="date">Preferred date (weekends only)</label>
+						<input id="date" name="date" type="date" required />
+					</div>
+
+					<div class="form-row">
+						<label for="time">Preferred start time</label>
+						<select id="time" name="time">
+							<option value="09:00">09:00 AM</option>
+							<option value="10:00">10:00 AM</option>
+							<option value="11:00">11:00 AM</option>
+							<option value="12:00">12:00 PM</option>
+							<option value="13:00">01:00 PM</option>
+							<option value="14:00">02:00 PM</option>
+							<option value="15:00">03:00 PM</option>
+						</select>
+					</div>
+
+					<div class="form-row">
+						<label for="hours">Estimated hours (for moving jobs)</label>
+						<input id="hours" name="hours" type="number" min="1" max="8" value="2" />
+					</div>
+
+					<div class="form-row">
+						<label for="details">Details (address, brief notes)</label>
+						<textarea id="details" name="details" rows="3"></textarea>
+					</div>
+
+					<div class="form-row form-actions">
+						<button class="btn primary" type="submit">Confirm Booking</button>
+						<button class="btn ghost" type="reset">Clear</button>
+					</div>
+					<p class="form-note">Booking is confirmed after I review and reply. The calendar file you download reserves the slot on your device.</p>
+				</form>
+				<div id="bookingResult" class="booking-result" aria-live="polite"></div>
+			</section>
+		</main>
+
+		<footer class="site-footer">
+			<div class="container footer-inner">
+				<small>© Motion Man Services — Erik Quintanilla · Serving Oakland, CA</small>
+				<div class="social">Email: <a href="mailto:Erikquintanilla990@gmail.com">Erikquintanilla990@gmail.com</a> · Phone: <a href="tel:+15109780413">(510) 978-0413</a></div>
+			</div>
+		</footer>
+
+		<script>
+			// Booking form handler: validate weekend date, generate .ics file, and save booking locally
+			function isWeekend(dateStr) {
+				if (!dateStr) return false;
+				const d = new Date(dateStr + 'T00:00');
+				const day = d.getDay(); // 0 Sun, 6 Sat
+				return day === 0 || day === 6;
+			}
+
+			function pad(n){return n<10? '0'+n: n}
+
+			function toICSDate(dt){
+				// Format: YYYYMMDDTHHMM00 (local time, naive)
+				return dt.getFullYear().toString() + pad(dt.getMonth()+1) + pad(dt.getDate()) + 'T' + pad(dt.getHours()) + pad(dt.getMinutes()) + '00';
+			}
+
+			function makeICS(summary, description, start, end) {
+				const uid = 'mm-' + Date.now() + '@motionman.local';
+				return [
+					'BEGIN:VCALENDAR',
+					'VERSION:2.0',
+					'PRODID:-//MotionMan//Booking//EN',
+					'BEGIN:VEVENT',
+					'UID:' + uid,
+					'DTSTAMP:' + toICSDate(new Date()),
+					'DTSTART:' + toICSDate(start),
+					'DTEND:' + toICSDate(end),
+					'SUMMARY:' + summary,
+					'DESCRIPTION:' + description.replace(/\n/g,'\\n'),
+					'END:VEVENT',
+					'END:VCALENDAR'
+				].join('\r\n');
+			}
+
+			function downloadICS(filename, content) {
+				const blob = new Blob([content], {type: 'text/calendar;charset=utf-8'});
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = filename;
+				document.body.appendChild(a);
+				a.click();
+				a.remove();
+				URL.revokeObjectURL(url);
+			}
+
+			function handleBooking(e){
+				e.preventDefault();
+				const name = document.getElementById('name').value.trim();
+				const email = document.getElementById('email').value.trim();
+				const phone = document.getElementById('phone').value.trim();
+				const service = document.getElementById('service').value;
+				const date = document.getElementById('date').value;
+				const time = document.getElementById('time').value;
+				const hours = parseFloat(document.getElementById('hours').value) || 1;
+				const details = document.getElementById('details').value.trim();
+
+				if (!isWeekend(date)){
+					alert('Please select a Saturday or Sunday. I operate on weekends only.');
+					return;
+				}
+
+				// Build start and end Date objects in local time
+				const [y,m,d] = date.split('-').map(Number);
+				const [hh,mm] = time.split(':').map(Number);
+				const start = new Date(y, m-1, d, hh, mm, 0);
+				const end = new Date(start.getTime() + hours*60*60*1000);
+
+				const summary = service + ' — Motion Man Booking';
+				const description = `Service: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nNotes: ${details}`;
+				const ics = makeICS(summary, description, start, end);
+				const filename = `motionman-${service.replace(/\s+/g,'-').toLowerCase()}-${date}.ics`;
+
+				// Save booking locally
+				const stored = JSON.parse(localStorage.getItem('mm_bookings')||'[]');
+				stored.push({name,email,phone,service,date,time,hours,details,created:Date.now()});
+				localStorage.setItem('mm_bookings', JSON.stringify(stored));
+
+				// Offer ICS download and show confirmation
+				downloadICS(filename, ics);
+				const result = document.getElementById('bookingResult');
+				result.innerHTML = `<div class="success">Thanks, <strong>${name}</strong> — your request for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is recorded. An .ics file was downloaded for your calendar. I will follow up at <a href=\"mailto:${email}\">${email}</a>.</div>`;
+				e.target.reset();
+			}
+
+			// Mobile nav toggle
+			const navToggle = document.querySelector('.nav-toggle');
+			const nav = document.querySelector('.nav');
+			navToggle && navToggle.addEventListener('click', () => {
+				const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+				navToggle.setAttribute('aria-expanded', !expanded);
+				nav.classList.toggle('open');
+			});
+		</script>
+	</body>
+</html>
