@@ -22,7 +22,7 @@ jobs:
       - name: Upload site folder as Pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: 'motionmanservices'
+          path: 'docs'
 
   deploy:
     needs: build-deploy
