@@ -1,4 +1,8 @@
 // Booking form handler: validate weekend date, generate .ics file, and save booking locally
+// Optional: set BOOKING_ENDPOINT to a webhook URL (Formspree, Zapier, Google Apps Script, Netlify, etc.)
+// to receive booking POSTs and notify you (server must accept CORS if called from the browser).
+const BOOKING_ENDPOINT = ''; // <-- set this to your webhook URL to receive bookings automatically
+
 function isWeekend(dateStr) {
     if (!dateStr) return false;
     const d = new Date(dateStr + 'T00:00');
@@ -43,7 +47,34 @@ function downloadICS(filename, content) {
     URL.revokeObjectURL(url);
 }
 
-function handleBooking(e){
+function downloadTXT(filename, content){
+    const blob = new Blob([content], {type: 'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+}
+
+function copyToClipboard(text){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+        return navigator.clipboard.writeText(text);
+    }
+    return new Promise((res, rej) => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed'; ta.style.left='-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try{ document.execCommand('copy'); res(); }catch(e){ rej(e); }
+        ta.remove();
+    });
+}
+
+async function handleBooking(e){
     e.preventDefault();
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -77,8 +108,57 @@ function handleBooking(e){
 
     // Offer ICS download and show confirmation
     downloadICS(filename, ics);
+    // Also offer a plain-text fallback (some devices don't accept .ics)
+    const txtFilename = `motionman-${service.replace(/\s+/g,'-').toLowerCase()}-${date}.txt`;
+    const txtContent = `Booking request\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nDate: ${date} ${time}\nDuration(hrs): ${hours}\nNotes:\n${details}`;
+    downloadTXT(txtFilename, txtContent);
+
+    // Try to notify owner via webhook if configured
+    let notifyStatus = 'no-endpoint';
+    if (BOOKING_ENDPOINT){
+        try{
+            const resp = await fetch(BOOKING_ENDPOINT, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({name,email,phone,service,date,time,hours,details,created:Date.now()})
+            });
+            if (resp.ok) notifyStatus = 'notified';
+            else notifyStatus = 'failed';
+        }catch(err){
+            notifyStatus = 'failed';
+        }
+    }
     const result = document.getElementById('bookingResult');
-    result.innerHTML = `<div class="success">Thanks, <strong>${name}</strong> — your request for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is recorded. An .ics file was downloaded for your calendar. I will follow up at <a href=\"mailto:${email}\">${email}</a>.</div>`;
+    let notifyMsg = '';
+    if (notifyStatus === 'notified') notifyMsg = '<div class="small-muted">Owner notified via webhook.</div>';
+    else if (notifyStatus === 'failed') notifyMsg = '<div class="small-muted">Automatic notification failed (webhook). You will still see the booking saved locally.</div>';
+    else notifyMsg = '<div class="small-muted">No server notification configured. See options below to receive bookings by email or webhook.</div>';
+
+    // Create a mailto fallback link (opens user's mail client with prefilled message) so owner can be emailed manually
+    const mailtoBody = encodeURIComponent(`Booking request\n\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nDate: ${date} ${time}\nDuration(hrs): ${hours}\nNotes:\n${details}`);
+    const mailtoHref = `mailto:Erikquintanilla990@gmail.com?subject=${encodeURIComponent('New booking request - Motion Man')}&body=${mailtoBody}`;
+
+    result.innerHTML = `
+        <div class="success">Thanks, <strong>${name}</strong> — your request for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is recorded. An .ics file and a plain text file were downloaded for your calendar. ${notifyMsg} I will follow up at <a href=\"mailto:${email}\">${email}</a>.</div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <button id="copyDetails" class="btn">Copy booking details</button>
+            <a class="btn ghost" href="${mailtoHref}">Email owner (open mail client)</a>
+        </div>
+    `;
+
+    // Wire copy button
+    const copyBtn = document.getElementById('copyDetails');
+    if (copyBtn){
+        copyBtn.addEventListener('click', () => {
+            copyToClipboard(txtContent).then(() => {
+                copyBtn.textContent = 'Copied!';
+                setTimeout(()=> copyBtn.textContent = 'Copy booking details', 2500);
+            }).catch(()=>{
+                copyBtn.textContent = 'Copy failed';
+                setTimeout(()=> copyBtn.textContent = 'Copy booking details', 2500);
+            });
+        });
+    }
     e.target.reset();
 }
 
