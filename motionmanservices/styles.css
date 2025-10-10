@@ -6,6 +6,7 @@
   --accent:#0369a1; /* stronger blue accent */
   --accent-600:#034f84;
   --accent-2:#f97316; /* orange for cheap badges */
+  --price-accent:#dc2626;
   --glass: rgba(3,105,161,0.06);
   --radius:12px;
   --max:1100px;
@@ -20,8 +21,9 @@ body{
   color:#0f172a;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
+  line-height:1.6;
 }
-.container{max-width:var(--max);margin:0 auto;padding:28px}
+.container{max-width:var(--max);margin:0 auto;padding:32px}
 .site-header{background:transparent;padding:12px 0}
 .header-inner{display:flex;align-items:center;justify-content:space-between}
 .logo{font-weight:700;color:var(--accent);text-decoration:none;font-size:1.15rem}
@@ -31,8 +33,8 @@ body{
 .nav .cta{background:linear-gradient(90deg,var(--accent),var(--accent-600));color:#fff;padding:8px 12px}
 .nav-toggle{display:none;background:none;border:1px solid transparent;padding:8px;border-radius:8px}
 
-.hero{padding:40px 0}
-.hero-inner{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center}
+.hero{padding:56px 0}
+.hero-inner{display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
 .lead{color:var(--muted);margin-top:8px}
 .hero-cta{margin-top:18px;display:flex;gap:12px}
 .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:transparent;border:1px solid transparent;text-decoration:none;color:var(--accent);cursor:pointer}
@@ -48,16 +50,16 @@ body{
 
 .services{padding:30px 0}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.service-card{background:var(--card);padding:20px;border-radius:14px;box-shadow:var(--shadow)}
+.service-card{background:var(--card);padding:24px;border-radius:14px;box-shadow:var(--shadow)}
 .service-card h3{margin-top:0}
 .service-card .features{color:var(--muted);padding-left:18px}
 .price{margin-top:12px;color:var(--accent);font-weight:700}
-.price-amount{font-size:1.35rem;color:var(--accent-2);font-weight:800;margin-right:8px}
+.price-amount{font-size:1.6rem;color:var(--price-accent);font-weight:900;margin-right:8px}
 .muted{color:var(--muted);font-weight:500;margin-left:6px}
 
 .pricing{padding:30px 0}
 .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.price-card{background:linear-gradient(180deg,#fff,#fbffff);padding:18px;border-radius:12px;box-shadow:0 6px 12px rgba(15,23,42,0.04)}
+.price-card{background:linear-gradient(180deg,#fff,#fbffff);padding:20px;border-radius:12px;box-shadow:0 8px 18px rgba(15,23,42,0.06)}
 
 .important{background:linear-gradient(90deg,#fffbeb,#fff7ed);border-left:4px solid var(--accent-2);padding:12px;border-radius:8px;margin-top:12px}
 
