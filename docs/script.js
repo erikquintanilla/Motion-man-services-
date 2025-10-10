@@ -4,7 +4,7 @@
 // Important: the client posts as application/x-www-form-urlencoded (no JSON) to avoid CORS preflight issues.
 // After you deploy the Apps Script web app, paste its URL here, for example:
 // const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx.../exec';
-const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwFzpOd1pQooVKadFCMACv8urC4QuBcIA2xNR3z6ycjITsBhWyaDjNWDYB8yBnd7AVxWg/exec'; // <-- PASTE your webhook URL here to receive bookings automatically
+const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyOxq8MhNQVuoTjqBfUYE53DzcErmwArOw3yu6AG-dkDg2wJhCS1J4O5oAZQflUh6tnMQ/exec'; // <-- PASTE your webhook URL here to receive bookings automatically
 
 function isWeekend(dateStr) {
     if (!dateStr) return false;

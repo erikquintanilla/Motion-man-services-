@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Booking Form</title>
+</head>
+<body>
+    <h1>Test Booking Notification</h1>
+    <form id="testForm">
+        <input type="text" id="name" value="Test User" placeholder="Name"><br><br>
+        <input type="email" id="email" value="test@example.com" placeholder="Email"><br><br>
+        <input type="tel" id="phone" value="555-1234" placeholder="Phone"><br><br>
+        <select id="service">
+            <option>Moving Help</option>
+            <option>Yard Cleanup</option>
+            <option>Car Interior Cleaning</option>
+        </select><br><br>
+        <input type="date" id="date" value="2025-10-11"><br><br>
+        <input type="time" id="time" value="10:00"><br><br>
+        <input type="number" id="hours" value="2"><br><br>
+        <textarea id="details" placeholder="Details">Test booking from local test file</textarea><br><br>
+        <button type="submit">Test Submit</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyOxq8MhNQVuoTjqBfUYE53DzcErmwArOw3yu6AG-dkDg2wJhCS1J4O5oAZQflUh6tnMQ/exec';
+
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                service: document.getElementById('service').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                hours: document.getElementById('hours').value,
+                details: document.getElementById('details').value,
+                created: Date.now()
+            };
+
+            const params = new URLSearchParams();
+            params.append('data', JSON.stringify(data));
+
+            document.getElementById('result').innerHTML = 'Sending...';
+
+            try {
+                const resp = await fetch(BOOKING_ENDPOINT, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: params.toString()
+                });
+                
+                const text = await resp.text();
+                document.getElementById('result').innerHTML = 'Response: ' + resp.status + '<br>Body: ' + text + '<br><br>Check your email (Erikquintanilla990@gmail.com) and spam folder!';
+            } catch(err) {
+                document.getElementById('result').innerHTML = 'Error: ' + err.message;
+            }
+        });
+    </script>
+</body>
+</html>
