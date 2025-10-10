@@ -1,7 +1,10 @@
 // Booking form handler: validate weekend date, generate .ics file, and save booking locally
 // Optional: set BOOKING_ENDPOINT to a webhook URL (Formspree, Zapier, Google Apps Script, Netlify, etc.)
-// to receive booking POSTs and notify you (server must accept CORS if called from the browser).
-const BOOKING_ENDPOINT = ''; // <-- set this to your webhook URL to receive bookings automatically
+// to receive booking POSTs and notify you. Recommended: Google Apps Script web app (see tools/google_apps_script_booking.gs).
+// Important: the client posts as application/x-www-form-urlencoded (no JSON) to avoid CORS preflight issues.
+// After you deploy the Apps Script web app, paste its URL here, for example:
+// const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx.../exec';
+const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwFzpOd1pQooVKadFCMACv8urC4QuBcIA2xNR3z6ycjITsBhWyaDjNWDYB8yBnd7AVxWg/exec'; // <-- PASTE your webhook URL here to receive bookings automatically
 
 function isWeekend(dateStr) {
     if (!dateStr) return false;
@@ -117,12 +120,16 @@ async function handleBooking(e){
     let notifyStatus = 'no-endpoint';
     if (BOOKING_ENDPOINT){
         try{
+            // Send as form-encoded to avoid CORS preflight in most cases
+            const params = new URLSearchParams();
+            params.append('data', JSON.stringify({name,email,phone,service,date,time,hours,details,created:Date.now()}));
             const resp = await fetch(BOOKING_ENDPOINT, {
                 method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({name,email,phone,service,date,time,hours,details,created:Date.now()})
+                headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                body: params.toString()
             });
-            if (resp.ok) notifyStatus = 'notified';
+            // Some endpoints (or CORS modes) may return opaque responses; treat OK or opaque as success
+            if (resp && (resp.ok || resp.type === 'opaque')) notifyStatus = 'notified';
             else notifyStatus = 'failed';
         }catch(err){
             notifyStatus = 'failed';
