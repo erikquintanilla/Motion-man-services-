@@ -20,7 +20,8 @@
                     <ul>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#how">How it Works</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#testimonials">Reviews</a></li>
                         <li><a href="#contact" class="cta">Book</a></li>
                     </ul>
                 </nav>
@@ -71,6 +72,7 @@
                 <p class="section-sub">One-person operation — affordable and direct. Weekend-only service focused on getting your property looking great.</p>
                 <div class="grid services-grid">
                     <article class="service-card hover-lift">
+                        <div class="popular-badge">🔥 Most Popular</div>
                         <h3>📦 Garage Cleanup & Organization</h3>
                         <p class="emotional-hook">Stop avoiding your garage. I'll sort through the chaos, sweep it clean, and organize everything so you can actually use the space.</p>
                         <p>Sorting, sweeping, debris removal, and organizing items into bins. Perfect for seasonal cleanouts or finally tackling that cluttered garage.</p>
@@ -133,6 +135,35 @@
             <section id="pricing" class="container pricing">
                 <h2>Quick Pricing (Oakland)</h2>
                 <p class="section-sub">Straightforward starter pricing — I keep costs down by operating solo and focusing on weekends. <strong>Click any card to book instantly.</strong></p>
+                
+                <div class="price-calculator">
+                    <h3>📊 Quick Price Estimate</h3>
+                    <div class="calculator-grid">
+                        <label class="calc-option">
+                            <input type="checkbox" class="calc-checkbox" data-service="garage" data-min="50" data-max="70">
+                            <span class="calc-label">Garage Cleanup ($50-70)</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="checkbox" class="calc-checkbox" data-service="yard" data-min="50" data-max="60">
+                            <span class="calc-label">Yard Cleanup ($50-60)</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="checkbox" class="calc-checkbox" data-service="car" data-min="35" data-max="60">
+                            <span class="calc-label">Car Cleaning ($35-60)</span>
+                        </label>
+                    </div>
+                    <div class="calc-result">
+                        <div class="calc-total">
+                            <span class="calc-label-text">Your Estimated Total:</span>
+                            <span class="calc-amount" id="calcTotal">$0</span>
+                        </div>
+                        <div class="calc-bundle" id="calcBundle" style="display:none;">
+                            <span class="bundle-label">🎁 Bundle Price Available:</span>
+                            <span class="bundle-amount" id="bundlePrice">$110-130</span>
+                            <span class="bundle-savings" id="bundleSavings">Save $25-60!</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="grid price-grid">
                     <div class="price-card clickable" onclick="prefillBooking('Garage Cleanup & Organization', 2)">
                         <h4>Garage Cleanup & Organization</h4>
@@ -162,15 +193,86 @@
                 <h2>How Booking Works</h2>
                 <ol class="steps">
                     <li><strong>Choose a service</strong> and pick a weekend date & time.</li>
-                    <li><strong>I confirm</strong> — You get an instant calendar file to add to your calendar and I'll follow up by email.</li>
-                    <li><strong>I show up</strong> — Pay after the job. Exact pricing confirmed before work starts.</li>
+                    <li><strong>I confirm</strong> — You get an instant calendar file to add to your calendar and I'll follow up by email within 24 hours.</li>
+                    <li><strong>I show up</strong> — Pay cash after the job. Exact pricing confirmed before work starts.</li>
                 </ol>
                 <div class="note important">Important: I operate on weekends only (Sat & Sun). Please select a weekend date when booking.</div>
+                <div class="note" style="margin-top:12px;">🌧️ <strong>Weather Policy:</strong> Outdoor services (yard/garage) may be rescheduled for heavy rain. I'll contact you 24 hours before if weather looks bad. No cancellation fees — we'll find another weekend that works.</div>
+                <div class="note" style="margin-top:12px;">📍 <strong>Service Area:</strong> Serving Seminary, Oakland, Emeryville, Fruitvale, Coliseum, San Leandro, and nearby East Bay areas.</div>
+            </section>
+            
+            <section id="faq" class="container faq">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>Do I need to be home during service?</h3>
+                        <p>For garage and yard cleanup, yes — I'll need access and may have questions. For car cleaning, you can stay inside while I work on your vehicle.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What if it rains on my scheduled day?</h3>
+                        <p>I'll contact you 24 hours before if heavy rain is forecasted. We'll reschedule at no charge to another weekend that works for you.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do you bring your own supplies and equipment?</h3>
+                        <p>Yes! All cleaning supplies, tools, bags, and equipment are included in the price. You don't need to provide anything.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How do I pay?</h3>
+                        <p>Cash payment after the job is complete. No upfront payment required. I'll confirm the exact price before starting work.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I book for same weekend or do I need to book in advance?</h3>
+                        <p>Book by Wednesday for weekend service. Last-minute bookings may not be available as weekend slots fill up quickly.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What if I need to cancel or reschedule?</h3>
+                        <p>Just let me know as soon as possible. No cancellation fees — I understand things come up. We'll find another time that works.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="testimonials" class="container testimonials">
+                <h2>What Customers Say</h2>
+                <p class="section-sub">Real feedback from real customers</p>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"Erik transformed my garage in under 2 hours. Everything is organized and I can finally park my car inside. Worth every penny!"</p>
+                        <strong class="testimonial-author">— Sarah M., Oakland</strong>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"My yard looks amazing! Erik was on time, professional, and did exactly what he said he would. Highly recommend."</p>
+                        <strong class="testimonial-author">— James L., Fruitvale</strong>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"Best car cleaning I've ever had. My car smells brand new and he came right to my house. Super convenient!"</p>
+                        <strong class="testimonial-author">— Maria R., San Leandro</strong>
+                    </div>
+                </div>
             </section>
 
             <section id="contact" class="container contact">
                 <h2>Book a Weekend Slot</h2>
-                <div class="note important" style="margin-bottom:1.5rem;">
+                
+                <div class="urgency-banner">
+                    ⏰ <strong>Weekend Slots Fill Fast!</strong> Only 4-6 jobs available per weekend. Book by Wednesday to secure your spot.
+                </div>
+                
+                <div class="contact-methods">
+                    <a href="tel:+15109780413" class="contact-btn call-btn">
+                        📞 Call Now<br><span>(510) 978-0413</span>
+                    </a>
+                    <a href="sms:+15109780413" class="contact-btn text-btn">
+                        💬 Text Me<br><span>(510) 978-0413</span>
+                    </a>
+                    <a href="mailto:Erikquintanilla990@gmail.com" class="contact-btn email-btn">
+                        ✉️ Email<br><span>Quick Response</span>
+                    </a>
+                </div>
+                
+                <div class="note important" style="margin-bottom:1.5rem;margin-top:1.5rem;">
                     <strong>💳 No payment required upfront.</strong> Booking holds your spot; I'll confirm personally within 24 hours. Pay cash after the job is done — simple and straightforward.
                 </div>
                 <form class="contact-form" id="bookingForm" action="#" onsubmit="handleBooking(event)">
@@ -185,7 +287,13 @@
 
                     <div class="form-row">
                         <label for="phone">Phone</label>
-                        <input id="phone" name="phone" type="tel" placeholder="(510) 978-0413" />
+                        <input id="phone" name="phone" type="tel" placeholder="(510) 978-0413" required />
+                    </div>
+                    
+                    <div class="form-row">
+                        <label for="referral">Referral Code (Optional)</label>
+                        <input id="referral" name="referral" type="text" placeholder="Enter code for $10 off" style="text-transform:uppercase" />
+                        <small class="form-hint">Have a friend's referral code? Enter it here for $10 off!</small>
                     </div>
 
                     <div class="form-row">

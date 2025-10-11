@@ -75,10 +75,11 @@ body{
 
 .services{padding:36px 0}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.service-card{background:var(--card);padding:24px;border-radius:14px;box-shadow:var(--shadow);transition:all 0.3s ease}
+.service-card{background:var(--card);padding:24px;border-radius:14px;box-shadow:var(--shadow);transition:all 0.3s ease;position:relative}
 .service-card h3{margin-top:0;margin-bottom:8px}
 .service-card p{margin-bottom:10px;color:var(--muted)}
 .service-card.hover-lift:hover{transform:scale(1.05);box-shadow:0 16px 40px rgba(3,105,161,0.2);cursor:default}
+.popular-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;padding:6px 12px;border-radius:20px;font-size:0.85rem;font-weight:700;box-shadow:0 4px 12px rgba(249,115,22,0.4)}
 .service-card .emotional-hook{color:#0f172a;font-weight:600;font-style:italic;margin-bottom:12px;font-size:1.05rem}
 .service-card .features{color:var(--muted);padding-left:18px;margin-bottom:8px}
 .price{margin-top:16px;color:var(--accent);font-weight:700}
@@ -87,6 +88,21 @@ body{
 .muted{color:var(--muted);font-weight:500;margin-left:6px}
 
 .pricing{padding:36px 0}
+.price-calculator{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:2px solid var(--accent);border-radius:16px;padding:24px;margin-bottom:32px;box-shadow:0 8px 24px rgba(3,105,161,0.1)}
+.price-calculator h3{margin-top:0;margin-bottom:16px;color:var(--accent)}
+.calculator-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.calc-option{display:flex;align-items:center;gap:10px;padding:12px;background:#fff;border-radius:10px;cursor:pointer;transition:all 0.2s ease;border:2px solid transparent}
+.calc-option:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(3,105,161,0.1)}
+.calc-checkbox{width:20px;height:20px;cursor:pointer}
+.calc-label{font-weight:600;color:#0f172a}
+.calc-result{background:#fff;border-radius:12px;padding:20px;border:2px solid var(--accent)}
+.calc-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.calc-label-text{font-size:1.1rem;font-weight:600;color:#0f172a}
+.calc-amount{font-size:1.8rem;font-weight:900;color:var(--price-accent)}
+.calc-bundle{background:linear-gradient(135deg,#dcfce7,#bbf7d0);padding:16px;border-radius:10px;margin-top:12px;text-align:center}
+.bundle-label{display:block;font-weight:700;color:#14532d;margin-bottom:8px}
+.bundle-amount{display:block;font-size:1.5rem;font-weight:900;color:#15803d;margin-bottom:4px}
+.bundle-savings{display:block;color:#166534;font-weight:600}
 .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
 .price-card{background:linear-gradient(180deg,#fff,#fbffff);padding:20px;border-radius:12px;box-shadow:0 8px 18px rgba(15,23,42,0.06);transition:all 0.3s ease}
 .price-card h4{margin-top:0}
@@ -102,10 +118,19 @@ body{
 .steps{padding-left:18px;color:var(--muted);margin-bottom:6px}
 
 .contact{padding:36px 0}
+.urgency-banner{background:linear-gradient(135deg,#fee2e2,#fecaca);border:2px solid #dc2626;border-radius:12px;padding:16px;text-align:center;margin-bottom:24px;font-size:1.05rem;color:#7f1d1d;box-shadow:0 4px 12px rgba(220,38,38,0.2)}
+.contact-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.contact-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,var(--accent),var(--accent-600));color:#fff;text-decoration:none;border-radius:12px;font-weight:700;font-size:1.1rem;transition:all 0.3s ease;box-shadow:0 4px 12px rgba(3,105,161,0.2);min-height:100px}
+.contact-btn span{font-size:0.9rem;font-weight:500;margin-top:8px;opacity:0.9}
+.contact-btn:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(3,105,161,0.3)}
+.call-btn{background:linear-gradient(135deg,#16a34a,#15803d)}
+.text-btn{background:linear-gradient(135deg,#0891b2,#0e7490)}
+.email-btn{background:linear-gradient(135deg,#7c3aed,#6d28d9)}
 .contact-form{max-width:680px;background:var(--card);padding:20px;border-radius:12px;box-shadow:var(--shadow)}
 .form-row{display:flex;flex-direction:column;margin-bottom:14px}
 .form-row label{font-size:0.95rem;color:var(--muted);margin-bottom:8px}
-.form-row input,.form-row textarea,.form-row select{padding:12px;border-radius:10px;border:1px solid #e6e9ef}
+.form-row input,.form-row textarea,.form-row select{padding:12px;border-radius:10px;border:1px solid #e6e9ef;font-size:16px}
+.form-hint{color:var(--muted);font-size:0.85rem;margin-top:4px;font-style:italic}
 .form-actions{display:flex;gap:12px;align-items:center}
 .form-note{color:var(--muted);font-size:0.9rem;margin-top:10px}
 
@@ -113,6 +138,17 @@ body{
 .booking-result .success{background:linear-gradient(90deg,#ecfdf5,#f0fdf4);border-left:4px solid #10b981;padding:12px;border-radius:8px}
 
 .small-muted{font-size:0.9rem;color:var(--muted);margin-top:6px}
+.faq{padding:36px 0}
+.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.faq-item{background:var(--card);padding:20px;border-radius:12px;box-shadow:var(--shadow)}
+.faq-item h3{margin-top:0;margin-bottom:12px;font-size:1.1rem;color:var(--accent)}
+.faq-item p{margin:0;color:var(--muted);line-height:1.6}
+.testimonials{padding:36px 0;background:linear-gradient(180deg,#f8fafc,#ffffff)}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testimonial-card{background:var(--card);padding:24px;border-radius:14px;box-shadow:var(--shadow);text-align:center}
+.stars{font-size:1.2rem;margin-bottom:12px}
+.testimonial-text{font-style:italic;color:var(--muted);margin-bottom:16px;line-height:1.6}
+.testimonial-author{color:#0f172a;font-size:0.95rem}
 
 .site-footer{padding:28px 0;border-top:1px solid #eef2f6;margin-top:28px}
 .footer-inner{display:flex;flex-direction:column;gap:8px;justify-content:space-between;align-items:flex-start}
@@ -127,6 +163,10 @@ body{
   .hero-art{order:-1}
   .services-grid{grid-template-columns:1fr 1fr}
   .price-grid{grid-template-columns:1fr}
+  .calculator-grid{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+  .testimonial-grid{grid-template-columns:1fr}
+  .contact-methods{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   .nav ul{display:none}
@@ -135,4 +175,6 @@ body{
   .services-grid{grid-template-columns:1fr}
   .hero-inner{grid-template-columns:1fr}
   .hero-art img{height:240px;object-fit:cover}
+  .contact-btn{font-size:1rem;padding:16px;min-height:80px}
+  .contact-btn span{font-size:0.85rem}
 }

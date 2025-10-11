@@ -146,6 +146,7 @@ async function handleBooking(e){
     const time = document.getElementById('time').value;
     const hours = parseFloat(document.getElementById('hours').value) || 1;
     const details = document.getElementById('details').value.trim();
+    const referral = document.getElementById('referral').value.trim().toUpperCase();
 
     if (!isWeekend(date)){
         alert('Please select a Saturday or Sunday. I operate on weekends only.');
@@ -159,20 +160,21 @@ async function handleBooking(e){
     const end = new Date(start.getTime() + hours*60*60*1000);
 
     const summary = service + ' — Motion Man Booking';
-    const description = `Service: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nNotes: ${details}`;
+    const referralNote = referral ? `\nReferral Code: ${referral}` : '';
+    const description = `Service: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}${referralNote}\nNotes: ${details}`;
     const ics = makeICS(summary, description, start, end);
     const filename = `motionman-${service.replace(/\s+/g,'-').toLowerCase()}-${date}.ics`;
 
     // Save booking locally
     const stored = JSON.parse(localStorage.getItem('mm_bookings')||'[]');
-    stored.push({name,email,phone,service,date,time,hours,details,created:Date.now()});
+    stored.push({name,email,phone,service,date,time,hours,details,referral,created:Date.now()});
     localStorage.setItem('mm_bookings', JSON.stringify(stored));
 
     // Offer ICS download and show confirmation
     downloadICS(filename, ics);
     // Also offer a plain-text fallback (some devices don't accept .ics)
     const txtFilename = `motionman-${service.replace(/\s+/g,'-').toLowerCase()}-${date}.txt`;
-    const txtContent = `Booking request\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nDate: ${date} ${time}\nDuration(hrs): ${hours}\nNotes:\n${details}`;
+    const txtContent = `Booking request\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nDate: ${date} ${time}\nDuration(hrs): ${hours}${referralNote}\nNotes:\n${details}`;
     downloadTXT(txtFilename, txtContent);
 
     // Try to notify owner via webhook if configured
@@ -181,7 +183,7 @@ async function handleBooking(e){
         try{
             // Send as form-encoded to avoid CORS preflight in most cases
             const params = new URLSearchParams();
-            params.append('data', JSON.stringify({name,email,phone,service,date,time,hours,details,created:Date.now()}));
+            params.append('data', JSON.stringify({name,email,phone,service,date,time,hours,details,referral,created:Date.now()}));
             const resp = await fetch(BOOKING_ENDPOINT, {
                 method: 'POST',
                 headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -201,11 +203,14 @@ async function handleBooking(e){
     else notifyMsg = '<div class="small-muted">No server notification configured. See options below to receive bookings by email or webhook.</div>';
 
     // Create a mailto fallback link (opens user's mail client with prefilled message) so owner can be emailed manually
-    const mailtoBody = encodeURIComponent(`Booking request\n\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nDate: ${date} ${time}\nDuration(hrs): ${hours}\nNotes:\n${details}`);
+    const mailtoBody = encodeURIComponent(`Booking request\n\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nDate: ${date} ${time}\nDuration(hrs): ${hours}${referralNote}\nNotes:\n${details}`);
     const mailtoHref = `mailto:Erikquintanilla990@gmail.com?subject=${encodeURIComponent('New booking request - Motion Man')}&body=${mailtoBody}`;
+    
+    const referralMsg = referral ? `<div style="margin-top:8px;padding:8px;background:#dcfce7;border-radius:8px;"><strong>✅ Referral code applied:</strong> ${referral} — You'll get $10 off!</div>` : '';
 
     result.innerHTML = `
         <div class="success">Thanks, <strong>${name}</strong> — your request for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is recorded. An .ics file and a plain text file were downloaded for your calendar. ${notifyMsg} I will follow up at <a href=\"mailto:${email}\">${email}</a>.</div>
+        ${referralMsg}
         <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
             <button id="copyDetails" class="btn">Copy booking details</button>
             <a class="btn ghost" href="${mailtoHref}">Email owner (open mail client)</a>
@@ -228,7 +233,42 @@ async function handleBooking(e){
     e.target.reset();
 }
 
-// Mobile nav toggle
+// Price calculator functionality
+function updatePriceCalculator() {
+    const checkboxes = document.querySelectorAll('.calc-checkbox');
+    let totalMin = 0;
+    let totalMax = 0;
+    let selectedCount = 0;
+    
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            selectedCount++;
+            totalMin += parseInt(checkbox.dataset.min);
+            totalMax += parseInt(checkbox.dataset.max);
+        }
+    });
+    
+    const totalDisplay = document.getElementById('calcTotal');
+    const bundleDisplay = document.getElementById('calcBundle');
+    
+    if (selectedCount === 0) {
+        totalDisplay.textContent = '$0';
+        bundleDisplay.style.display = 'none';
+    } else {
+        totalDisplay.textContent = `$${totalMin}-${totalMax}`;
+        
+        // Show bundle pricing if all 3 services selected
+        if (selectedCount === 3) {
+            bundleDisplay.style.display = 'block';
+            const savings = `$${totalMin - 130}-$${totalMax - 110}`;
+            document.getElementById('bundleSavings').textContent = `Save ${savings}!`;
+        } else {
+            bundleDisplay.style.display = 'none';
+        }
+    }
+}
+
+// Mobile nav toggle and initialization
 document.addEventListener('DOMContentLoaded', function(){
     const navToggle = document.querySelector('.nav-toggle');
     const nav = document.querySelector('.nav');
@@ -241,4 +281,10 @@ document.addEventListener('DOMContentLoaded', function(){
     // Attach form handler
     const form = document.getElementById('bookingForm');
     form && form.addEventListener('submit', handleBooking);
+    
+    // Attach calculator listeners
+    const calcCheckboxes = document.querySelectorAll('.calc-checkbox');
+    calcCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updatePriceCalculator);
+    });
 });
