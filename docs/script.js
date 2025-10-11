@@ -142,8 +142,8 @@ async function handleBooking(e){
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const service = document.getElementById('service').value;
-    const date = document.getElementById('date').value;
-    const time = document.getElementById('time').value;
+    const date = document.getElementById('selectedDate').value; // Use hidden field
+    const time = document.getElementById('selectedTime').value; // Use hidden field
     const hours = parseFloat(document.getElementById('hours').value) || 1;
     const details = document.getElementById('details').value.trim();
     const referral = document.getElementById('referral').value.trim().toUpperCase();
@@ -275,8 +275,8 @@ function updatePriceCalculator() {
 }
 
 // Availability system
-const TIME_SLOTS = ['09:00', '12:00', '15:00']; // 9am, 12pm, 3pm
-const SLOTS_PER_DAY = 3;
+const TIME_SLOTS = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00']; // 9am-4pm
+const SLOTS_PER_DAY = 8;
 
 function getNextWeekends(count = 2) {
     const weekends = [];
@@ -368,7 +368,48 @@ function renderAvailabilityCalendar() {
     updateAvailabilitySummary();
 }
 
-function selectSlot(date, time) {
+function renderFormAvailabilityCalendar() {
+    const calendar = document.getElementById('formAvailabilityCalendar');
+    if (!calendar) return;
+    
+    const weekends = getNextWeekends(2);
+    let html = '';
+    
+    weekends.forEach((weekend, weekendIndex) => {
+        const weekendLabel = weekendIndex === 0 ? 'This Weekend' : 'Next Weekend';
+        const dateRange = `${weekend[0].fullDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})} - ${weekend[weekend.length-1].fullDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}`;
+        
+        html += `<div class="weekend-block">`;
+        html += `<div class="weekend-title">${weekendLabel} (${dateRange})</div>`;
+        
+        weekend.forEach(day => {
+            html += `<div class="day-slots">`;
+            html += `<span class="day-name">${day.dayName}, ${day.fullDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}</span>`;
+            html += `<div class="slots-grid">`;
+            
+            TIME_SLOTS.forEach(time => {
+                const status = isSlotAvailable(day.date, time);
+                const timeDisplay = formatTime(time);
+                const statusClass = status === 'available' ? 'slot-available' : status === 'booked' ? 'slot-booked' : 'slot-blocked';
+                const statusText = status === 'available' ? '✅' : status === 'booked' ? '❌' : '🚫';
+                const statusLabel = status === 'available' ? 'Available' : status === 'booked' ? 'Booked' : 'Blocked';
+                
+                // Make available slots clickable in form
+                const clickHandler = status === 'available' ? `onclick="selectFormSlot('${day.date}', '${time}')"` : '';
+                
+                html += `<div class="slot-item ${statusClass}" ${clickHandler}>${statusText} ${timeDisplay}<br><small>${statusLabel}</small></div>`;
+            });
+            
+            html += `</div></div>`;
+        });
+        
+        html += `</div>`;
+    });
+    
+    calendar.innerHTML = html;
+}
+
+function selectFormSlot(date, time) {
     // Remove previous selection
     document.querySelectorAll('.slot-available').forEach(slot => {
         slot.classList.remove('selected');
@@ -377,39 +418,37 @@ function selectSlot(date, time) {
     // Add selection to clicked slot
     event.target.classList.add('selected');
     
-    // Fill the booking form
-    const dateInput = document.getElementById('date');
-    const timeInput = document.getElementById('time');
-    const nameInput = document.getElementById('name');
+    // Fill hidden form fields
+    const dateInput = document.getElementById('selectedDate');
+    const timeInput = document.getElementById('selectedTime');
+    const display = document.getElementById('selectedSlotDisplay');
+    const displayText = document.getElementById('selectedSlotText');
     
     if (dateInput) dateInput.value = date;
     if (timeInput) timeInput.value = time;
     
-    // Scroll to form and focus on name input
-    const form = document.getElementById('bookingForm');
-    if (form) {
-        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(() => {
-            if (nameInput) nameInput.focus();
-        }, 600);
+    // Show selected slot
+    if (display) {
+        display.style.display = 'block';
+        const dayName = new Date(date + 'T00:00').toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'});
+        displayText.textContent = `Selected: ${formatTime(time)} on ${dayName}`;
     }
+}
+
+function clearSlotSelection() {
+    // Remove selection
+    document.querySelectorAll('.slot-available').forEach(slot => {
+        slot.classList.remove('selected');
+    });
     
-    // Show a brief confirmation
-    const banner = document.getElementById('urgencyBanner');
-    if (banner) {
-        const originalHTML = banner.innerHTML;
-        banner.innerHTML = `✅ <strong>Slot Selected!</strong> ${formatTime(time)} on ${new Date(date + 'T00:00').toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'})} — Fill out the form below to confirm.`;
-        banner.style.background = 'linear-gradient(135deg,#dcfce7,#bbf7d0)';
-        banner.style.borderColor = '#16a34a';
-        banner.style.color = '#14532d';
-        
-        setTimeout(() => {
-            banner.innerHTML = originalHTML;
-            banner.style.background = '';
-            banner.style.borderColor = '';
-            banner.style.color = '';
-        }, 5000);
-    }
+    // Clear hidden fields
+    const dateInput = document.getElementById('selectedDate');
+    const timeInput = document.getElementById('selectedTime');
+    const display = document.getElementById('selectedSlotDisplay');
+    
+    if (dateInput) dateInput.value = '';
+    if (timeInput) timeInput.value = '';
+    if (display) display.style.display = 'none';
 }
 
 function formatTime(time) {
@@ -572,7 +611,8 @@ document.addEventListener('DOMContentLoaded', function(){
         checkbox.addEventListener('change', updatePriceCalculator);
     });
     
-    // Initialize availability calendar
+    // Initialize availability calendars
     renderAvailabilityCalendar();
+    renderFormAvailabilityCalendar();
     renderBlockedSlotsList();
 });

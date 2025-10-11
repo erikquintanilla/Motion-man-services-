@@ -299,16 +299,21 @@
                     </div>
                 </div>
                 
-                <div class="contact-methods">
-                    <a href="tel:+15109780413" class="contact-btn call-btn">
-                        📞 Call Now<br><span>(510) 978-0413</span>
-                    </a>
-                    <a href="sms:+15109780413" class="contact-btn text-btn">
-                        💬 Text Me<br><span>(510) 978-0413</span>
-                    </a>
-                    <a href="mailto:Erikquintanilla990@gmail.com" class="contact-btn email-btn">
-                        ✉️ Email<br><span>Quick Response</span>
-                    </a>
+                </div>
+                
+                <div class="contact-methods-below-form">
+                    <h3>Prefer to talk instead?</h3>
+                    <div class="contact-methods">
+                        <a href="tel:+15109780413" class="contact-btn call-btn">
+                            📞 Call Now<br><span>(510) 978-0413</span>
+                        </a>
+                        <a href="sms:+15109780413" class="contact-btn text-btn">
+                            💬 Text Me<br><span>(510) 978-0413</span>
+                        </a>
+                        <a href="mailto:Erikquintanilla990@gmail.com" class="contact-btn email-btn">
+                            ✉️ Email<br><span>Quick Response</span>
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="note important" style="margin-bottom:1.5rem;margin-top:1.5rem;">
@@ -346,22 +351,18 @@
                         </select>
                     </div>
 
-                    <div class="form-row">
-                        <label for="date">Preferred date (weekends only)</label>
-                        <input id="date" name="date" type="date" required />
-                    </div>
-
-                    <div class="form-row">
-                        <label for="time">Preferred start time</label>
-                        <select id="time" name="time">
-                            <option value="09:00">09:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="13:00">01:00 PM</option>
-                            <option value="14:00">02:00 PM</option>
-                            <option value="15:00">03:00 PM</option>
-                        </select>
+                    <div class="form-row form-slot-selection">
+                        <label>Select Available Time Slot</label>
+                        <p class="form-hint" style="margin-bottom:12px;">Click any green slot below to select your preferred time</p>
+                        <div class="form-availability-calendar" id="formAvailabilityCalendar">
+                            <!-- Dynamically populated by JavaScript -->
+                        </div>
+                        <input type="hidden" id="selectedDate" name="date" required />
+                        <input type="hidden" id="selectedTime" name="time" required />
+                        <div id="selectedSlotDisplay" class="selected-slot-display" style="display:none;">
+                            <p class="selected-slot-text" id="selectedSlotText"></p>
+                            <button type="button" class="btn ghost" onclick="clearSlotSelection()">Change Time</button>
+                        </div>
                     </div>
 
                     <div class="form-row">
