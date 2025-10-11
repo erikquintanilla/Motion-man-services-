@@ -118,6 +118,34 @@ body{
 .steps{padding-left:18px;color:var(--muted);margin-bottom:6px}
 
 .contact{padding:36px 0}
+.availability-section{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:2px solid var(--accent);border-radius:16px;padding:24px;margin-bottom:24px}
+.availability-section h3{margin-top:0;margin-bottom:16px;color:var(--accent)}
+.availability-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px}
+.summary-card{background:#fff;padding:16px;border-radius:12px;text-align:center;box-shadow:0 4px 12px rgba(3,105,161,0.1)}
+.summary-label{display:block;font-size:0.9rem;color:var(--muted);margin-bottom:8px}
+.summary-count{display:block;font-size:1.3rem;font-weight:700;color:var(--accent)}
+.availability-calendar{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px}
+.weekend-block{margin-bottom:24px}
+.weekend-block:last-child{margin-bottom:0}
+.weekend-title{font-size:1.1rem;font-weight:700;color:#0f172a;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e5e7eb}
+.day-slots{margin-bottom:16px}
+.day-slots:last-child{margin-bottom:0}
+.day-name{font-weight:600;color:var(--muted);margin-bottom:8px;display:block}
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.slot-item{padding:10px;border-radius:8px;text-align:center;font-size:0.9rem;font-weight:600;transition:all 0.2s ease}
+.slot-available{background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#15803d;border:2px solid #16a34a}
+.slot-booked{background:linear-gradient(135deg,#fee2e2,#fecaca);color:#991b1b;border:2px solid #dc2626;text-decoration:line-through;opacity:0.7}
+.slot-blocked{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;border:2px solid #f59e0b}
+.admin-controls{margin-top:16px;background:#fff;border-radius:10px;padding:12px}
+.admin-controls summary{cursor:pointer;font-weight:600;color:var(--muted);padding:8px;user-select:none}
+.admin-controls summary:hover{color:var(--accent)}
+.admin-panel{padding:16px 8px 8px 8px}
+.admin-form{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.admin-form input,.admin-form button{padding:8px 12px;border-radius:8px;border:1px solid #e5e7eb}
+.blocked-slots-list{display:flex;flex-direction:column;gap:8px}
+.blocked-slot-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#fef3c7;border-radius:8px;font-size:0.9rem}
+.blocked-slot-item button{padding:4px 8px;background:#dc2626;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.85rem}
+.blocked-slot-item button:hover{background:#991b1b}
 .urgency-banner{background:linear-gradient(135deg,#fee2e2,#fecaca);border:2px solid #dc2626;border-radius:12px;padding:16px;text-align:center;margin-bottom:24px;font-size:1.05rem;color:#7f1d1d;box-shadow:0 4px 12px rgba(220,38,38,0.2)}
 .contact-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
 .contact-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,var(--accent),var(--accent-600));color:#fff;text-decoration:none;border-radius:12px;font-weight:700;font-size:1.1rem;transition:all 0.3s ease;box-shadow:0 4px 12px rgba(3,105,161,0.2);min-height:100px}
@@ -167,6 +195,8 @@ body{
   .faq-grid{grid-template-columns:1fr}
   .testimonial-grid{grid-template-columns:1fr}
   .contact-methods{grid-template-columns:1fr}
+  .availability-summary{grid-template-columns:1fr}
+  .slots-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:640px){
   .nav ul{display:none}

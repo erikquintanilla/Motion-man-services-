@@ -256,7 +256,43 @@
             <section id="contact" class="container contact">
                 <h2>Book a Weekend Slot</h2>
                 
-                <div class="urgency-banner">
+                <div class="availability-section">
+                    <h3>📅 Live Availability</h3>
+                    <div class="availability-summary" id="availabilitySummary">
+                        <div class="summary-card">
+                            <span class="summary-label">This Weekend</span>
+                            <span class="summary-count" id="thisWeekendCount">6 slots available</span>
+                        </div>
+                        <div class="summary-card">
+                            <span class="summary-label">Next Weekend</span>
+                            <span class="summary-count" id="nextWeekendCount">6 slots available</span>
+                        </div>
+                    </div>
+                    
+                    <div class="availability-calendar" id="availabilityCalendar">
+                        <!-- Dynamically populated by JavaScript -->
+                    </div>
+                    
+                    <details class="admin-controls">
+                        <summary>🔧 Admin: Block/Unblock Dates</summary>
+                        <div class="admin-panel">
+                            <p class="small-muted">Manually block dates when you're unavailable (vacation, sick, etc.)</p>
+                            <div class="admin-form">
+                                <input type="date" id="blockDate" placeholder="Select date">
+                                <input type="time" id="blockTime" value="09:00" list="timeSlots">
+                                <datalist id="timeSlots">
+                                    <option value="09:00">9:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="15:00">3:00 PM</option>
+                                </datalist>
+                                <button type="button" class="btn" onclick="blockSlot()">Block Slot</button>
+                            </div>
+                            <div id="blockedSlotsList" class="blocked-slots-list"></div>
+                        </div>
+                    </details>
+                </div>
+                
+                <div class="urgency-banner" id="urgencyBanner">
                     ⏰ <strong>Weekend Slots Fill Fast!</strong> Only 4-6 jobs available per weekend. Book by Wednesday to secure your spot.
                 </div>
                 

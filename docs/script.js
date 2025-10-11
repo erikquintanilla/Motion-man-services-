@@ -230,6 +230,12 @@ async function handleBooking(e){
             });
         });
     }
+    
+    // Refresh availability calendar after booking
+    if (typeof renderAvailabilityCalendar === 'function') {
+        renderAvailabilityCalendar();
+    }
+    
     e.target.reset();
 }
 
@@ -268,6 +274,213 @@ function updatePriceCalculator() {
     }
 }
 
+// Availability system
+const TIME_SLOTS = ['09:00', '12:00', '15:00']; // 9am, 12pm, 3pm
+const SLOTS_PER_DAY = 3;
+
+function getNextWeekends(count = 2) {
+    const weekends = [];
+    const today = new Date();
+    let currentDate = new Date(today);
+    
+    while (weekends.length < count) {
+        const dayOfWeek = currentDate.getDay();
+        
+        if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday or Sunday
+            const dateStr = currentDate.toISOString().split('T')[0];
+            weekends.push({
+                date: dateStr,
+                dayName: dayOfWeek === 6 ? 'Saturday' : 'Sunday',
+                fullDate: new Date(currentDate)
+            });
+        }
+        
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+    
+    // Group by weekend
+    const grouped = [];
+    for (let i = 0; i < weekends.length; i += 2) {
+        grouped.push(weekends.slice(i, i + 2));
+    }
+    
+    return grouped;
+}
+
+function getBookedSlots() {
+    const bookings = JSON.parse(localStorage.getItem('mm_bookings') || '[]');
+    return bookings.map(b => `${b.date}_${b.time}`);
+}
+
+function getBlockedSlots() {
+    return JSON.parse(localStorage.getItem('mm_blocked_slots') || '[]');
+}
+
+function isSlotAvailable(date, time) {
+    const bookedSlots = getBookedSlots();
+    const blockedSlots = getBlockedSlots();
+    const slotKey = `${date}_${time}`;
+    
+    if (bookedSlots.includes(slotKey)) return 'booked';
+    if (blockedSlots.some(b => b.date === date && b.time === time)) return 'blocked';
+    return 'available';
+}
+
+function renderAvailabilityCalendar() {
+    const calendar = document.getElementById('availabilityCalendar');
+    if (!calendar) return;
+    
+    const weekends = getNextWeekends(2);
+    let html = '';
+    
+    weekends.forEach((weekend, weekendIndex) => {
+        const weekendLabel = weekendIndex === 0 ? 'This Weekend' : 'Next Weekend';
+        const dateRange = `${weekend[0].fullDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})} - ${weekend[weekend.length-1].fullDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}`;
+        
+        html += `<div class="weekend-block">`;
+        html += `<div class="weekend-title">${weekendLabel} (${dateRange})</div>`;
+        
+        weekend.forEach(day => {
+            html += `<div class="day-slots">`;
+            html += `<span class="day-name">${day.dayName}, ${day.fullDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}</span>`;
+            html += `<div class="slots-grid">`;
+            
+            TIME_SLOTS.forEach(time => {
+                const status = isSlotAvailable(day.date, time);
+                const timeDisplay = formatTime(time);
+                const statusClass = status === 'available' ? 'slot-available' : status === 'booked' ? 'slot-booked' : 'slot-blocked';
+                const statusText = status === 'available' ? '✅' : status === 'booked' ? '❌' : '🚫';
+                const statusLabel = status === 'available' ? 'Available' : status === 'booked' ? 'Booked' : 'Blocked';
+                
+                html += `<div class="slot-item ${statusClass}">${statusText} ${timeDisplay}<br><small>${statusLabel}</small></div>`;
+            });
+            
+            html += `</div></div>`;
+        });
+        
+        html += `</div>`;
+    });
+    
+    calendar.innerHTML = html;
+    updateAvailabilitySummary();
+}
+
+function formatTime(time) {
+    const [hours, minutes] = time.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+    return `${displayHour}:${minutes} ${ampm}`;
+}
+
+function updateAvailabilitySummary() {
+    const weekends = getNextWeekends(2);
+    
+    weekends.forEach((weekend, index) => {
+        let availableCount = 0;
+        
+        weekend.forEach(day => {
+            TIME_SLOTS.forEach(time => {
+                if (isSlotAvailable(day.date, time) === 'available') {
+                    availableCount++;
+                }
+            });
+        });
+        
+        const countElement = index === 0 ? 
+            document.getElementById('thisWeekendCount') : 
+            document.getElementById('nextWeekendCount');
+        
+        if (countElement) {
+            const totalSlots = weekend.length * SLOTS_PER_DAY;
+            countElement.textContent = `${availableCount} of ${totalSlots} slots available`;
+            
+            // Update urgency banner
+            if (index === 0) {
+                const urgencyBanner = document.getElementById('urgencyBanner');
+                if (urgencyBanner && availableCount <= 2) {
+                    urgencyBanner.innerHTML = `⚠️ <strong>Almost Full!</strong> Only ${availableCount} slot${availableCount !== 1 ? 's' : ''} left this weekend. Book now!`;
+                } else if (urgencyBanner && availableCount <= 4) {
+                    urgencyBanner.innerHTML = `⏰ <strong>Filling Up Fast!</strong> Only ${availableCount} slots left this weekend. Book by Wednesday to secure your spot.`;
+                }
+            }
+        }
+    });
+}
+
+function blockSlot() {
+    const dateInput = document.getElementById('blockDate');
+    const timeInput = document.getElementById('blockTime');
+    
+    if (!dateInput.value || !timeInput.value) {
+        alert('Please select both date and time');
+        return;
+    }
+    
+    const date = dateInput.value;
+    const time = timeInput.value;
+    
+    // Check if it's a weekend
+    const d = new Date(date + 'T00:00');
+    const dayOfWeek = d.getDay();
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+        alert('You can only block weekend dates (Saturday or Sunday)');
+        return;
+    }
+    
+    const blockedSlots = getBlockedSlots();
+    
+    // Check if already blocked
+    if (blockedSlots.some(b => b.date === date && b.time === time)) {
+        alert('This slot is already blocked');
+        return;
+    }
+    
+    blockedSlots.push({ date, time });
+    localStorage.setItem('mm_blocked_slots', JSON.stringify(blockedSlots));
+    
+    renderAvailabilityCalendar();
+    renderBlockedSlotsList();
+    
+    dateInput.value = '';
+    timeInput.value = '09:00';
+}
+
+function unblockSlot(date, time) {
+    let blockedSlots = getBlockedSlots();
+    blockedSlots = blockedSlots.filter(b => !(b.date === date && b.time === time));
+    localStorage.setItem('mm_blocked_slots', JSON.stringify(blockedSlots));
+    
+    renderAvailabilityCalendar();
+    renderBlockedSlotsList();
+}
+
+function renderBlockedSlotsList() {
+    const list = document.getElementById('blockedSlotsList');
+    if (!list) return;
+    
+    const blockedSlots = getBlockedSlots();
+    
+    if (blockedSlots.length === 0) {
+        list.innerHTML = '<p class="small-muted">No blocked slots</p>';
+        return;
+    }
+    
+    let html = '';
+    blockedSlots.forEach(slot => {
+        const d = new Date(slot.date + 'T00:00');
+        const dateStr = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+        const timeStr = formatTime(slot.time);
+        
+        html += `<div class="blocked-slot-item">
+            <span>${dateStr} at ${timeStr}</span>
+            <button onclick="unblockSlot('${slot.date}', '${slot.time}')">Unblock</button>
+        </div>`;
+    });
+    
+    list.innerHTML = html;
+}
+
 // Mobile nav toggle and initialization
 document.addEventListener('DOMContentLoaded', function(){
     const navToggle = document.querySelector('.nav-toggle');
@@ -287,4 +500,8 @@ document.addEventListener('DOMContentLoaded', function(){
     calcCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updatePriceCalculator);
     });
+    
+    // Initialize availability calendar
+    renderAvailabilityCalendar();
+    renderBlockedSlotsList();
 });
