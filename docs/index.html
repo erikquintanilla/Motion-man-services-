@@ -101,35 +101,51 @@
                         <a class="btn btn-book" href="#contact" onclick="prefillBooking('Yard Cleanup', 1.5); return true;">Book Yard Cleanup</a>
                     </article>
 
-                    <article class="service-card service-car hover-lift">
-                        <h3>🚗 Car Interior Cleaning</h3>
-                        <p class="emotional-hook">You shouldn't spend your weekend sitting in a dusty car. I'll come to you, clean every inch, and leave it smelling like new.</p>
-                        <p>Standard vacuum & wipe-down or deep shampoo/steam for stains and heavy soiling. Mobile service — I come to you.</p>
+                    <article class="service-card service-patio hover-lift">
+                        <h3>🧹 Patio & Driveway Sweeping</h3>
+                        <p class="emotional-hook">Transform your outdoor spaces from cluttered to clean. I'll sweep away dirt, leaves, and cobwebs so you can enjoy your patio again.</p>
+                        <p>Complete sweeping of patios, driveways, and walkways. Includes cobweb removal, outdoor window wiping, and debris cleanup.</p>
                         <ul class="features">
-                            <li><strong>Standard — $35:</strong> Vacuum, wipe, windows, deodorize</li>
-                            <li><strong>Deep Clean — $60:</strong> Shampoo, stain removal, steam treatment</li>
-                            <li>Mobile (on-site) service</li>
+                            <li>Patio, driveway & walkway sweeping</li>
+                            <li>Cobweb removal from outdoor areas</li>
+                            <li>Outdoor window wiping (ground level)</li>
+                            <li>Debris bagging and removal</li>
                         </ul>
-                        <div class="price"><span class="price-amount">$35 / $60</span> <span class="muted">Standard / Deep</span></div>
-                        <div class="muted">Add-ons: +$10 SUV/pet hair · Free air freshener</div>
-                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Car Interior Cleaning', 1); return true;">Book Car Cleaning</a>
+                        <div class="price"><span class="price-amount">$30</span> <span class="muted">flat rate</span></div>
+                        <div class="muted">Add-ons: +$10 larger areas · +$5 pressure washing spot clean</div>
+                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Patio & Driveway Sweeping', 1); return true;">Book Patio Sweeping</a>
                     </article>
                 </div>
                 
                 <div class="limited-bundle-offer hover-lift" style="margin-top:32px;">
                     <div class="bundle-badge">🔥 Most Popular</div>
                     <div class="bundle-ribbon">
-                        <span class="discount-percent">25% OFF</span>
+                        <span class="discount-percent">20% OFF</span>
                     </div>
-                    <h3>🎁 Limited Time: Complete Property Bundle</h3>
-                    <p class="bundle-description">Get your <strong>garage, yard, AND car</strong> all done in one weekend visit!</p>
+                    <h3>🏠 Home Refresh Bundle</h3>
+                    <p class="bundle-description">Get your <strong>garage, yard, AND patio</strong> all cleaned in one weekend visit!</p>
                     <div class="bundle-pricing">
-                        <span class="original-price">Regular: $145–$190</span>
-                        <span class="bundle-price">💵 Bundle Price: <strong>$110–$130</strong></span>
+                        <span class="original-price">Regular: $130–$160</span>
+                        <span class="bundle-price">💵 Bundle Price: <strong>$120</strong></span>
                     </div>
-                    <p class="bundle-savings"><strong>Save $35–$60!</strong> Perfect for getting your whole property weekend-ready.</p>
-                    <a class="btn btn-book" href="#contact" onclick="prefillBooking('Complete Property Bundle (All 3 Services)', 4); return true;">Book Complete Bundle</a>
+                    <p class="bundle-savings"><strong>Save $10–$40!</strong> Perfect for refreshing your entire home exterior.</p>
+                    <a class="btn btn-book" href="#contact" onclick="prefillBooking('Home Refresh Bundle (Garage + Yard + Patio)', 3.5); return true;">Book Home Refresh</a>
                 </div>
+                
+                <article class="service-card service-event hover-lift" style="margin-top:24px;">
+                    <h3>🎉 Event Setup & Takedown Helper</h3>
+                    <p class="emotional-hook">Focus on your guests, not the heavy lifting. I'll help set up tables, chairs, decorations, and clean up afterward.</p>
+                    <p>Perfect for birthdays, community events, or family gatherings. Includes setup assistance, breakdown, and basic cleanup.</p>
+                    <ul class="features">
+                        <li>Table & chair setup/breakdown</li>
+                        <li>Decoration hanging & removal</li>
+                        <li>Trash collection & cleanup</li>
+                        <li>2-hour minimum booking</li>
+                    </ul>
+                    <div class="price"><span class="price-amount">$20/hour</span> <span class="muted">2hr minimum</span></div>
+                    <div class="muted">Perfect for: Birthdays · BBQs · Community events · Family gatherings</div>
+                    <a class="btn btn-book" href="#contact" onclick="prefillBooking('Event Setup & Takedown Helper', 2); return true;">Book Event Helper</a>
+                </article>
             </section>
 
             <section id="pricing" class="container pricing">
@@ -148,8 +164,12 @@
                             <span class="calc-label">Yard Cleanup ($50-60)</span>
                         </label>
                         <label class="calc-option">
-                            <input type="checkbox" class="calc-checkbox" data-service="car" data-min="35" data-max="60">
-                            <span class="calc-label">Car Cleaning ($35-60)</span>
+                            <input type="checkbox" class="calc-checkbox" data-service="patio" data-min="30" data-max="30">
+                            <span class="calc-label">Patio Sweeping ($30)</span>
+                        </label>
+                        <label class="calc-option">
+                            <input type="checkbox" class="calc-checkbox" data-service="event" data-min="40" data-max="40">
+                            <span class="calc-label">Event Helper ($40 - 2hr min)</span>
                         </label>
                     </div>
                     <div class="calc-result">
@@ -159,8 +179,8 @@
                         </div>
                         <div class="calc-bundle" id="calcBundle" style="display:none;">
                             <span class="bundle-label">🎁 Bundle Price Available:</span>
-                            <span class="bundle-amount" id="bundlePrice">$110-130</span>
-                            <span class="bundle-savings" id="bundleSavings">Save $25-60!</span>
+                            <span class="bundle-amount" id="bundlePrice">$120</span>
+                            <span class="bundle-savings" id="bundleSavings">Save $10-40!</span>
                         </div>
                     </div>
                 </div>
@@ -175,15 +195,20 @@
                         <p><strong class="accent">$50–60</strong> — Small yard (1–1.5 hrs)</p>
                         <p class="small-muted">Leaf & branch pickup, bagging, light pruning</p>
                     </div>
-                    <div class="price-card clickable" onclick="prefillBooking('Car Interior Cleaning', 1)">
-                        <h4>Car Interior Cleaning</h4>
-                        <p><strong class="accent">$35 / $60</strong> — Standard / Deep</p>
-                        <p class="small-muted">Standard: vacuum, wipe, deodorize<br>Deep: shampoo/steam, stains, pet hair</p>
+                    <div class="price-card clickable" onclick="prefillBooking('Patio & Driveway Sweeping', 1)">
+                        <h4>Patio & Driveway Sweeping</h4>
+                        <p><strong class="accent">$30</strong> — Flat rate (1 hr)</p>
+                        <p class="small-muted">Sweeping, cobweb removal, outdoor window wiping</p>
                     </div>
-                    <div class="price-card clickable" onclick="prefillBooking('Bundle: Garage + Car Cleaning', 2)">
-                        <h4>Bundle Deal</h4>
-                        <p><strong class="accent">$80–90</strong> — Garage + Car Cleaning</p>
-                        <p class="small-muted">Save $10–15 when you book both</p>
+                    <div class="price-card clickable bundle-card" onclick="prefillBooking('Home Refresh Bundle (Garage + Yard + Patio)', 3.5)">
+                        <h4>🏠 Home Refresh Bundle</h4>
+                        <p><strong class="accent">$120</strong> — <span class="strikethrough">$130–160</span></p>
+                        <p class="small-muted">3 services: garage + yard + patio sweeping</p>
+                    </div>
+                    <div class="price-card clickable" onclick="prefillBooking('Event Setup & Takedown Helper', 2)">
+                        <h4>🎉 Event Setup Helper</h4>
+                        <p><strong class="accent">$20/hour</strong> — 2hr minimum</p>
+                        <p class="small-muted">Setup, breakdown, cleanup for events & parties</p>
                     </div>
                 </div>
                 <p class="note" style="margin-top:1.5rem;text-align:center;"><strong>Trust-building pricing:</strong> These are starter rates to earn your trust and word-of-mouth. After I build a solid client base (5–10 clients), prices may adjust slightly — but early customers get the best deals.</p>
@@ -206,7 +231,7 @@
                 <div class="faq-grid">
                     <div class="faq-item">
                         <h3>Do I need to be home during service?</h3>
-                        <p>For garage and yard cleanup, yes — I'll need access and may have questions. For car cleaning, you can stay inside while I work on your vehicle.</p>
+                        <p>For garage, yard, and patio cleanup, yes — I'll need access and may have questions about what to keep or toss. For event setup, coordination is helpful but not required once we discuss the plan.</p>
                     </div>
                     <div class="faq-item">
                         <h3>What if it rains on my scheduled day?</h3>
@@ -228,6 +253,10 @@
                         <h3>What if I need to cancel or reschedule?</h3>
                         <p>Just let me know as soon as possible. No cancellation fees — I understand things come up. We'll find another time that works.</p>
                     </div>
+                    <div class="faq-item">
+                        <h3>What's included in event setup service?</h3>
+                        <p>Table & chair setup, decoration hanging, basic cleanup after your event. Perfect for birthdays, BBQs, or family gatherings. 2-hour minimum ensures enough time for proper setup and breakdown.</p>
+                    </div>
                 </div>
             </section>
             
@@ -247,7 +276,7 @@
                     </div>
                     <div class="testimonial-card">
                         <div class="stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-text">"Best car cleaning I've ever had. My car smells brand new and he came right to my house. Super convenient!"</p>
+                        <p class="testimonial-text">"Erik swept our entire patio and driveway perfectly. No more leaves or cobwebs, and he even wiped our outdoor windows. Great value!"</p>
                         <strong class="testimonial-author">— Maria R., San Leandro</strong>
                     </div>
                 </div>

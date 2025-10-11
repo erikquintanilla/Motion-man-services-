@@ -89,8 +89,10 @@ body{
 .service-card.service-garage .price-amount{color:#2563eb}
 .service-card.service-yard{background:linear-gradient(160deg,#f0fdf4,#dcfce7);border-left:4px solid #16a34a}
 .service-card.service-yard .price-amount{color:#15803d}
-.service-card.service-car{background:linear-gradient(160deg,#f0fdfa,#cffafe);border-left:4px solid #0891b2}
-.service-card.service-car .price-amount{color:#0e7490}
+.service-card.service-patio{background:linear-gradient(160deg,#f0fdfa,#cffafe);border-left:4px solid #0891b2}
+.service-card.service-patio .price-amount{color:#0e7490}
+.service-card.service-event{background:linear-gradient(160deg,#faf5ff,#f3e8ff);border-left:4px solid #7c3aed}
+.service-card.service-event .price-amount{color:#6d28d9}
 .service-card .emotional-hook{color:#0f172a;font-weight:600;font-style:italic;margin-bottom:12px;font-size:1.05rem}
 .service-card .features{color:var(--muted);padding-left:18px;margin-bottom:8px}
 .price{margin-top:16px;color:var(--accent);font-weight:700}
@@ -237,9 +239,9 @@ body{
   .hero-art{display:none} /* Hide hero image on mobile to reduce scroll */
   .hero-cta{flex-direction:column;gap:8px;margin-top:12px}
   .hero-cta .btn{width:100%;text-align:center;padding:14px 18px;font-size:1rem}
-  /* Swap button styles - make "See Services & Prices" the primary CTA */
-  .hero-cta .btn.primary{background:transparent;border:2px solid var(--accent);color:var(--accent)}
-  .hero-cta .btn.ghost{background:linear-gradient(90deg,var(--accent),var(--accent-600));color:#fff;border:none;font-weight:700}
+  /* Mobile hero button styles */
+  .hero-cta .hero-primary{background:linear-gradient(90deg,var(--accent),var(--accent-600));color:#fff;border:none;font-weight:700;padding:14px 18px;font-size:1rem}
+  .hero-cta .hero-secondary{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:10px 16px;font-size:0.9rem}
   .badges{flex-wrap:wrap;gap:6px;margin-top:12px}
   .badge{font-size:0.75rem;padding:4px 8px}
   

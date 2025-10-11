@@ -263,11 +263,19 @@ function updatePriceCalculator() {
     } else {
         totalDisplay.textContent = `$${totalMin}-${totalMax}`;
         
-        // Show bundle pricing if all 3 services selected
-        if (selectedCount === 3) {
+        // Show bundle pricing if garage, yard, and patio are selected (Home Refresh Bundle)
+        const garageChecked = document.querySelector('[data-service="garage"]')?.checked;
+        const yardChecked = document.querySelector('[data-service="yard"]')?.checked;
+        const patioChecked = document.querySelector('[data-service="patio"]')?.checked;
+        
+        if (garageChecked && yardChecked && patioChecked) {
             bundleDisplay.style.display = 'block';
-            const savings = `$${totalMin - 130}-$${totalMax - 110}`;
-            document.getElementById('bundleSavings').textContent = `Save ${savings}!`;
+            const regularTotal = 50 + 50 + 30; // min prices: garage + yard + patio
+            const regularTotalMax = 70 + 60 + 30; // max prices
+            const bundlePrice = 120;
+            const savingsMin = regularTotal - bundlePrice;
+            const savingsMax = regularTotalMax - bundlePrice;
+            document.getElementById('bundleSavings').textContent = `Save $${savingsMin}-${savingsMax}!`;
         } else {
             bundleDisplay.style.display = 'none';
         }
