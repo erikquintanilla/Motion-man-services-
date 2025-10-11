@@ -257,48 +257,7 @@
                 <h2>Book a Weekend Slot</h2>
                 
                 <div class="urgency-banner" id="urgencyBanner">
-                    ⏰ <strong>Weekend Slots Fill Fast!</strong> Only 4-6 jobs available per weekend. Book by Wednesday to secure your spot.
-                </div>
-                
-                <div class="availability-section">
-                    <h3>📅 Live Availability - Click a Slot to Book</h3>
-                    <p class="section-sub" style="margin-top:-8px;margin-bottom:16px;">Click any available (green) slot to automatically fill the booking form below</p>
-                    <div class="availability-summary" id="availabilitySummary">
-                        <div class="summary-card">
-                            <span class="summary-label">This Weekend</span>
-                            <span class="summary-count" id="thisWeekendCount">6 slots available</span>
-                        </div>
-                        <div class="summary-card">
-                            <span class="summary-label">Next Weekend</span>
-                            <span class="summary-count" id="nextWeekendCount">6 slots available</span>
-                        </div>
-                    </div>
-                    
-                    <div class="availability-calendar" id="availabilityCalendar">
-                        <!-- Dynamically populated by JavaScript -->
-                    </div>
-                    
-                    <div class="admin-controls" id="adminControls" style="display:none;">
-                        <h4>🔧 Admin Controls</h4>
-                        <p class="small-muted">Press <kbd>Ctrl+Shift+A</kbd> to show/hide this panel</p>
-                        <div class="admin-panel">
-                            <p class="small-muted">Manually block dates when you're unavailable (vacation, sick, etc.)</p>
-                            <div class="admin-form">
-                                <input type="date" id="blockDate" placeholder="Select date">
-                                <input type="time" id="blockTime" value="09:00" list="timeSlots">
-                                <datalist id="timeSlots">
-                                    <option value="09:00">9:00 AM</option>
-                                    <option value="12:00">12:00 PM</option>
-                                    <option value="15:00">3:00 PM</option>
-                                </datalist>
-                                <button type="button" class="btn" onclick="blockSlot()">Block Slot</button>
-                            </div>
-                            <div id="blockedSlotsList" class="blocked-slots-list"></div>
-                            <button type="button" class="btn" onclick="clearTestBooking()" style="margin-top:12px;background:#dc2626;">Clear Test Bookings</button>
-                        </div>
-                    </div>
-                </div>
-                
+                    ⏰ <strong>Weekend Slots Fill Fast!</strong> Only 16 slots available per weekend. Book by Wednesday to secure your spot.
                 </div>
                 
                 <div class="contact-methods-below-form">
@@ -351,7 +310,7 @@
                         </select>
                     </div>
 
-                    <div class="form-row form-slot-selection">
+                    <div class="form-row form-slot-selection" id="slotSelectionSection" style="display:none;">
                         <label>Select Available Time Slot</label>
                         <p class="form-hint" style="margin-bottom:12px;">Click any green slot below to select your preferred time</p>
                         <div class="form-availability-calendar" id="formAvailabilityCalendar">
