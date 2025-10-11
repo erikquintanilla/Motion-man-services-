@@ -287,7 +287,7 @@ function getNextWeekends(count = 2) {
         const dayOfWeek = currentDate.getDay();
         
         if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday or Sunday
-            const dateStr = currentDate.toISOString().split('T')[0];
+            const dateStr = `${currentDate.getFullYear()}-${pad(currentDate.getMonth() + 1)}-${pad(currentDate.getDate())}`;
             weekends.push({
                 date: dateStr,
                 dayName: dayOfWeek === 6 ? 'Saturday' : 'Sunday',
@@ -353,7 +353,7 @@ function renderFormAvailabilityCalendar() {
                 const statusLabel = status === 'available' ? 'Available' : status === 'booked' ? 'Booked' : 'Blocked';
                 
                 // Make available slots clickable in form
-                const clickHandler = status === 'available' ? `onclick="selectFormSlot('${day.date}', '${time}')"` : '';
+                const clickHandler = status === 'available' ? `onclick="selectFormSlot('${day.date}', '${time}', this)"` : '';
                 
                 html += `<div class="slot-item ${statusClass}" ${clickHandler}>${statusText} ${timeDisplay}<br><small>${statusLabel}</small></div>`;
             });
@@ -367,14 +367,15 @@ function renderFormAvailabilityCalendar() {
     calendar.innerHTML = html;
 }
 
-function selectFormSlot(date, time) {
+function selectFormSlot(date, time, el) {
     // Remove previous selection
     document.querySelectorAll('.slot-available').forEach(slot => {
         slot.classList.remove('selected');
     });
     
     // Add selection to clicked slot
-    event.target.classList.add('selected');
+    const slotElement = el || (typeof event !== 'undefined' ? event.target.closest('.slot-item') : null);
+    slotElement && slotElement.classList.add('selected');
     
     // Fill hidden form fields
     const dateInput = document.getElementById('selectedDate');
@@ -388,7 +389,8 @@ function selectFormSlot(date, time) {
     // Show selected slot with correct date display
     if (display) {
         display.style.display = 'block';
-        const selectedDate = new Date(date + 'T00:00');
+        const [year, month, day] = date.split('-').map(Number);
+        const selectedDate = new Date(year, month - 1, day);
         const dayName = selectedDate.toLocaleDateString('en-US', {weekday: 'short'});
         const monthName = selectedDate.toLocaleDateString('en-US', {month: 'short'});
         const dayNum = selectedDate.getDate();

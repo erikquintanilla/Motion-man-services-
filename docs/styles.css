@@ -164,9 +164,6 @@ body{
 .form-row input,.form-row textarea,.form-row select{padding:12px;border-radius:10px;border:1px solid #e6e9ef;font-size:16px}
 .form-slot-selection{margin-bottom:24px;padding:16px;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-radius:12px;border:2px solid #e5e7eb}
 .form-availability-calendar{margin-bottom:16px}
-.selected-slot-display{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:2px solid #16a34a;border-radius:10px;padding:16px;text-align:center;margin-top:12px}
-.selected-slot-display p{margin:0;font-weight:600;color:#14532d;margin-bottom:12px}
-.selected-slot-display .btn{margin:0}
 .form-actions{display:flex;gap:12px;align-items:center}
 .form-note{color:var(--muted);font-size:0.9rem;margin-top:10px}
 
