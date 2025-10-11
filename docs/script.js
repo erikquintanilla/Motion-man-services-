@@ -6,6 +6,65 @@
 // const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx.../exec';
 const BOOKING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyOxq8MhNQVuoTjqBfUYE53DzcErmwArOw3yu6AG-dkDg2wJhCS1J4O5oAZQflUh6tnMQ/exec'; // <-- PASTE your webhook URL here to receive bookings automatically
 
+// Prefill booking form with service and estimated hours, then scroll to it
+function prefillBooking(serviceName, estimatedHours) {
+    // Scroll to contact section
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    // Wait for scroll, then prefill form
+    setTimeout(() => {
+        const serviceSelect = document.getElementById('service');
+        const hoursInput = document.getElementById('hours');
+        const dateInput = document.getElementById('date');
+        const nameInput = document.getElementById('name');
+        
+        // Set service
+        if (serviceSelect) {
+            serviceSelect.value = serviceName;
+        }
+        
+        // Set estimated hours
+        if (hoursInput) {
+            hoursInput.value = estimatedHours;
+        }
+        
+        // Set nearest weekend date
+        if (dateInput) {
+            const today = new Date();
+            let daysUntilWeekend = 0;
+            const dayOfWeek = today.getDay(); // 0 = Sunday, 6 = Saturday
+            
+            if (dayOfWeek === 0) {
+                // Today is Sunday, suggest next Saturday
+                daysUntilWeekend = 6;
+            } else if (dayOfWeek === 6) {
+                // Today is Saturday, suggest today
+                daysUntilWeekend = 0;
+            } else if (dayOfWeek < 6) {
+                // Weekday, suggest upcoming Saturday
+                daysUntilWeekend = 6 - dayOfWeek;
+            }
+            
+            const nextWeekend = new Date(today);
+            nextWeekend.setDate(today.getDate() + daysUntilWeekend);
+            
+            // Format as YYYY-MM-DD
+            const year = nextWeekend.getFullYear();
+            const month = String(nextWeekend.getMonth() + 1).padStart(2, '0');
+            const day = String(nextWeekend.getDate()).padStart(2, '0');
+            dateInput.value = `${year}-${month}-${day}`;
+        }
+        
+        // Focus on name input
+        if (nameInput) {
+            nameInput.focus();
+        }
+    }, 800);
+}
+
 function isWeekend(dateStr) {
     if (!dateStr) return false;
     const d = new Date(dateStr + 'T00:00');

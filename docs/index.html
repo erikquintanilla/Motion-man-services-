@@ -53,6 +53,11 @@
             <section id="why" class="container extras">
                 <h2>Why Choose Motion Man</h2>
                 <p class="section-sub">Local, on-time, and straightforward pricing</p>
+                <div class="trust-builder-offer">
+                    <h3>🎯 First-Time Customer Deal</h3>
+                    <p>Get <strong>$10 off</strong> or free add-on service (like deodorizing or extra trash haul).<br>
+                    <strong>No minimums</strong> — just honest weekend work.</p>
+                </div>
                 <ul class="features">
                     <li><strong>Free estimate, no minimum for first-time customers</strong> — removes hesitation to contact.</li>
                     <li><strong>Before & after photos sent right to your phone</strong> — see the results immediately.</li>
@@ -77,7 +82,7 @@
                         </ul>
                         <div class="price"><span class="price-amount">$40/hr</span> <span class="muted">(2 hr min = $80)</span></div>
                         <div class="muted">Add-ons: +$25 heavy lifting/stairs · +$15 travel >10 miles</div>
-                        <a class="btn" href="#contact">Book Moving</a>
+                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Moving Help', 2); return true;">Book Moving</a>
                     </article>
 
                     <article class="service-card">
@@ -91,7 +96,8 @@
                         </ul>
                         <div class="price"><span class="price-amount">$50–70</span> <span class="muted">flat rate per visit</span></div>
                         <div class="muted">Add-ons: +$15 larger jobs · +$10 debris haul</div>
-                        <a class="btn" href="#contact">Book Cleanup</a>
+                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Yard Cleanup', 1.5); return true;">Book Yard Cleanup</a>
+                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Garage Cleanup & Organization', 2); return true;">Book Garage Cleanup</a>
                     </article>
 
                     <article class="service-card">
@@ -105,42 +111,37 @@
                         </ul>
                         <div class="price"><span class="price-amount">$35 / $60</span> <span class="muted">Standard / Deep</span></div>
                         <div class="muted">Add-ons: +$10 SUV/pet hair · Free air freshener</div>
-                        <a class="btn" href="#contact">Book Car Cleaning</a>
+                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Car Interior Cleaning', 1); return true;">Book Car Cleaning</a>
                     </article>
                 </div>
             </section>
 
             <section id="pricing" class="container pricing">
                 <h2>Quick Pricing (Oakland)</h2>
-                <p class="section-sub">Straightforward starter pricing — I keep costs down by operating solo and focusing on weekends.</p>
+                <p class="section-sub">Straightforward starter pricing — I keep costs down by operating solo and focusing on weekends. <strong>Click any card to book instantly.</strong></p>
                 <div class="grid price-grid">
-                    <div class="price-card">
-                        <h4>Moving Help</h4>
-                        <p><strong class="accent">$40/hr</strong> — 1 mover, 2-hr min ($80)</p>
-                        <p class="small-muted">Add-ons: +$25 stairs/heavy, +$15 long distance</p>
-                    </div>
-                    <div class="price-card">
-                        <h4>Yard Cleanup</h4>
-                        <p><strong class="accent">$50–60</strong> — Small yard (1–1.5 hrs)</p>
-                        <p class="small-muted">Add-ons: +$15 larger, +$10 debris haul</p>
-                    </div>
-                    <div class="price-card">
+                    <div class="price-card clickable" onclick="prefillBooking('Garage Cleanup & Organization', 2)">
                         <h4>Garage Cleanup & Organization</h4>
                         <p><strong class="accent">$50–70</strong> — Flat rate (1.5–2 hrs)</p>
-                        <p class="small-muted">Sorting, sweeping, organizing into bins</p>
+                        <p class="small-muted">Sorting, sweeping, debris removal, organizing into bins</p>
                     </div>
-                    <div class="price-card">
+                    <div class="price-card clickable" onclick="prefillBooking('Yard Cleanup', 1.5)">
+                        <h4>Yard Cleanup</h4>
+                        <p><strong class="accent">$50–60</strong> — Small yard (1–1.5 hrs)</p>
+                        <p class="small-muted">Leaf & branch pickup, bagging, light pruning</p>
+                    </div>
+                    <div class="price-card clickable" onclick="prefillBooking('Car Interior Cleaning', 1)">
                         <h4>Car Interior Cleaning</h4>
                         <p><strong class="accent">$35 / $60</strong> — Standard / Deep</p>
-                        <p class="small-muted">+$10 SUV/pet hair · Free air freshener</p>
+                        <p class="small-muted">Standard: vacuum, wipe, deodorize<br>Deep: shampoo/steam, stains, pet hair</p>
                     </div>
-                    <div class="price-card">
+                    <div class="price-card clickable" onclick="prefillBooking('Bundle: Garage + Car Cleaning', 2)">
                         <h4>Bundle Deal</h4>
                         <p><strong class="accent">$80–90</strong> — Garage + Car Cleaning</p>
                         <p class="small-muted">Save $10–15 when you book both</p>
                     </div>
                 </div>
-                <p class="note" style="margin-top:1.5rem;text-align:center;"><strong>Trust-building pricing:</strong> These are starter rates to earn your trust and word-of-mouth. After I build a solid client base, prices may adjust slightly — but early customers get the best deals.</p>
+                <p class="note" style="margin-top:1.5rem;text-align:center;"><strong>Trust-building pricing:</strong> These are starter rates to earn your trust and word-of-mouth. After I build a solid client base (5–10 clients), prices may adjust slightly — but early customers get the best deals.</p>
             </section>
 
             <section id="how" class="container how">
