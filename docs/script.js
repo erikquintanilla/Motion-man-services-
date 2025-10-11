@@ -388,8 +388,11 @@ function selectFormSlot(date, time) {
     // Show selected slot with correct date display
     if (display) {
         display.style.display = 'block';
-        const dayName = new Date(date + 'T00:00').toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'});
-        displayText.textContent = `Selected: ${formatTime(time)} on ${dayName}`;
+        const selectedDate = new Date(date + 'T00:00');
+        const dayName = selectedDate.toLocaleDateString('en-US', {weekday: 'short'});
+        const monthName = selectedDate.toLocaleDateString('en-US', {month: 'short'});
+        const dayNum = selectedDate.getDate();
+        displayText.textContent = `Selected: ${formatTime(time)} on ${dayName}, ${monthName} ${dayNum}`;
     }
 }
 
@@ -569,26 +572,7 @@ document.addEventListener('DOMContentLoaded', function(){
         checkbox.addEventListener('change', updatePriceCalculator);
     });
     
-    // Show slot selection when user interacts with form
-    const nameInput = document.getElementById('name');
-    const serviceSelect = document.getElementById('service');
-    
-    if (nameInput) {
-        nameInput.addEventListener('focus', showSlotSelection);
-    }
-    if (serviceSelect) {
-        serviceSelect.addEventListener('focus', showSlotSelection);
-    }
-    
     // Initialize availability calendars
     renderFormAvailabilityCalendar();
     renderBlockedSlotsList();
 });
-
-function showSlotSelection() {
-    const slotSection = document.getElementById('slotSelectionSection');
-    if (slotSection && slotSection.style.display === 'none') {
-        slotSection.style.display = 'block';
-        slotSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-}
