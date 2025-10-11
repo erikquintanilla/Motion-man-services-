@@ -18,7 +18,7 @@
 html,body{height:100%}
 body{
   margin:0;
-  background:linear-gradient(180deg,#f0f9ff 0%,#ffffff 30%,#f8fafc 100%);
+  background:linear-gradient(180deg,#f8fafc 0%,#ffffff 50%,#f1f5f9 100%);
   color:#0f172a;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
@@ -68,10 +68,41 @@ body{
 .hero-cta .hero-primary{background:linear-gradient(90deg,var(--accent),var(--accent-600));color:#fff;border:none;padding:14px 24px;font-size:1.05rem;box-shadow:0 6px 18px rgba(3,105,161,0.25)}
 .hero-cta .hero-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(3,105,161,0.35)}
 .hero-cta .hero-secondary{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:10px 18px;font-size:0.95rem;font-weight:600}
-.hero-cta .hero-secondary:hover{background:var(--glass);box-shadow:0 6px 16px rgba(3,105,161,0.25)}
-.btn-book{background:linear-gradient(90deg,var(--accent),var(--accent-600));color:#fff;font-weight:600;padding:10px 18px;margin-top:8px;margin-right:8px}
-.btn-book:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(3,105,161,0.3)}
-.card-illustration{width:100%;height:220px;border-radius:16px;background:linear-gradient(135deg,#f0fdf4, #ecfeff);display:flex;align-items:center;justify-content:center;font-size:44px;box-shadow:var(--shadow)}
+/* Small hero button for booking section */
+.hero-button-small{
+  background:linear-gradient(90deg,var(--accent),var(--accent-600));
+  color:#fff;
+  border:none;
+  padding:8px 16px;
+  font-size:0.9rem;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  transition:all 0.2s ease;
+  box-shadow:0 4px 12px rgba(3,105,161,0.25);
+  text-decoration:none;
+  display:inline-block;
+}
+.hero-button-small:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(3,105,161,0.35);
+}
+
+/* 5-star rating system */
+.stars-container{
+  display:flex;
+  gap:2px;
+  margin-bottom:12px;
+  justify-content:center;
+}
+.star{
+  color:#fbbf24;
+  font-size:1.2rem;
+  text-shadow:0 1px 2px rgba(0,0,0,0.1);
+}
+.star.empty{
+  color:#d1d5db;
+}
 
 .accent{color:var(--accent)}
 .badges{margin-top:12px;display:flex;gap:8px}
@@ -324,6 +355,8 @@ body{
   .why-card h3{font-size:1rem;margin-bottom:8px}
   .customer-quote{font-size:0.85rem;padding:0}
   .customer-name{font-size:0.8rem;margin-top:8px}
+  .stars-container{margin-bottom:8px}
+  .star{font-size:1rem}
   
   /* Services rows - bundles on top, services below */
   .services-bundles-row{grid-template-columns:1fr;gap:12px}
@@ -421,6 +454,15 @@ body{
   .contact-methods{gap:8px}
   .contact-btn{font-size:0.95rem;padding:14px;min-height:70px}
   .contact-btn span{font-size:0.8rem}
+  
+  /* Hero button small - mobile */
+  .hero-button-small{
+    padding:10px 14px;
+    font-size:0.9rem;
+    margin-top:10px;
+    width:100%;
+    text-align:center;
+  }
   
   /* FAQ - compact */
   .faq-grid{gap:12px}
