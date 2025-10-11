@@ -28,9 +28,20 @@ body{
 .section{padding:36px 0}
 .section-sub{color:var(--muted);font-size:1.05rem;margin-top:-8px;margin-bottom:20px}
 .extras{padding:36px 0;background:linear-gradient(180deg,#f8fafc,#ffffff);border-radius:16px;margin-bottom:24px}
-.trust-builder-offer{background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #f59e0b;border-radius:12px;padding:20px;margin-bottom:24px;text-align:center}
+.trust-builder-offer{background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #f59e0b;border-radius:12px;padding:20px;margin-bottom:24px;text-align:center;transition:all 0.3s ease}
 .trust-builder-offer h3{margin-top:0;margin-bottom:8px;color:#92400e}
 .trust-builder-offer p{margin:0;color:#78350f;font-size:1.05rem}
+.limited-bundle-offer{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:3px solid #16a34a;border-radius:16px;padding:24px;margin-bottom:24px;text-align:center;position:relative;transition:all 0.3s ease;box-shadow:0 8px 24px rgba(22,163,74,0.15)}
+.limited-bundle-offer h3{margin-top:0;margin-bottom:12px;color:#14532d;font-size:1.4rem}
+.limited-bundle-offer .bundle-description{color:#166534;font-size:1.1rem;margin-bottom:16px}
+.bundle-badge{position:absolute;top:-12px;right:20px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;padding:8px 16px;border-radius:20px;font-weight:900;font-size:0.9rem;box-shadow:0 4px 12px rgba(220,38,38,0.4);transform:rotate(3deg)}
+.discount-percent{letter-spacing:1px}
+.bundle-pricing{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+.original-price{text-decoration:line-through;color:#6b7280;font-size:0.95rem}
+.bundle-price{font-size:1.3rem;color:#15803d;font-weight:700}
+.bundle-savings{color:#166534;font-size:1.05rem;margin-top:8px;margin-bottom:16px}
+.hover-lift{cursor:default}
+.hover-lift:hover{transform:scale(1.03);box-shadow:0 12px 32px rgba(3,105,161,0.2)}
 .extras .features{list-style:none;padding:0}
 .extras .features li{padding:10px 0;border-bottom:1px solid #f1f5f9}
 .extras .features li:last-child{border-bottom:none}
@@ -64,9 +75,10 @@ body{
 
 .services{padding:36px 0}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.service-card{background:var(--card);padding:24px;border-radius:14px;box-shadow:var(--shadow)}
+.service-card{background:var(--card);padding:24px;border-radius:14px;box-shadow:var(--shadow);transition:all 0.3s ease}
 .service-card h3{margin-top:0;margin-bottom:8px}
 .service-card p{margin-bottom:10px;color:var(--muted)}
+.service-card.hover-lift:hover{transform:scale(1.05);box-shadow:0 16px 40px rgba(3,105,161,0.2);cursor:default}
 .service-card .emotional-hook{color:#0f172a;font-weight:600;font-style:italic;margin-bottom:12px;font-size:1.05rem}
 .service-card .features{color:var(--muted);padding-left:18px;margin-bottom:8px}
 .price{margin-top:16px;color:var(--accent);font-weight:700}
