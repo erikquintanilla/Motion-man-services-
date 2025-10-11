@@ -212,12 +212,155 @@ body{
   .slots-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:640px){
+  /* Mobile-first optimization for phone users scanning QR codes */
+  
+  /* Reduce overall container padding for less scrolling */
+  .container{padding:16px}
+  
+  /* Compact header */
+  .site-header{padding:10px 0}
+  .logo{font-size:1rem}
+  .small-muted{font-size:0.8rem}
   .nav ul{display:none}
   .nav.open ul{display:flex;flex-direction:column;background:var(--card);position:absolute;right:20px;top:64px;padding:12px;border-radius:8px;box-shadow:var(--shadow)}
   .nav-toggle{display:inline-block}
-  .services-grid{grid-template-columns:1fr}
-  .hero-inner{grid-template-columns:1fr}
-  .hero-art img{height:240px;object-fit:cover}
-  .contact-btn{font-size:1rem;padding:16px;min-height:80px}
-  .contact-btn span{font-size:0.85rem}
+  
+  /* Streamlined hero section */
+  .hero{padding:24px 0}
+  .hero-inner{grid-template-columns:1fr;gap:16px}
+  .hero h1{font-size:1.5rem;line-height:1.3;margin-bottom:12px}
+  .hero .lead{font-size:0.95rem;margin-top:8px;margin-bottom:12px}
+  .hero-art{display:none} /* Hide hero image on mobile to reduce scroll */
+  .hero-cta{flex-direction:column;gap:8px;margin-top:12px}
+  .hero-cta .btn{width:100%;text-align:center;padding:12px 16px}
+  .badges{flex-wrap:wrap;gap:6px;margin-top:12px}
+  .badge{font-size:0.75rem;padding:4px 8px}
+  
+  /* Compact sections */
+  .section{padding:20px 0}
+  .extras{padding:20px 0;margin-bottom:16px}
+  .services{padding:20px 0}
+  .pricing{padding:20px 0}
+  .faq{padding:20px 0}
+  .testimonials{padding:20px 0}
+  
+  /* Reduce heading sizes */
+  h2{font-size:1.4rem;margin-bottom:8px}
+  h3{font-size:1.1rem}
+  .section-sub{font-size:0.9rem;margin-bottom:12px}
+  
+  /* Service cards - more compact */
+  .services-grid{grid-template-columns:1fr;gap:12px}
+  .service-card{padding:16px;border-radius:10px}
+  .service-card h3{font-size:1.1rem;margin-bottom:6px}
+  .service-card p{font-size:0.9rem;margin-bottom:8px}
+  .service-card .emotional-hook{font-size:0.95rem;margin-bottom:8px}
+  .service-card .features{font-size:0.85rem;padding-left:16px}
+  .price-amount{font-size:1.3rem}
+  .btn-book{padding:10px 14px;font-size:0.95rem}
+  
+  /* Bundle offer - compact */
+  .limited-bundle-offer{padding:16px;margin-top:20px;margin-bottom:16px}
+  .limited-bundle-offer h3{font-size:1.1rem;margin-bottom:8px}
+  .limited-bundle-offer .bundle-description{font-size:0.95rem;margin-bottom:12px}
+  .bundle-badge{font-size:0.75rem;padding:5px 10px;top:8px;right:8px}
+  .bundle-ribbon{font-size:0.8rem;padding:6px 12px;top:-10px;left:12px}
+  .bundle-pricing{gap:6px;margin:12px 0}
+  .bundle-price{font-size:1.1rem}
+  .bundle-savings{font-size:0.95rem;margin-top:6px;margin-bottom:12px}
+  
+  /* Price calculator - streamlined */
+  .price-calculator{padding:16px;margin-bottom:20px;border-radius:12px}
+  .price-calculator h3{font-size:1.1rem;margin-bottom:12px}
+  .calculator-grid{grid-template-columns:1fr;gap:8px;margin-bottom:16px}
+  .calc-option{padding:10px;font-size:0.9rem}
+  .calc-label{font-size:0.9rem}
+  .calc-result{padding:14px}
+  .calc-label-text{font-size:1rem}
+  .calc-amount{font-size:1.4rem}
+  .calc-bundle{padding:12px;font-size:0.9rem}
+  .bundle-amount{font-size:1.2rem}
+  
+  /* Pricing cards - compact */
+  .price-grid{gap:10px}
+  .price-card{padding:14px;border-radius:10px}
+  .price-card h4{font-size:1rem;margin-bottom:6px}
+  .price-card p{font-size:0.85rem}
+  
+  /* Trust builder offer - compact */
+  .trust-builder-offer{padding:14px;margin-bottom:16px}
+  .trust-builder-offer h3{font-size:1.1rem;margin-bottom:6px}
+  .trust-builder-offer p{font-size:0.9rem}
+  
+  /* Features list - compact */
+  .features{font-size:0.85rem;line-height:1.5}
+  .features li{padding:6px 0}
+  
+  /* Booking form - optimized for quick booking */
+  .contact{padding:20px 0}
+  .availability-section{padding:16px;margin-bottom:16px}
+  .availability-section h3{font-size:1.1rem;margin-bottom:12px}
+  .availability-summary{gap:10px;margin-bottom:16px}
+  .summary-card{padding:12px}
+  .summary-label{font-size:0.8rem}
+  .summary-count{font-size:1.1rem}
+  
+  /* Calendar slots - larger tap targets for mobile */
+  .availability-calendar{padding:14px;margin-bottom:12px}
+  .weekend-block{margin-bottom:16px}
+  .weekend-title{font-size:1rem;margin-bottom:10px;padding-bottom:6px}
+  .day-slots{margin-bottom:12px}
+  .day-name{font-size:0.9rem;margin-bottom:6px}
+  .slots-grid{grid-template-columns:repeat(2,1fr);gap:6px} /* 2 columns for easier tapping */
+  .slot-item{padding:12px 8px;font-size:0.85rem;border-radius:6px}
+  .slot-item small{font-size:0.75rem}
+  
+  /* Contact form - streamlined */
+  .contact-form{padding:16px;border-radius:10px}
+  .form-row{margin-bottom:12px}
+  .form-row label{font-size:0.9rem;margin-bottom:6px}
+  .form-row input,.form-row textarea,.form-row select{padding:10px;font-size:16px} /* 16px prevents iOS zoom */
+  .form-slot-selection{padding:12px;margin-bottom:16px;border-radius:10px}
+  .form-actions{flex-direction:column;gap:8px}
+  .form-actions .btn{width:100%;padding:12px}
+  .form-note{font-size:0.85rem;margin-top:8px}
+  
+  /* Contact buttons below form */
+  .contact-methods-below-form{margin-top:20px;padding-top:16px}
+  .contact-methods-below-form h3{font-size:1rem;margin-bottom:12px}
+  .contact-methods{gap:8px}
+  .contact-btn{font-size:0.95rem;padding:14px;min-height:70px}
+  .contact-btn span{font-size:0.8rem}
+  
+  /* FAQ - compact */
+  .faq-grid{gap:12px}
+  .faq-item{padding:14px}
+  .faq-item h3{font-size:1rem;margin-bottom:8px}
+  .faq-item p{font-size:0.85rem;line-height:1.5}
+  
+  /* Testimonials - compact */
+  .testimonial-card{padding:16px}
+  .stars{font-size:1rem;margin-bottom:8px}
+  .testimonial-text{font-size:0.85rem;margin-bottom:12px;line-height:1.5}
+  .testimonial-author{font-size:0.85rem}
+  
+  /* Notes and alerts - compact */
+  .note,.important{padding:10px;font-size:0.85rem;margin-top:10px}
+  .urgency-banner{padding:12px;font-size:0.9rem;margin-bottom:16px}
+  
+  /* Admin controls - hide on mobile to reduce clutter */
+  .admin-controls{display:none}
+  
+  /* Footer - compact */
+  .site-footer{padding:16px 0;margin-top:20px}
+  .footer-inner{font-size:0.85rem;gap:6px}
+  .contact-info{flex-direction:column;gap:8px;align-items:flex-start}
+  .contact-card{padding:10px 12px;font-size:0.85rem}
+  
+  /* Success messages */
+  .booking-result .success{padding:10px;font-size:0.9rem}
+  .small-muted{font-size:0.8rem}
+  
+  /* Blocked slots admin */
+  .blocked-slot-item{font-size:0.85rem;padding:6px 10px}
 }
