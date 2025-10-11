@@ -586,3 +586,25 @@ document.addEventListener('DOMContentLoaded', function(){
     renderFormAvailabilityCalendar();
     renderBlockedSlotsList();
 });
+
+// Show section functionality for collapsible sections
+function showSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        // Show the section
+        section.style.display = 'block';
+        
+        // Smooth scroll to section
+        section.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+        
+        // Add fade-in animation
+        setTimeout(() => {
+            section.style.opacity = '0';
+            section.style.transition = 'opacity 0.5s ease-in';
+            section.style.opacity = '1';
+        }, 300);
+    }
+}

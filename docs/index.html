@@ -34,9 +34,9 @@
                 <div class="container hero-inner">
                     <div class="hero-copy">
                         <h1>Motion Man Services — <span class="accent">Quick, Honest Help for Your Weekend Jobs</span></h1>
-                        <p class="lead">Moving, yard cleanup, and car detailing across Oakland.<br>Book in minutes. Weekend service only — I come to you.</p>
+                        <p class="lead">Garage cleanup, yard work, patio sweeping, and event help across Oakland.<br>Book in minutes. Weekend service only — I come to you.</p>
                         <div class="hero-cta">
-                            <a class="btn hero-primary" href="#services">See Services & Prices</a>
+                            <button class="btn hero-primary" onclick="showSection('services')">See Services & Prices</button>
                             <a class="btn hero-secondary" href="#contact">Book a Weekend Slot</a>
                         </div>
                         <div class="badges">
@@ -52,25 +52,79 @@
             </section>
 
             <section id="why" class="container extras">
-                <h2>Why Choose Motion Man</h2>
-                <p class="section-sub">Local, on-time, and straightforward pricing</p>
-                <div class="trust-builder-offer hover-lift">
-                    <h3>🎯 First-Time Customer Deal</h3>
-                    <p>Get <strong>$10 off</strong> or free add-on service (like deodorizing or extra trash haul).<br>
-                    <strong>No minimums</strong> — just honest weekend work.</p>
+                <h2 class="section-title-gradient">Why People Choose Motion Man</h2>
+                <p class="section-sub">Real customers, real results — here's what they're saying</p>
+                
+                <div class="why-choose-grid">
+                    <div class="why-card">
+                        <div class="why-icon">⭐</div>
+                        <h3>Reliable & On-Time</h3>
+                        <p class="customer-quote">"Erik showed up exactly when he said he would. My garage went from disaster to organized in under 2 hours!"</p>
+                        <span class="customer-name">— Sarah M., Oakland</span>
+                    </div>
+                    
+                    <div class="why-card">
+                        <div class="why-icon">💰</div>
+                        <h3>Honest Pricing</h3>
+                        <p class="customer-quote">"No hidden fees, no upselling. Just straightforward pricing and great work. Refreshing!"</p>
+                        <span class="customer-name">— James L., Fruitvale</span>
+                    </div>
+                    
+                    <div class="why-card">
+                        <div class="why-icon">✨</div>
+                        <h3>Quality Results</h3>
+                        <p class="customer-quote">"My patio and driveway look brand new. He even wiped our windows — total value!"</p>
+                        <span class="customer-name">— Maria R., San Leandro</span>
+                    </div>
+                    
+                    <div class="why-card special-offer">
+                        <div class="why-icon">🎁</div>
+                        <h3>First-Time Deal</h3>
+                        <p><strong>Get $10 off</strong> or a free add-on service on your first booking.</p>
+                        <p class="small-text">Plus: Refer a friend, get another $10 off your next job!</p>
+                    </div>
                 </div>
-                <ul class="features">
-                    <li><strong>Free estimate, no minimum for first-time customers</strong> — removes hesitation to contact.</li>
-                    <li><strong>Before & after photos sent right to your phone</strong> — see the results immediately.</li>
-                    <li><strong>Local, on-time, and straightforward pricing</strong> — I show up when I say I will and get it done fast.</li>
-                    <li><strong>Referral deal: Refer a friend, get $10 off</strong> your next job.</li>
-                </ul>
             </section>
 
-            <section id="services" class="container services">
-                <h2>Services I Offer</h2>
+            <section id="services" class="container services" style="display:none;">
+                <h2 class="section-title-gradient">Services I Offer</h2>
                 <p class="section-sub">One-person operation — affordable and direct. Weekend-only service focused on getting your property looking great.</p>
-                <div class="grid services-grid">
+                
+                <!-- Bundles Row - Top Priority -->
+                <div class="services-bundles-row">
+                    <div class="limited-bundle-offer hover-lift">
+                        <div class="bundle-badge">🔥 Most Popular</div>
+                        <div class="bundle-ribbon">
+                            <span class="discount-percent">20% OFF</span>
+                        </div>
+                        <h3>🏠 Home Refresh Bundle</h3>
+                        <p class="bundle-description">Get your <strong>garage, yard, AND patio</strong> all cleaned in one weekend visit!</p>
+                        <div class="bundle-pricing">
+                            <span class="original-price">Regular: $130–$160</span>
+                            <span class="bundle-price">💵 Bundle Price: <strong>$120</strong></span>
+                        </div>
+                        <p class="bundle-savings"><strong>Save $10–$40!</strong> Perfect for refreshing your entire home exterior.</p>
+                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Home Refresh Bundle (Garage + Yard + Patio)', 3.5); return true;">Book Home Refresh</a>
+                    </div>
+                    
+                    <article class="service-card service-event hover-lift">
+                        <h3>🎉 Event Setup & Takedown Helper</h3>
+                        <p class="emotional-hook">Focus on your guests, not the heavy lifting. I'll help set up tables, chairs, decorations, and clean up afterward.</p>
+                        <p>Perfect for birthdays, community events, or family gatherings. Includes setup assistance, breakdown, and basic cleanup.</p>
+                        <ul class="features">
+                            <li>Table & chair setup/breakdown</li>
+                            <li>Decoration hanging & removal</li>
+                            <li>Trash collection & cleanup</li>
+                            <li>2-hour minimum booking</li>
+                        </ul>
+                        <div class="price"><span class="price-amount">$20/hour</span> <span class="muted">2hr minimum</span></div>
+                        <div class="muted">Perfect for: Birthdays · BBQs · Community events · Family gatherings</div>
+                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Event Setup & Takedown Helper', 2); return true;">Book Event Helper</a>
+                    </article>
+                </div>
+                
+                <!-- Core Services Row -->
+                <div class="services-core-row">
                     <article class="service-card service-garage hover-lift">
                         <h3>📦 Garage Cleanup & Organization</h3>
                         <p class="emotional-hook">Stop avoiding your garage. I'll sort through the chaos, sweep it clean, and organize everything so you can actually use the space.</p>
@@ -116,40 +170,10 @@
                         <a class="btn btn-book" href="#contact" onclick="prefillBooking('Patio & Driveway Sweeping', 1); return true;">Book Patio Sweeping</a>
                     </article>
                 </div>
-                
-                <div class="limited-bundle-offer hover-lift" style="margin-top:32px;">
-                    <div class="bundle-badge">🔥 Most Popular</div>
-                    <div class="bundle-ribbon">
-                        <span class="discount-percent">20% OFF</span>
-                    </div>
-                    <h3>🏠 Home Refresh Bundle</h3>
-                    <p class="bundle-description">Get your <strong>garage, yard, AND patio</strong> all cleaned in one weekend visit!</p>
-                    <div class="bundle-pricing">
-                        <span class="original-price">Regular: $130–$160</span>
-                        <span class="bundle-price">💵 Bundle Price: <strong>$120</strong></span>
-                    </div>
-                    <p class="bundle-savings"><strong>Save $10–$40!</strong> Perfect for refreshing your entire home exterior.</p>
-                    <a class="btn btn-book" href="#contact" onclick="prefillBooking('Home Refresh Bundle (Garage + Yard + Patio)', 3.5); return true;">Book Home Refresh</a>
-                </div>
-                
-                <article class="service-card service-event hover-lift" style="margin-top:24px;">
-                    <h3>🎉 Event Setup & Takedown Helper</h3>
-                    <p class="emotional-hook">Focus on your guests, not the heavy lifting. I'll help set up tables, chairs, decorations, and clean up afterward.</p>
-                    <p>Perfect for birthdays, community events, or family gatherings. Includes setup assistance, breakdown, and basic cleanup.</p>
-                    <ul class="features">
-                        <li>Table & chair setup/breakdown</li>
-                        <li>Decoration hanging & removal</li>
-                        <li>Trash collection & cleanup</li>
-                        <li>2-hour minimum booking</li>
-                    </ul>
-                    <div class="price"><span class="price-amount">$20/hour</span> <span class="muted">2hr minimum</span></div>
-                    <div class="muted">Perfect for: Birthdays · BBQs · Community events · Family gatherings</div>
-                    <a class="btn btn-book" href="#contact" onclick="prefillBooking('Event Setup & Takedown Helper', 2); return true;">Book Event Helper</a>
-                </article>
             </section>
 
-            <section id="pricing" class="container pricing">
-                <h2>Quick Pricing (Oakland)</h2>
+            <section id="pricing" class="container pricing" style="display:none;">
+                <h2 class="section-title-gradient">Quick Pricing (Oakland)</h2>
                 <p class="section-sub">Straightforward starter pricing — I keep costs down by operating solo and focusing on weekends. <strong>Click any card to book instantly.</strong></p>
                 
                 <div class="price-calculator">
@@ -224,10 +248,15 @@
                 <div class="note important">Important: I operate on weekends only (Sat & Sun). Please select a weekend date when booking.</div>
                 <div class="note" style="margin-top:12px;">🌧️ <strong>Weather Policy:</strong> Outdoor services (yard/garage) may be rescheduled for heavy rain. I'll contact you 24 hours before if weather looks bad. No cancellation fees — we'll find another weekend that works.</div>
                 <div class="note" style="margin-top:12px;">📍 <strong>Service Area:</strong> Serving Seminary, Oakland, Emeryville, Fruitvale, Coliseum, San Leandro, and nearby East Bay areas.</div>
+                
+                <div style="text-align:center;margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                    <button class="btn primary" onclick="showSection('pricing')" style="min-width:200px;">📊 Use Price Calculator</button>
+                    <button class="btn ghost" onclick="showSection('faq')" style="min-width:200px;">❓ View FAQs</button>
+                </div>
             </section>
             
-            <section id="faq" class="container faq">
-                <h2>Frequently Asked Questions</h2>
+            <section id="faq" class="container faq" style="display:none;">
+                <h2 class="section-title-gradient">Frequently Asked Questions</h2>
                 <div class="faq-grid">
                     <div class="faq-item">
                         <h3>Do I need to be home during service?</h3>
@@ -256,28 +285,6 @@
                     <div class="faq-item">
                         <h3>What's included in event setup service?</h3>
                         <p>Table & chair setup, decoration hanging, basic cleanup after your event. Perfect for birthdays, BBQs, or family gatherings. 2-hour minimum ensures enough time for proper setup and breakdown.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="testimonials" class="container testimonials">
-                <h2>What Customers Say</h2>
-                <p class="section-sub">Real feedback from real customers</p>
-                <div class="testimonial-grid">
-                    <div class="testimonial-card">
-                        <div class="stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-text">"Erik transformed my garage in under 2 hours. Everything is organized and I can finally park my car inside. Worth every penny!"</p>
-                        <strong class="testimonial-author">— Sarah M., Oakland</strong>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-text">"My yard looks amazing! Erik was on time, professional, and did exactly what he said he would. Highly recommend."</p>
-                        <strong class="testimonial-author">— James L., Fruitvale</strong>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-text">"Erik swept our entire patio and driveway perfectly. No more leaves or cobwebs, and he even wiped our outdoor windows. Great value!"</p>
-                        <strong class="testimonial-author">— Maria R., San Leandro</strong>
                     </div>
                 </div>
             </section>
@@ -318,10 +325,11 @@
                         <select id="service" name="service">
                             <option>Garage Cleanup & Organization</option>
                             <option>Yard Cleanup</option>
-                            <option>Car Interior Cleaning</option>
-                            <option>Bundle: Garage + Car Cleaning</option>
-                            <option>Complete Property Bundle (All 3 Services)</option>
+                            <option>Patio & Driveway Sweeping</option>
+                            <option>Event Setup & Takedown Helper</option>
+                            <option>Home Refresh Bundle (Garage + Yard + Patio)</option>
                         </select>
+                        <button type="button" onclick="showSection('services')" class="btn-link-small" style="margin-top:8px;display:inline-block;color:var(--accent);font-size:0.9rem;text-decoration:underline;background:none;border:none;cursor:pointer;padding:0;">📋 See all services & prices</button>
                     </div>
 
                     <div class="form-row form-slot-selection">
