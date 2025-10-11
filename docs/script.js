@@ -352,7 +352,10 @@ function renderAvailabilityCalendar() {
                 const statusText = status === 'available' ? '✅' : status === 'booked' ? '❌' : '🚫';
                 const statusLabel = status === 'available' ? 'Available' : status === 'booked' ? 'Booked' : 'Blocked';
                 
-                html += `<div class="slot-item ${statusClass}">${statusText} ${timeDisplay}<br><small>${statusLabel}</small></div>`;
+                // Make available slots clickable
+                const clickHandler = status === 'available' ? `onclick="selectSlot('${day.date}', '${time}')"` : '';
+                
+                html += `<div class="slot-item ${statusClass}" ${clickHandler}>${statusText} ${timeDisplay}<br><small>${statusLabel}</small></div>`;
             });
             
             html += `</div></div>`;
@@ -363,6 +366,50 @@ function renderAvailabilityCalendar() {
     
     calendar.innerHTML = html;
     updateAvailabilitySummary();
+}
+
+function selectSlot(date, time) {
+    // Remove previous selection
+    document.querySelectorAll('.slot-available').forEach(slot => {
+        slot.classList.remove('selected');
+    });
+    
+    // Add selection to clicked slot
+    event.target.classList.add('selected');
+    
+    // Fill the booking form
+    const dateInput = document.getElementById('date');
+    const timeInput = document.getElementById('time');
+    const nameInput = document.getElementById('name');
+    
+    if (dateInput) dateInput.value = date;
+    if (timeInput) timeInput.value = time;
+    
+    // Scroll to form and focus on name input
+    const form = document.getElementById('bookingForm');
+    if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => {
+            if (nameInput) nameInput.focus();
+        }, 600);
+    }
+    
+    // Show a brief confirmation
+    const banner = document.getElementById('urgencyBanner');
+    if (banner) {
+        const originalHTML = banner.innerHTML;
+        banner.innerHTML = `✅ <strong>Slot Selected!</strong> ${formatTime(time)} on ${new Date(date + 'T00:00').toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'})} — Fill out the form below to confirm.`;
+        banner.style.background = 'linear-gradient(135deg,#dcfce7,#bbf7d0)';
+        banner.style.borderColor = '#16a34a';
+        banner.style.color = '#14532d';
+        
+        setTimeout(() => {
+            banner.innerHTML = originalHTML;
+            banner.style.background = '';
+            banner.style.borderColor = '';
+            banner.style.color = '';
+        }, 5000);
+    }
 }
 
 function formatTime(time) {
@@ -480,6 +527,30 @@ function renderBlockedSlotsList() {
     
     list.innerHTML = html;
 }
+
+function clearTestBooking() {
+    if (confirm('Clear all test bookings? This will remove all bookings from localStorage.')) {
+        localStorage.removeItem('mm_bookings');
+        renderAvailabilityCalendar();
+        alert('Test bookings cleared!');
+    }
+}
+
+// Keyboard shortcut to toggle admin controls (Ctrl+Shift+A)
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+        e.preventDefault();
+        const adminControls = document.getElementById('adminControls');
+        if (adminControls) {
+            if (adminControls.style.display === 'none') {
+                adminControls.style.display = 'block';
+                adminControls.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                adminControls.style.display = 'none';
+            }
+        }
+    }
+});
 
 // Mobile nav toggle and initialization
 document.addEventListener('DOMContentLoaded', function(){

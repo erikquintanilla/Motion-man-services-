@@ -133,12 +133,15 @@ body{
 .day-name{font-weight:600;color:var(--muted);margin-bottom:8px;display:block}
 .slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .slot-item{padding:10px;border-radius:8px;text-align:center;font-size:0.9rem;font-weight:600;transition:all 0.2s ease}
-.slot-available{background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#15803d;border:2px solid #16a34a}
-.slot-booked{background:linear-gradient(135deg,#fee2e2,#fecaca);color:#991b1b;border:2px solid #dc2626;text-decoration:line-through;opacity:0.7}
-.slot-blocked{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;border:2px solid #f59e0b}
-.admin-controls{margin-top:16px;background:#fff;border-radius:10px;padding:12px}
-.admin-controls summary{cursor:pointer;font-weight:600;color:var(--muted);padding:8px;user-select:none}
-.admin-controls summary:hover{color:var(--accent)}
+.slot-available{background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#15803d;border:2px solid #16a34a;cursor:pointer}
+.slot-available:hover{transform:scale(1.05);box-shadow:0 6px 16px rgba(22,163,74,0.3);border-color:#15803d}
+.slot-available:active{transform:scale(0.98)}
+.slot-available.selected{background:linear-gradient(135deg,#0891b2,#0e7490);color:#fff;border-color:#0891b2;box-shadow:0 0 0 3px rgba(8,145,178,0.3)}
+.slot-booked{background:linear-gradient(135deg,#fee2e2,#fecaca);color:#991b1b;border:2px solid #dc2626;text-decoration:line-through;opacity:0.7;cursor:not-allowed}
+.slot-blocked{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;border:2px solid #f59e0b;cursor:not-allowed}
+.admin-controls{margin-top:16px;background:#fff;border-radius:10px;padding:16px;border:2px solid #f59e0b}
+.admin-controls h4{margin-top:0;color:#92400e}
+.admin-controls kbd{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-family:monospace;font-size:0.85rem;border:1px solid #cbd5e1}
 .admin-panel{padding:16px 8px 8px 8px}
 .admin-form{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .admin-form input,.admin-form button{padding:8px 12px;border-radius:8px;border:1px solid #e5e7eb}
