@@ -643,25 +643,28 @@ function selectService(serviceName, estimatedHours) {
     }
 }
 
-// Cancel booking and return to services
-function cancelBooking() {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-        contactSection.style.display = 'none';
-    }
-    
-    // Scroll back to services
-    const servicesSection = document.getElementById('services');
-    if (servicesSection) {
-        servicesSection.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
-        });
-    }
-    
-    // Reset form
-    const form = document.getElementById('bookingForm');
-    if (form) {
-        form.reset();
+// Toggle FAQ visibility
+function toggleFAQ() {
+    const content = document.getElementById('faqContent');
+    const button = event.target;
+
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        button.textContent = '❌ Hide FAQs';
+        button.classList.remove('primary');
+        button.classList.add('ghost');
+
+        // Smooth scroll to content
+        setTimeout(() => {
+            content.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }, 100);
+    } else {
+        content.style.display = 'none';
+        button.textContent = '❓ View Frequently Asked Questions';
+        button.classList.remove('ghost');
+        button.classList.add('primary');
     }
 }

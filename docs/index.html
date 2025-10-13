@@ -19,9 +19,8 @@
                 <nav class="nav" aria-label="Main navigation">
                     <ul>
                         <li><a href="#services">Services</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#testimonials">Reviews</a></li>
+                        <li><a href="#why">Reviews</a></li>
+                        <li><a href="#faq" onclick="toggleFAQ()">FAQ</a></li>
                         <li><a href="#contact" class="cta">Book</a></li>
                     </ul>
                 </nav>
@@ -58,6 +57,9 @@
             <section id="services" class="container services">
                 <h2 class="section-title-gradient">Services I Offer</h2>
                 <p class="section-sub">One-person operation — affordable and direct. Weekend-only service focused on getting your property looking great.</p>
+                <div class="booking-instruction">
+                    <p><strong>💡 How to book:</strong> Choose a service below, then click the blue "Book" button. This will take you to the booking form where you can select your preferred weekend time slot.</p>
+                </div>
                 
                 <!-- Core Services Row -->
                 <div class="services-core-row">
@@ -194,9 +196,11 @@
                 </div>
             </section>
 
-            <section id="faq" class="container faq">
-                <h2 class="section-title-gradient">Frequently Asked Questions</h2>
-                <div class="faq-grid">
+            <section id="faq" class="container faq" style="display:none;">
+                <div class="faq-toggle">
+                    <button class="btn primary" onclick="toggleFAQ()">❓ View Frequently Asked Questions</button>
+                </div>
+                <div class="faq-content" id="faqContent" style="display:none;">
                     <div class="faq-item">
                         <h3>How does booking work?</h3>
                         <p><strong>1.</strong> Choose a service above and pick a weekend date & time.<br>
