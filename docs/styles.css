@@ -197,17 +197,33 @@ body{
 
 /* Booking instruction section */
 .booking-instruction{
-  background:linear-gradient(90deg,#e0f2fe,#f0f9ff);
-  border:1px solid rgba(3,105,161,0.1);
-  border-radius:12px;
-  padding:16px;
-  margin:16px 0 24px 0;
+  background:linear-gradient(135deg,#e0f2fe 0%,#f0f9ff 50%,#e6f6ff 100%);
+  border:2px solid var(--accent);
+  border-radius:16px;
+  padding:24px;
+  margin:24px 0 32px 0;
+  text-align:left;
+  box-shadow:0 4px 12px rgba(3,105,161,0.15);
+}
+.booking-instruction h3{
+  margin-top:0;
+  color:var(--accent);
+  font-size:1.3rem;
   text-align:center;
+  margin-bottom:16px;
 }
 .booking-instruction p{
-  margin:0;
-  color:var(--accent);
-  font-weight:600;
+  margin:12px 0;
+  color:#0f172a;
+  font-size:1.05rem;
+  line-height:1.6;
+}
+.booking-instruction strong{
+  color:var(--accent-600);
+}
+.booking-instruction div:last-child{
+  text-align:center;
+  font-weight:700;
 }
 
 /* Small hero button for booking section */
@@ -667,12 +683,17 @@ body{
   
   /* Booking instruction - mobile */
   .booking-instruction{
-    margin:12px 0 20px 0;
-    padding:14px;
+    margin:16px 0 24px 0;
+    padding:20px;
+    border-radius:12px;
+  }
+  .booking-instruction h3{
+    font-size:1.15rem;
+    margin-bottom:12px;
   }
   .booking-instruction p{
-    font-size:0.9rem;
-    line-height:1.5;
+    font-size:0.95rem;
+    margin:10px 0;
   }
   
   /* FAQ - compact */
