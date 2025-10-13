@@ -36,17 +36,107 @@
                         <h1>Motion Man Services — <span class="accent">Quick, Honest Help for Your Weekend Jobs</span></h1>
                         <p class="lead">Garage cleanup, yard work, patio sweeping, and event help across Oakland.<br>Book in minutes. Weekend service only — I come to you.</p>
                         <div class="hero-cta">
-                            <button class="btn hero-primary" onclick="showSection('services')">See Services & Prices</button>
-                            <a class="btn hero-secondary" href="#contact">Book a Weekend Slot</a>
+                            <a class="btn hero-primary" href="#services">Book a Weekend Slot</a>
                         </div>
-                        <div class="badges">
-                            <span class="badge highlight">Weekend availability</span>
-                            <span class="badge cheap">Straightforward pricing</span>
-                            <span class="badge">I come to you</span>
+                        <div class="service-area-badge" id="serviceAreaBadge">
+                            <span class="area-text">📍 Service Areas: Oakland • Emeryville • San Leandro • Fruitvale • Coliseum • Seminary</span>
+                            <div class="area-tooltip" id="areaTooltip">
+                                <strong>We Serve:</strong><br>
+                                • Oakland (Seminary, Fruitvale, Coliseum)<br>
+                                • Emeryville<br>
+                                • San Leandro<br>
+                                • Nearby East Bay areas
+                            </div>
                         </div>
                     </div>
                     <div class="hero-art">
                         <img src="./imagesfolder/blog-oakland-lake_MG_8384.c95b2b72.fill-1800x1200.jpg" alt="Oakland Lake Park" style="width:100%;height:220px;object-fit:cover;border-radius:16px;box-shadow:var(--shadow)" />
+                    </div>
+                </div>
+            </section>
+
+            <section id="services" class="container services">
+                <h2 class="section-title-gradient">Services I Offer</h2>
+                <p class="section-sub">One-person operation — affordable and direct. Weekend-only service focused on getting your property looking great.</p>
+                
+                <!-- Core Services Row -->
+                <div class="services-core-row">
+                    <article class="service-card service-garage hover-lift">
+                        <h3>📦 Garage Cleanup & Organization</h3>
+                        <p class="emotional-hook">Stop avoiding your garage. I'll sort through the chaos, sweep it clean, and organize everything so you can actually use the space.</p>
+                        <p>Sorting, sweeping, debris removal, and organizing items into bins. Perfect for seasonal cleanouts or finally tackling that cluttered garage.</p>
+                        <ul class="features">
+                            <li>Complete sorting and organization</li>
+                            <li>Sweeping and debris removal</li>
+                            <li>Items organized into bins/zones</li>
+                            <li>Flat rate: 1.5–2 hours of focused work</li>
+                        </ul>
+                        <div class="price"><span class="price-amount">$50–70</span> <span class="muted">flat rate</span></div>
+                        <div class="muted">Add-ons: +$15 larger garages · +$10 debris haul</div>
+                        <button class="btn-book-service" onclick="selectService('Garage Cleanup & Organization', 2)">📦 Book Garage Cleanup →</button>
+                    </article>
+
+                    <article class="service-card service-yard hover-lift">
+                        <h3>🌿 Yard Cleanup</h3>
+                        <p class="emotional-hook">Get your outdoor space back without spending your Saturday doing it. I'll clear the mess and leave it looking fresh.</p>
+                        <p>Debris removal, leaf & branch pickup, bagging, and light pruning. Perfect for seasonal refreshes or getting ready for guests.</p>
+                        <ul class="features">
+                            <li>Leaf & branch pickup and bagging</li>
+                            <li>Light pruning and trimming</li>
+                            <li>Debris hauling for small loads</li>
+                            <li>Small yard focus: 1–1.5 hours</li>
+                        </ul>
+                        <div class="price"><span class="price-amount">$50–60</span> <span class="muted">flat rate</span></div>
+                        <div class="muted">Add-ons: +$15 larger yards · +$10 extra debris haul</div>
+                        <button class="btn-book-service" onclick="selectService('Yard Cleanup', 1.5)">🌿 Book Yard Cleanup →</button>
+                    </article>
+
+                    <article class="service-card service-patio hover-lift">
+                        <h3>🧹 Patio & Driveway Sweeping</h3>
+                        <p class="emotional-hook">Transform your outdoor spaces from cluttered to clean. I'll sweep away dirt, leaves, and cobwebs so you can enjoy your patio again.</p>
+                        <p>Complete sweeping of patios, driveways, and walkways. Includes cobweb removal, outdoor window wiping, and debris cleanup.</p>
+                        <ul class="features">
+                            <li>Patio, driveway & walkway sweeping</li>
+                            <li>Cobweb removal from outdoor areas</li>
+                            <li>Outdoor window wiping (ground level)</li>
+                            <li>Debris bagging and removal</li>
+                        </ul>
+                        <div class="price"><span class="price-amount">$30</span> <span class="muted">flat rate</span></div>
+                        <div class="muted">Add-ons: +$10 larger areas · +$5 pressure washing spot clean</div>
+                        <button class="btn-book-service" onclick="selectService('Patio & Driveway Sweeping', 1)">🧹 Book Patio Sweeping →</button>
+                    </article>
+
+                    <article class="service-card service-event hover-lift">
+                        <h3>🎉 Event Setup & Takedown Helper</h3>
+                        <p class="emotional-hook">Focus on your guests, not the heavy lifting. I'll help set up tables, chairs, decorations, and clean up afterward.</p>
+                        <p>Perfect for birthdays, community events, or family gatherings. Includes setup assistance, breakdown, and basic cleanup.</p>
+                        <ul class="features">
+                            <li>Table & chair setup/breakdown</li>
+                            <li>Decoration hanging & removal</li>
+                            <li>Trash collection & cleanup</li>
+                            <li>2-hour minimum booking</li>
+                        </ul>
+                        <div class="price"><span class="price-amount">$20/hour</span> <span class="muted">2hr minimum</span></div>
+                        <div class="muted">Perfect for: Birthdays · BBQs · Community events · Family gatherings</div>
+                        <button class="btn-book-service" onclick="selectService('Event Setup & Takedown Helper', 2)">🎉 Book Event Helper →</button>
+                    </article>
+                </div>
+                
+                <!-- Bundle Spotlight - Stands Out -->
+                <div class="bundle-spotlight">
+                    <div class="limited-bundle-offer hover-lift">
+                        <div class="bundle-badge">🔥 Most Popular</div>
+                        <div class="bundle-ribbon">
+                            <span class="discount-percent">20% OFF</span>
+                        </div>
+                        <h3>🏠 Home Refresh Bundle</h3>
+                        <p class="bundle-description">Get your <strong>garage, yard, AND patio</strong> all cleaned in one weekend visit!</p>
+                        <div class="bundle-pricing">
+                            <span class="original-price">Regular: $130–$160</span>
+                            <span class="bundle-price">💵 Bundle Price: <strong>$120</strong></span>
+                        </div>
+                        <p class="bundle-savings"><strong>Save $10–$40!</strong> Perfect for refreshing your entire home exterior.</p>
+                        <button class="btn-book-service" onclick="selectService('Home Refresh Bundle (Garage + Yard + Patio)', 3.5)">🏠 Book Home Refresh Bundle →</button>
                     </div>
                 </div>
             </section>
@@ -104,185 +194,22 @@
                 </div>
             </section>
 
-            <section id="services" class="container services" style="display:none;">
-                <h2 class="section-title-gradient">Services I Offer</h2>
-                <p class="section-sub">One-person operation — affordable and direct. Weekend-only service focused on getting your property looking great.</p>
-                
-                <!-- Bundles Row - Top Priority -->
-                <div class="services-bundles-row">
-                    <div class="limited-bundle-offer hover-lift">
-                        <div class="bundle-badge">🔥 Most Popular</div>
-                        <div class="bundle-ribbon">
-                            <span class="discount-percent">20% OFF</span>
-                        </div>
-                        <h3>🏠 Home Refresh Bundle</h3>
-                        <p class="bundle-description">Get your <strong>garage, yard, AND patio</strong> all cleaned in one weekend visit!</p>
-                        <div class="bundle-pricing">
-                            <span class="original-price">Regular: $130–$160</span>
-                            <span class="bundle-price">💵 Bundle Price: <strong>$120</strong></span>
-                        </div>
-                        <p class="bundle-savings"><strong>Save $10–$40!</strong> Perfect for refreshing your entire home exterior.</p>
-                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Home Refresh Bundle (Garage + Yard + Patio)', 3.5); return true;">Book Home Refresh</a>
-                    </div>
-                    
-                    <article class="service-card service-event hover-lift">
-                        <h3>🎉 Event Setup & Takedown Helper</h3>
-                        <p class="emotional-hook">Focus on your guests, not the heavy lifting. I'll help set up tables, chairs, decorations, and clean up afterward.</p>
-                        <p>Perfect for birthdays, community events, or family gatherings. Includes setup assistance, breakdown, and basic cleanup.</p>
-                        <ul class="features">
-                            <li>Table & chair setup/breakdown</li>
-                            <li>Decoration hanging & removal</li>
-                            <li>Trash collection & cleanup</li>
-                            <li>2-hour minimum booking</li>
-                        </ul>
-                        <div class="price"><span class="price-amount">$20/hour</span> <span class="muted">2hr minimum</span></div>
-                        <div class="muted">Perfect for: Birthdays · BBQs · Community events · Family gatherings</div>
-                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Event Setup & Takedown Helper', 2); return true;">Book Event Helper</a>
-                    </article>
-                </div>
-                
-                <!-- Core Services Row -->
-                <div class="services-core-row">
-                    <article class="service-card service-garage hover-lift">
-                        <h3>📦 Garage Cleanup & Organization</h3>
-                        <p class="emotional-hook">Stop avoiding your garage. I'll sort through the chaos, sweep it clean, and organize everything so you can actually use the space.</p>
-                        <p>Sorting, sweeping, debris removal, and organizing items into bins. Perfect for seasonal cleanouts or finally tackling that cluttered garage.</p>
-                        <ul class="features">
-                            <li>Complete sorting and organization</li>
-                            <li>Sweeping and debris removal</li>
-                            <li>Items organized into bins/zones</li>
-                            <li>Flat rate: 1.5–2 hours of focused work</li>
-                        </ul>
-                        <div class="price"><span class="price-amount">$50–70</span> <span class="muted">flat rate</span></div>
-                        <div class="muted">Add-ons: +$15 larger garages · +$10 debris haul</div>
-                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Garage Cleanup & Organization', 2); return true;">Book Garage Cleanup</a>
-                    </article>
-
-                    <article class="service-card service-yard hover-lift">
-                        <h3>🌿 Yard Cleanup</h3>
-                        <p class="emotional-hook">Get your outdoor space back without spending your Saturday doing it. I'll clear the mess and leave it looking fresh.</p>
-                        <p>Debris removal, leaf & branch pickup, bagging, and light pruning. Perfect for seasonal refreshes or getting ready for guests.</p>
-                        <ul class="features">
-                            <li>Leaf & branch pickup and bagging</li>
-                            <li>Light pruning and trimming</li>
-                            <li>Debris hauling for small loads</li>
-                            <li>Small yard focus: 1–1.5 hours</li>
-                        </ul>
-                        <div class="price"><span class="price-amount">$50–60</span> <span class="muted">flat rate</span></div>
-                        <div class="muted">Add-ons: +$15 larger yards · +$10 extra debris haul</div>
-                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Yard Cleanup', 1.5); return true;">Book Yard Cleanup</a>
-                    </article>
-
-                    <article class="service-card service-patio hover-lift">
-                        <h3>🧹 Patio & Driveway Sweeping</h3>
-                        <p class="emotional-hook">Transform your outdoor spaces from cluttered to clean. I'll sweep away dirt, leaves, and cobwebs so you can enjoy your patio again.</p>
-                        <p>Complete sweeping of patios, driveways, and walkways. Includes cobweb removal, outdoor window wiping, and debris cleanup.</p>
-                        <ul class="features">
-                            <li>Patio, driveway & walkway sweeping</li>
-                            <li>Cobweb removal from outdoor areas</li>
-                            <li>Outdoor window wiping (ground level)</li>
-                            <li>Debris bagging and removal</li>
-                        </ul>
-                        <div class="price"><span class="price-amount">$30</span> <span class="muted">flat rate</span></div>
-                        <div class="muted">Add-ons: +$10 larger areas · +$5 pressure washing spot clean</div>
-                        <a class="btn btn-book" href="#contact" onclick="prefillBooking('Patio & Driveway Sweeping', 1); return true;">Book Patio Sweeping</a>
-                    </article>
-                </div>
-            </section>
-
-            <section id="pricing" class="container pricing" style="display:none;">
-                <h2 class="section-title-gradient">Quick Pricing (Oakland)</h2>
-                <p class="section-sub">Straightforward starter pricing — I keep costs down by operating solo and focusing on weekends. <strong>Click any card to book instantly.</strong></p>
-                
-                <div class="price-calculator">
-                    <h3>📊 Quick Price Estimate</h3>
-                    <div class="calculator-grid">
-                        <label class="calc-option">
-                            <input type="checkbox" class="calc-checkbox" data-service="garage" data-min="50" data-max="70">
-                            <span class="calc-label">Garage Cleanup ($50-70)</span>
-                        </label>
-                        <label class="calc-option">
-                            <input type="checkbox" class="calc-checkbox" data-service="yard" data-min="50" data-max="60">
-                            <span class="calc-label">Yard Cleanup ($50-60)</span>
-                        </label>
-                        <label class="calc-option">
-                            <input type="checkbox" class="calc-checkbox" data-service="patio" data-min="30" data-max="30">
-                            <span class="calc-label">Patio Sweeping ($30)</span>
-                        </label>
-                        <label class="calc-option">
-                            <input type="checkbox" class="calc-checkbox" data-service="event" data-min="40" data-max="40">
-                            <span class="calc-label">Event Helper ($40 - 2hr min)</span>
-                        </label>
-                    </div>
-                    <div class="calc-result">
-                        <div class="calc-total">
-                            <span class="calc-label-text">Your Estimated Total:</span>
-                            <span class="calc-amount" id="calcTotal">$0</span>
-                        </div>
-                        <div class="calc-bundle" id="calcBundle" style="display:none;">
-                            <span class="bundle-label">🎁 Bundle Price Available:</span>
-                            <span class="bundle-amount" id="bundlePrice">$120</span>
-                            <span class="bundle-savings" id="bundleSavings">Save $10-40!</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid price-grid">
-                    <div class="price-card clickable" onclick="prefillBooking('Garage Cleanup & Organization', 2)">
-                        <h4>Garage Cleanup & Organization</h4>
-                        <p><strong class="accent">$50–70</strong> — Flat rate (1.5–2 hrs)</p>
-                        <p class="small-muted">Sorting, sweeping, debris removal, organizing into bins</p>
-                    </div>
-                    <div class="price-card clickable" onclick="prefillBooking('Yard Cleanup', 1.5)">
-                        <h4>Yard Cleanup</h4>
-                        <p><strong class="accent">$50–60</strong> — Small yard (1–1.5 hrs)</p>
-                        <p class="small-muted">Leaf & branch pickup, bagging, light pruning</p>
-                    </div>
-                    <div class="price-card clickable" onclick="prefillBooking('Patio & Driveway Sweeping', 1)">
-                        <h4>Patio & Driveway Sweeping</h4>
-                        <p><strong class="accent">$30</strong> — Flat rate (1 hr)</p>
-                        <p class="small-muted">Sweeping, cobweb removal, outdoor window wiping</p>
-                    </div>
-                    <div class="price-card clickable bundle-card" onclick="prefillBooking('Home Refresh Bundle (Garage + Yard + Patio)', 3.5)">
-                        <h4>🏠 Home Refresh Bundle</h4>
-                        <p><strong class="accent">$120</strong> — <span class="strikethrough">$130–160</span></p>
-                        <p class="small-muted">3 services: garage + yard + patio sweeping</p>
-                    </div>
-                    <div class="price-card clickable" onclick="prefillBooking('Event Setup & Takedown Helper', 2)">
-                        <h4>🎉 Event Setup Helper</h4>
-                        <p><strong class="accent">$20/hour</strong> — 2hr minimum</p>
-                        <p class="small-muted">Setup, breakdown, cleanup for events & parties</p>
-                    </div>
-                </div>
-                <p class="note" style="margin-top:1.5rem;text-align:center;"><strong>Trust-building pricing:</strong> These are starter rates to earn your trust and word-of-mouth. After I build a solid client base (5–10 clients), prices may adjust slightly — but early customers get the best deals.</p>
-            </section>
-
-            <section id="how" class="container how">
-                <h2>How Booking Works</h2>
-                <ol class="steps">
-                    <li><strong>Choose a service</strong> and pick a weekend date & time.</li>
-                    <li><strong>I confirm</strong> — You get an instant calendar file to add to your calendar and I'll follow up by email within 24 hours.</li>
-                    <li><strong>I show up</strong> — Pay cash after the job. Exact pricing confirmed before work starts.</li>
-                </ol>
-                <div class="note important">Important: I operate on weekends only (Sat & Sun). Please select a weekend date when booking.</div>
-                <div class="note" style="margin-top:12px;">🌧️ <strong>Weather Policy:</strong> Outdoor services (yard/garage) may be rescheduled for heavy rain. I'll contact you 24 hours before if weather looks bad. No cancellation fees — we'll find another weekend that works.</div>
-                <div class="note" style="margin-top:12px;">📍 <strong>Service Area:</strong> Serving Seminary, Oakland, Emeryville, Fruitvale, Coliseum, San Leandro, and nearby East Bay areas.</div>
-                
-                <div style="text-align:center;margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-                    <button class="btn primary" onclick="showSection('pricing')" style="min-width:200px;">📊 Use Price Calculator</button>
-                    <button class="btn ghost" onclick="showSection('faq')" style="min-width:200px;">❓ View FAQs</button>
-                </div>
-            </section>
-            
-            <section id="faq" class="container faq" style="display:none;">
+            <section id="faq" class="container faq">
                 <h2 class="section-title-gradient">Frequently Asked Questions</h2>
                 <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>How does booking work?</h3>
+                        <p><strong>1.</strong> Choose a service above and pick a weekend date & time.<br>
+                        <strong>2.</strong> I confirm within 24 hours via email and send you a calendar file.<br>
+                        <strong>3.</strong> I show up on your scheduled day. Pay cash after the job is complete.</p>
+                    </div>
                     <div class="faq-item">
                         <h3>Do I need to be home during service?</h3>
                         <p>For garage, yard, and patio cleanup, yes — I'll need access and may have questions about what to keep or toss. For event setup, coordination is helpful but not required once we discuss the plan.</p>
                     </div>
                     <div class="faq-item">
                         <h3>What if it rains on my scheduled day?</h3>
-                        <p>I'll contact you 24 hours before if heavy rain is forecasted. We'll reschedule at no charge to another weekend that works for you.</p>
+                        <p>I'll contact you 24 hours before if heavy rain is forecasted. We'll reschedule at no charge to another weekend that works for you. <strong>No cancellation fees.</strong></p>
                     </div>
                     <div class="faq-item">
                         <h3>Do you bring your own supplies and equipment?</h3>
@@ -304,32 +231,61 @@
                         <h3>What's included in event setup service?</h3>
                         <p>Table & chair setup, decoration hanging, basic cleanup after your event. Perfect for birthdays, BBQs, or family gatherings. 2-hour minimum ensures enough time for proper setup and breakdown.</p>
                     </div>
+                    <div class="faq-item">
+                        <h3>What areas do you serve?</h3>
+                        <p>Seminary, Oakland, Emeryville, Fruitvale, Coliseum, San Leandro, and nearby East Bay areas. <strong>Weekend service only (Sat & Sun).</strong></p>
+                    </div>
                 </div>
             </section>
 
-            <section id="contact" class="container contact">
-                <h2>Book a Weekend Slot</h2>
+            <section id="contact" class="container contact" style="display:none;">
+                <h2>Complete Your Booking</h2>
                 
-                <div class="urgency-banner" id="urgencyBanner">
-                    ⏰ <strong>Weekend Slots Fill Fast!</strong> Only 16 slots available per weekend. Book by Wednesday to secure your spot.
+                <!-- Progress Indicator -->
+                <div class="booking-progress">
+                    <div class="progress-step completed">
+                        <div class="progress-number">1</div>
+                        <span class="progress-label">Service Selected</span>
+                    </div>
+                    <div class="progress-step active">
+                        <div class="progress-number">2</div>
+                        <span class="progress-label">Choose Date & Time</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-number">3</div>
+                        <span class="progress-label">Your Info</span>
+                    </div>
+                </div>
+
+                <div class="note important" style="margin-bottom:1.5rem;">
+                    <strong>✅ Selected Service:</strong> <span id="selectedServiceDisplay" style="font-size:1.1rem;color:var(--accent);font-weight:700;"></span><br>
+                    <strong>💳 No payment upfront.</strong> Pay cash after the job is done.
                 </div>
                 
-                <div class="note important" style="margin-bottom:1.5rem;margin-top:1.5rem;">
-                    <strong>💳 No payment required upfront.</strong> Booking holds your spot; I'll confirm personally within 24 hours. Pay cash after the job is done — simple and straightforward.
-                </div>
                 <form class="contact-form" id="bookingForm" action="#" onsubmit="handleBooking(event)">
                     <div class="form-row">
-                        <label for="name">Your full name</label>
-                        <input id="name" name="name" type="text" required placeholder="Your name" />
+                        <label for="name">Your full name *</label>
+                        <input id="name" name="name" type="text" required placeholder="John Doe" />
                     </div>
+                    
                     <div class="form-row">
-                        <label for="email">Email</label>
+                        <label for="email">Email *</label>
                         <input id="email" name="email" type="email" required placeholder="you@example.com" />
                     </div>
 
                     <div class="form-row">
-                        <label for="phone">Phone</label>
-                        <input id="phone" name="phone" type="tel" placeholder="(510) 978-0413" required />
+                        <label for="phone">Phone *</label>
+                        <input id="phone" name="phone" type="tel" placeholder="(510) 555-1234" required />
+                    </div>
+                    
+                    <div class="form-row">
+                        <label for="contactMethod">Preferred contact method *</label>
+                        <select id="contactMethod" name="contactMethod" required>
+                            <option value="">Select method...</option>
+                            <option value="email">Email</option>
+                            <option value="phone">Phone call</option>
+                            <option value="text">Text message</option>
+                        </select>
                     </div>
                     
                     <div class="form-row">
@@ -338,21 +294,12 @@
                         <small class="form-hint">Have a friend's referral code? Enter it here for $10 off!</small>
                     </div>
 
-                    <div class="form-row">
-                        <label for="service">Service</label>
-                        <select id="service" name="service">
-                            <option>Garage Cleanup & Organization</option>
-                            <option>Yard Cleanup</option>
-                            <option>Patio & Driveway Sweeping</option>
-                            <option>Event Setup & Takedown Helper</option>
-                            <option>Home Refresh Bundle (Garage + Yard + Patio)</option>
-                        </select>
-                        <button type="button" onclick="showSection('services')" class="hero-button-small">📋 See all services & prices</button>
-                    </div>
+                    <input type="hidden" id="service" name="service" />
+                    <input type="hidden" id="estimatedHours" name="estimatedHours" />
 
                     <div class="form-row form-slot-selection">
-                        <label>Select Available Time Slot</label>
-                        <p class="form-hint" style="margin-bottom:12px;">Click any green slot below to select your preferred time</p>
+                        <label>Select Available Time Slot *</label>
+                        <p class="form-hint" style="margin-bottom:12px;">⏰ <strong>Weekend only:</strong> Click any green slot below to select your preferred time</p>
                         <div class="form-availability-calendar" id="formAvailabilityCalendar">
                             <!-- Dynamically populated by JavaScript -->
                         </div>
@@ -361,38 +308,41 @@
                     </div>
 
                     <div class="form-row">
-                        <label for="hours">Estimated hours (for moving jobs)</label>
-                        <input id="hours" name="hours" type="number" min="1" max="8" value="2" />
+                        <label for="address">Service Address *</label>
+                        <input id="address" name="address" type="text" required placeholder="123 Main St, Oakland, CA 94601" />
+                        <small class="form-hint">Where should I come to?</small>
                     </div>
 
                     <div class="form-row">
-                        <label for="details">Details (address, brief notes)</label>
-                        <textarea id="details" name="details" rows="3"></textarea>
+                        <label for="specialRequests">Special Requests or Notes</label>
+                        <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Any specific areas to focus on? Access instructions? Parking details?"></textarea>
+                        <small class="form-hint">Optional: Let me know any special requests or important details</small>
                     </div>
 
                     <div class="form-row form-actions">
-                        <button class="btn primary" type="submit">Confirm Booking</button>
-                        <button class="btn ghost" type="reset">Clear</button>
+                        <button class="btn primary" type="submit">✅ Confirm Booking</button>
+                        <button class="btn ghost" type="button" onclick="cancelBooking()">Cancel</button>
                     </div>
-                    <p class="form-note"><strong>Your privacy matters:</strong> I'll confirm within 24 hours via email. No payment required upfront — pay cash after the job is complete. The calendar file you download reserves the slot on your device.</p>
+                    <p class="form-note"><strong>📧 What happens next:</strong> I'll confirm within 24 hours via your preferred contact method. You'll receive a calendar file to add the appointment to your calendar. No payment required upfront.</p>
                 </form>
                 <div id="bookingResult" class="booking-result" aria-live="polite"></div>
 
                 <div class="contact-methods-below-form">
                     <h3>Prefer to talk instead?</h3>
-                    <div class="contact-methods">
+                    <div class="contact-methods" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
                         <a href="tel:+15109780413" class="contact-btn call-btn">
                             📞 Call Now<br><span>(510) 978-0413</span>
                         </a>
                         <a href="sms:+15109780413" class="contact-btn text-btn">
                             💬 Text Me<br><span>(510) 978-0413</span>
                         </a>
-                        <a href="mailto:Erikquintanilla990@gmail.com" class="contact-btn email-btn">
-                            ✉️ Email<br><span>Quick Response</span>
+                        <a href="mailto:erik@motionman.com" class="contact-btn email-btn">
+                            ✉️ Email<br><span>erik@motionman.com</span>
                         </a>
                     </div>
                 </div>
             </section>
+
         </main>
 
         <footer class="site-footer">

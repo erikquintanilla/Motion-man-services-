@@ -68,6 +68,140 @@ body{
 .hero-cta .hero-primary{background:linear-gradient(90deg,var(--accent),var(--accent-600));color:#fff;border:none;padding:14px 24px;font-size:1.05rem;box-shadow:0 6px 18px rgba(3,105,161,0.25)}
 .hero-cta .hero-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(3,105,161,0.35)}
 .hero-cta .hero-secondary{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:10px 18px;font-size:0.95rem;font-weight:600}
+.hero-cta .hero-secondary:hover{background:var(--glass);box-shadow:0 6px 16px rgba(3,105,161,0.25)}
+
+/* Service Area Badge with Hover */
+.service-area-badge{
+  margin-top:16px;
+  position:relative;
+  display:inline-block;
+}
+.area-text{
+  color:var(--muted);
+  font-size:0.9rem;
+  cursor:help;
+  padding:8px 12px;
+  background:linear-gradient(90deg,#f0f9ff,#f8fafc);
+  border-radius:8px;
+  display:inline-block;
+  transition:all 0.2s ease;
+}
+.area-text:hover{
+  background:linear-gradient(90deg,#e0f2fe,#f0f9ff);
+  color:var(--accent);
+}
+.area-tooltip{
+  position:absolute;
+  top:100%;
+  left:0;
+  margin-top:8px;
+  background:#fff;
+  border:2px solid var(--accent);
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 8px 24px rgba(3,105,161,0.2);
+  opacity:0;
+  visibility:hidden;
+  transition:all 0.3s ease;
+  z-index:100;
+  min-width:280px;
+  line-height:1.6;
+}
+.service-area-badge:hover .area-tooltip{
+  opacity:1;
+  visibility:visible;
+}
+
+/* Progress Indicator */
+.booking-progress{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:24px;
+  position:relative;
+}
+.progress-step{
+  flex:1;
+  text-align:center;
+  padding:12px;
+  position:relative;
+}
+.progress-step::before{
+  content:'';
+  position:absolute;
+  top:20px;
+  left:0;
+  right:0;
+  height:3px;
+  background:#e5e7eb;
+  z-index:0;
+}
+.progress-step:first-child::before{
+  left:50%;
+}
+.progress-step:last-child::before{
+  right:50%;
+}
+.progress-number{
+  display:inline-block;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  border-radius:50%;
+  background:#e5e7eb;
+  color:var(--muted);
+  font-weight:700;
+  position:relative;
+  z-index:1;
+  margin:0 auto;
+}
+.progress-step.active .progress-number{
+  background:var(--accent);
+  color:#fff;
+}
+.progress-step.completed .progress-number{
+  background:#16a34a;
+  color:#fff;
+}
+.progress-label{
+  display:block;
+  margin-top:8px;
+  font-size:0.85rem;
+  color:var(--muted);
+  font-weight:600;
+}
+.progress-step.active .progress-label{
+  color:var(--accent);
+}
+
+/* Prominent Service Buttons */
+.btn-book-service{
+  background:linear-gradient(135deg,var(--accent),var(--accent-600));
+  color:#fff;
+  font-weight:700;
+  padding:14px 24px;
+  margin-top:16px;
+  border-radius:10px;
+  text-decoration:none;
+  display:block;
+  text-align:center;
+  font-size:1.05rem;
+  border:none;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  box-shadow:0 6px 18px rgba(3,105,161,0.3);
+}
+.btn-book-service:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 28px rgba(3,105,161,0.4);
+}
+
+/* Bundle Spotlight */
+.bundle-spotlight{
+  grid-column:1/-1;
+  margin:32px auto;
+  max-width:800px;
+}
+
 /* Small hero button for booking section */
 .hero-button-small{
   background:linear-gradient(90deg,var(--accent),var(--accent-600));
@@ -82,6 +216,7 @@ body{
   box-shadow:0 4px 12px rgba(3,105,161,0.25);
   text-decoration:none;
   display:inline-block;
+  margin-top:10px;
 }
 .hero-button-small:hover{
   transform:translateY(-1px);
@@ -462,6 +597,70 @@ body{
     margin-top:10px;
     width:100%;
     text-align:center;
+  }
+  
+  /* Service area badge - mobile */
+  .service-area-badge{
+    margin-top:12px;
+    width:100%;
+  }
+  .area-text{
+    font-size:0.8rem;
+    padding:8px;
+    text-align:center;
+    display:block;
+  }
+  .area-tooltip{
+    left:50%;
+    transform:translateX(-50%);
+    min-width:90vw;
+    max-width:90vw;
+    font-size:0.85rem;
+  }
+  
+  /* Progress indicator - mobile */
+  .booking-progress{
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:16px;
+  }
+  .progress-step::before{
+    display:none;
+  }
+  .progress-number{
+    width:32px;
+    height:32px;
+    line-height:32px;
+    font-size:0.9rem;
+  }
+  .progress-label{
+    font-size:0.8rem;
+    display:inline-block;
+    margin-left:8px;
+  }
+  .progress-step{
+    display:flex;
+    align-items:center;
+    padding:8px;
+    text-align:left;
+  }
+  
+  /* Prominent service buttons - mobile */
+  .btn-book-service{
+    padding:12px 16px;
+    font-size:0.95rem;
+    margin-top:12px;
+  }
+  
+  /* Bundle spotlight - mobile */
+  .bundle-spotlight{
+    margin:20px 0;
+  }
+  
+  /* Service cards layout - mobile */
+  .services-core-row{
+    grid-template-columns:1fr;
+    gap:12px;
   }
   
   /* FAQ - compact */

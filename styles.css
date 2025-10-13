@@ -1,0 +1,375 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-btn:hover, .nav-btn.active {
+    background: #5a4fcf;
+    transform: translateY(-2px);
+}
+
+/* Main content */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.daily-goals {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    padding: 1.5rem;
+    border-radius: 15px;
+    color: #333;
+}
+
+.daily-goals h2 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.goal-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.goal-current {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.goal-target {
+    color: #7f8c8d;
+}
+
+.quick-actions h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.action-btn {
+    display: block;
+    width: 100%;
+    background: #00b894;
+    color: white;
+    border: none;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: #00a085;
+    transform: translateY(-2px);
+}
+
+.recent-entries h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+/* Food Log */
+.food-log-container h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.food-search {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+#food-search {
+    flex: 1;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.search-btn {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background: #5a4fcf;
+}
+
+.manual-entry {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.manual-entry h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.add-btn {
+    background: #00b894;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+    background: #00a085;
+}
+
+.food-list h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.daily-total {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #e8f5e8;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.daily-total h4 {
+    color: #2c3e50;
+    font-size: 1.2rem;
+}
+
+/* Progress Tracking */
+.progress-container h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.weight-log, .measurements {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.weight-log h3, .measurements h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.log-btn {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.log-btn:hover {
+    background: #5a4fcf;
+}
+
+.weight-history h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.progress-chart {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+/* Reminders */
+.reminders-container h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.reminder-settings, .goals-settings {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.reminder-settings h3, .goals-settings h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.reminder-item {
+    margin-bottom: 1rem;
+}
+
+.reminder-item label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.save-btn {
+    background: #00b894;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+    background: #00a085;
+}
+
+.motivation {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.motivation h3 {
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.quote-btn {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.quote-btn:hover {
+    background: #5a4fcf;
+}
+
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        justify-content: flex-start;
+    }
+
+    header {
+        padding: 1rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+}

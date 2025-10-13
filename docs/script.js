@@ -141,12 +141,14 @@ async function handleBooking(e){
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
+    const contactMethod = document.getElementById('contactMethod')?.value || 'email';
     const service = document.getElementById('service').value;
     const date = document.getElementById('selectedDate').value; // Use hidden field
     const time = document.getElementById('selectedTime').value; // Use hidden field
-    const hours = parseFloat(document.getElementById('hours').value) || 1;
-    const details = document.getElementById('details').value.trim();
-    const referral = document.getElementById('referral').value.trim().toUpperCase();
+    const hours = parseFloat(document.getElementById('estimatedHours')?.value) || 1;
+    const address = document.getElementById('address')?.value.trim() || '';
+    const specialRequests = document.getElementById('specialRequests')?.value.trim() || '';
+    const referral = document.getElementById('referral')?.value.trim().toUpperCase() || '';
 
     if (!isWeekend(date)){
         alert('Please select a Saturday or Sunday. I operate on weekends only.');
@@ -161,20 +163,21 @@ async function handleBooking(e){
 
     const summary = service + ' — Motion Man Booking';
     const referralNote = referral ? `\nReferral Code: ${referral}` : '';
-    const description = `Service: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}${referralNote}\nNotes: ${details}`;
+    const specialNote = specialRequests ? `\nSpecial Requests: ${specialRequests}` : '';
+    const description = `Service: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nPreferred Contact: ${contactMethod}\nAddress: ${address}${referralNote}${specialNote}`;
     const ics = makeICS(summary, description, start, end);
     const filename = `motionman-${service.replace(/\s+/g,'-').toLowerCase()}-${date}.ics`;
 
     // Save booking locally
     const stored = JSON.parse(localStorage.getItem('mm_bookings')||'[]');
-    stored.push({name,email,phone,service,date,time,hours,details,referral,created:Date.now()});
+    stored.push({name,email,phone,contactMethod,service,date,time,hours,address,specialRequests,referral,created:Date.now()});
     localStorage.setItem('mm_bookings', JSON.stringify(stored));
 
     // Offer ICS download and show confirmation
     downloadICS(filename, ics);
     // Also offer a plain-text fallback (some devices don't accept .ics)
     const txtFilename = `motionman-${service.replace(/\s+/g,'-').toLowerCase()}-${date}.txt`;
-    const txtContent = `Booking request\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nDate: ${date} ${time}\nDuration(hrs): ${hours}${referralNote}\nNotes:\n${details}`;
+    const txtContent = `Booking request\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nPreferred Contact: ${contactMethod}\nAddress: ${address}\nDate: ${date} ${time}\nDuration(hrs): ${hours}${referralNote}${specialNote}`;
     downloadTXT(txtFilename, txtContent);
 
     // Try to notify owner via webhook if configured
@@ -183,7 +186,7 @@ async function handleBooking(e){
         try{
             // Send as form-encoded to avoid CORS preflight in most cases
             const params = new URLSearchParams();
-            params.append('data', JSON.stringify({name,email,phone,service,date,time,hours,details,referral,created:Date.now()}));
+            params.append('data', JSON.stringify({name,email,phone,contactMethod,service,date,time,hours,address,specialRequests,referral,created:Date.now()}));
             const resp = await fetch(BOOKING_ENDPOINT, {
                 method: 'POST',
                 headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -203,13 +206,15 @@ async function handleBooking(e){
     else notifyMsg = '<div class="small-muted">No server notification configured. See options below to receive bookings by email or webhook.</div>';
 
     // Create a mailto fallback link (opens user's mail client with prefilled message) so owner can be emailed manually
-    const mailtoBody = encodeURIComponent(`Booking request\n\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nDate: ${date} ${time}\nDuration(hrs): ${hours}${referralNote}\nNotes:\n${details}`);
+    const mailtoBody = encodeURIComponent(`Booking request\n\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nPreferred Contact: ${contactMethod}\nAddress: ${address}\nDate: ${date} ${time}\nDuration(hrs): ${hours}${referralNote}${specialNote}`);
     const mailtoHref = `mailto:Erikquintanilla990@gmail.com?subject=${encodeURIComponent('New booking request - Motion Man')}&body=${mailtoBody}`;
     
     const referralMsg = referral ? `<div style="margin-top:8px;padding:8px;background:#dcfce7;border-radius:8px;"><strong>✅ Referral code applied:</strong> ${referral} — You'll get $10 off!</div>` : '';
 
+    const contactMsg = contactMethod === 'phone' ? 'I will call you' : contactMethod === 'text' ? 'I will text you' : 'I will email you';
+
     result.innerHTML = `
-        <div class="success">Thanks, <strong>${name}</strong> — your request for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is recorded. An .ics file and a plain text file were downloaded for your calendar. ${notifyMsg} I will follow up at <a href=\"mailto:${email}\">${email}</a>.</div>
+        <div class="success">Thanks, <strong>${name}</strong> — your request for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is recorded. An .ics file and a plain text file were downloaded for your calendar. ${notifyMsg} ${contactMsg} at <strong>${contactMethod === 'phone' || contactMethod === 'text' ? phone : email}</strong> within 24 hours.</div>
         ${referralMsg}
         <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
             <button id="copyDetails" class="btn">Copy booking details</button>
@@ -606,5 +611,57 @@ function showSection(sectionId) {
             section.style.transition = 'opacity 0.5s ease-in';
             section.style.opacity = '1';
         }, 300);
+    }
+}
+
+// Hybrid Booking Flow - Select Service
+function selectService(serviceName, estimatedHours) {
+    // Set hidden form fields
+    document.getElementById('service').value = serviceName;
+    document.getElementById('estimatedHours').value = estimatedHours;
+    
+    // Update display
+    document.getElementById('selectedServiceDisplay').textContent = serviceName;
+    
+    // Show booking form
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        contactSection.style.display = 'block';
+        
+        // Smooth scroll to form
+        contactSection.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+        
+        // Update progress indicator
+        const steps = document.querySelectorAll('.progress-step');
+        if (steps.length >= 2) {
+            steps[0].classList.add('completed');
+            steps[1].classList.add('active');
+        }
+    }
+}
+
+// Cancel booking and return to services
+function cancelBooking() {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        contactSection.style.display = 'none';
+    }
+    
+    // Scroll back to services
+    const servicesSection = document.getElementById('services');
+    if (servicesSection) {
+        servicesSection.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
+    
+    // Reset form
+    const form = document.getElementById('bookingForm');
+    if (form) {
+        form.reset();
     }
 }
