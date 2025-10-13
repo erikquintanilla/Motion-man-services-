@@ -237,8 +237,8 @@ async function handleBooking(e){
     }
     
     // Refresh availability calendar after booking
-    if (typeof renderAvailabilityCalendar === 'function') {
-        renderAvailabilityCalendar();
+    if (typeof renderFormAvailabilityCalendar === 'function') {
+        renderFormAvailabilityCalendar();
     }
     
     e.target.reset();
@@ -501,7 +501,7 @@ function blockSlot() {
     blockedSlots.push({ date, time });
     localStorage.setItem('mm_blocked_slots', JSON.stringify(blockedSlots));
     
-    renderAvailabilityCalendar();
+    renderFormAvailabilityCalendar();
     renderBlockedSlotsList();
     
     dateInput.value = '';
@@ -513,7 +513,7 @@ function unblockSlot(date, time) {
     blockedSlots = blockedSlots.filter(b => !(b.date === date && b.time === time));
     localStorage.setItem('mm_blocked_slots', JSON.stringify(blockedSlots));
     
-    renderAvailabilityCalendar();
+    renderFormAvailabilityCalendar();
     renderBlockedSlotsList();
 }
 
@@ -546,7 +546,7 @@ function renderBlockedSlotsList() {
 function clearTestBooking() {
     if (confirm('Clear all test bookings? This will remove all bookings from localStorage.')) {
         localStorage.removeItem('mm_bookings');
-        renderAvailabilityCalendar();
+        renderFormAvailabilityCalendar();
         alert('Test bookings cleared!');
     }
 }
@@ -590,6 +590,9 @@ document.addEventListener('DOMContentLoaded', function(){
     // Initialize availability calendars
     renderFormAvailabilityCalendar();
     renderBlockedSlotsList();
+    
+    // Handle navigation links
+    handleNavigation();
 });
 
 // Show section functionality for collapsible sections
@@ -646,7 +649,13 @@ function selectService(serviceName, estimatedHours) {
 // Toggle FAQ visibility
 function toggleFAQ() {
     const content = document.getElementById('faqContent');
+    const faqSection = document.getElementById('faq');
     const button = event.target;
+
+    // Show FAQ section first
+    if (faqSection) {
+        faqSection.style.display = 'block';
+    }
 
     if (content.style.display === 'none') {
         content.style.display = 'block';
@@ -667,4 +676,64 @@ function toggleFAQ() {
         button.classList.remove('ghost');
         button.classList.add('primary');
     }
+}
+
+// Cancel booking and return to services
+function cancelBooking() {
+    // Clear form
+    const form = document.getElementById('bookingForm');
+    if (form) {
+        form.reset();
+    }
+    
+    // Clear slot selection
+    clearSlotSelection();
+    
+    // Hide contact section
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        contactSection.style.display = 'none';
+    }
+    
+    // Scroll back to services
+    const servicesSection = document.getElementById('services');
+    if (servicesSection) {
+        servicesSection.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
+}
+
+// Handle navigation clicks to show sections
+function handleNavigation() {
+    // Get all navigation links
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            const targetId = href.substring(1); // Remove the #
+            
+            // Don't prevent default for home link
+            if (targetId === 'home' || targetId === '') {
+                return;
+            }
+            
+            e.preventDefault();
+            
+            // Special handling for FAQ
+            if (targetId === 'faq') {
+                showSection('faq');
+                // Also show FAQ content by default
+                const faqContent = document.getElementById('faqContent');
+                if (faqContent && faqContent.style.display === 'none') {
+                    setTimeout(() => toggleFAQ(), 500);
+                }
+            } else {
+                // Show the section
+                showSection(targetId);
+            }
+        });
+    });
 }
