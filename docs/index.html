@@ -353,6 +353,44 @@
                 </div>
             </section>
 
+            <!-- Admin Controls (Ctrl+Shift+A to toggle) -->
+            <section id="adminControls" class="container admin-controls" style="display:none;">
+                <h2 style="color:var(--accent);">🔧 Admin Controls</h2>
+                <p class="small-muted">Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> to hide/show these controls</p>
+                
+                <div class="admin-section">
+                    <h3>📅 View All Bookings</h3>
+                    <div id="bookingsList" class="bookings-list"></div>
+                    <button class="btn ghost" onclick="renderBookingsList()">Refresh Bookings</button>
+                    <button class="btn ghost" onclick="exportBookings()">Export Bookings</button>
+                    <button class="btn ghost" onclick="clearTestBooking()">Clear All Bookings</button>
+                </div>
+
+                <div class="admin-section" style="margin-top:24px;">
+                    <h3>🚫 Block Time Slot</h3>
+                    <p class="small-muted">Block a slot to prevent bookings (e.g., personal time off)</p>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
+                        <input type="date" id="blockDate" style="padding:8px;border:1px solid var(--border);border-radius:8px;" />
+                        <select id="blockTime" style="padding:8px;border:1px solid var(--border);border-radius:8px;">
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                        </select>
+                        <button class="btn primary" onclick="blockSlot()">Block Slot</button>
+                    </div>
+                </div>
+
+                <div class="admin-section" style="margin-top:24px;">
+                    <h3>🔓 Blocked Slots</h3>
+                    <div id="blockedSlotsList" class="blocked-slots-list"></div>
+                </div>
+            </section>
+
         </main>
 
         <footer class="site-footer">

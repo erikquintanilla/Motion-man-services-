@@ -547,8 +547,118 @@ function clearTestBooking() {
     if (confirm('Clear all test bookings? This will remove all bookings from localStorage.')) {
         localStorage.removeItem('mm_bookings');
         renderFormAvailabilityCalendar();
+        renderBookingsList();
         alert('Test bookings cleared!');
     }
+}
+
+// Render bookings list in admin panel
+function renderBookingsList() {
+    const list = document.getElementById('bookingsList');
+    if (!list) return;
+    
+    const bookings = JSON.parse(localStorage.getItem('mm_bookings') || '[]');
+    
+    if (bookings.length === 0) {
+        list.innerHTML = '<p class="small-muted">No bookings yet</p>';
+        return;
+    }
+    
+    // Sort by date and time
+    bookings.sort((a, b) => {
+        const dateA = new Date(a.date + 'T' + a.time);
+        const dateB = new Date(b.date + 'T' + b.time);
+        return dateA - dateB;
+    });
+    
+    let html = '<div class="bookings-table">';
+    bookings.forEach((booking, index) => {
+        const d = new Date(booking.date + 'T00:00');
+        const dateStr = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+        const timeStr = formatTime(booking.time);
+        const contactMethodDisplay = booking.contactMethod || 'email';
+        const referralDisplay = booking.referral ? `<br><strong>Referral:</strong> ${booking.referral}` : '';
+        
+        html += `
+            <div class="booking-item" style="border:1px solid var(--border);padding:12px;border-radius:8px;margin-bottom:12px;">
+                <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:8px;">
+                    <div>
+                        <strong style="color:var(--accent);font-size:1.1rem;">${booking.service}</strong>
+                        <div style="margin-top:4px;">
+                            <strong>📅 When:</strong> ${dateStr} at ${timeStr} (${booking.hours}hrs)<br>
+                            <strong>👤 Client:</strong> ${booking.name}<br>
+                            <strong>📞 Phone:</strong> ${booking.phone}<br>
+                            <strong>📧 Email:</strong> ${booking.email}<br>
+                            <strong>💬 Contact via:</strong> ${contactMethodDisplay}<br>
+                            <strong>📍 Address:</strong> ${booking.address || 'Not provided'}
+                            ${referralDisplay}
+                        </div>
+                        ${booking.specialRequests ? `<div style="margin-top:8px;padding:8px;background:var(--bg);border-radius:4px;"><strong>Notes:</strong> ${booking.specialRequests}</div>` : ''}
+                    </div>
+                    <button class="btn ghost" onclick="deleteBooking(${index})" style="white-space:nowrap;">Delete</button>
+                </div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    
+    list.innerHTML = html;
+}
+
+// Delete a specific booking
+function deleteBooking(index) {
+    if (!confirm('Delete this booking?')) return;
+    
+    const bookings = JSON.parse(localStorage.getItem('mm_bookings') || '[]');
+    bookings.splice(index, 1);
+    localStorage.setItem('mm_bookings', JSON.stringify(bookings));
+    
+    renderBookingsList();
+    renderFormAvailabilityCalendar();
+}
+
+// Export bookings to CSV
+function exportBookings() {
+    const bookings = JSON.parse(localStorage.getItem('mm_bookings') || '[]');
+    
+    if (bookings.length === 0) {
+        alert('No bookings to export');
+        return;
+    }
+    
+    // Create CSV header
+    let csv = 'Service,Name,Phone,Email,Contact Method,Date,Time,Hours,Address,Referral,Special Requests,Created\n';
+    
+    // Add booking rows
+    bookings.forEach(b => {
+        const row = [
+            b.service,
+            b.name,
+            b.phone,
+            b.email,
+            b.contactMethod || 'email',
+            b.date,
+            b.time,
+            b.hours,
+            b.address || '',
+            b.referral || '',
+            (b.specialRequests || '').replace(/\n/g, ' '),
+            new Date(b.created).toLocaleString()
+        ].map(field => `"${field}"`).join(',');
+        
+        csv += row + '\n';
+    });
+    
+    // Download CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `motionman-bookings-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
 }
 
 // Keyboard shortcut to toggle admin controls (Ctrl+Shift+A)
@@ -559,6 +669,8 @@ document.addEventListener('keydown', function(e) {
         if (adminControls) {
             if (adminControls.style.display === 'none') {
                 adminControls.style.display = 'block';
+                renderBookingsList();
+                renderBlockedSlotsList();
                 adminControls.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
                 adminControls.style.display = 'none';
