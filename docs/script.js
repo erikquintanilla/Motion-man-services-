@@ -776,6 +776,24 @@ document.addEventListener('DOMContentLoaded', function(){
     handleNavigation();
 });
 
+// Scroll to services section with smooth animation
+function scrollToServices() {
+    const servicesSection = document.getElementById('services');
+    if (servicesSection) {
+        servicesSection.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+        
+        // Add a temporary highlight effect
+        servicesSection.style.backgroundColor = 'rgba(3, 105, 161, 0.05)';
+        servicesSection.style.transition = 'background-color 0.5s ease';
+        setTimeout(() => {
+            servicesSection.style.backgroundColor = '';
+        }, 2000);
+    }
+}
+
 // Show section functionality for collapsible sections
 function showSection(sectionId) {
     const section = document.getElementById(sectionId);
