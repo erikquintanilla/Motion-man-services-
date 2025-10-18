@@ -227,12 +227,24 @@ async function handleBooking(e){
         <div class="success">
             <h3 style="margin-top:0;">✅ Booking Request Submitted!</h3>
             <p>Thanks, <strong>${name}</strong>! Your request for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> (${hours} hour${hours !== 1 ? 's' : ''}) has been saved.</p>
-            <div style="padding:12px;background:#fef3c7;border-radius:8px;margin:12px 0;">
-                <strong>⚠️ IMPORTANT:</strong> To complete your booking, please click the button below to email me your booking details. <strong>I won't receive your booking without this step!</strong>
+            
+            <div style="padding:16px;background:#fef3c7;border-radius:8px;margin:16px 0;border-left:4px solid #f59e0b;">
+                <div style="display:flex;align-items:start;gap:12px;">
+                    <span style="font-size:2rem;">⚠️</span>
+                    <div>
+                        <strong style="font-size:1.1rem;">IMPORTANT - Check Your Email!</strong>
+                        <p style="margin:8px 0 0 0;">A confirmation email was sent to <strong>${email}</strong>. Please check your inbox (and spam folder) to confirm your booking details.</p>
+                        <p style="margin:8px 0 0 0;font-size:0.9rem;color:#92400e;">This email is your booking confirmation. If you didn't receive it, please click the button below to email me directly.</p>
+                    </div>
+                </div>
             </div>
-            <a class="btn primary" href="${mailtoHref}" style="font-size:1.1rem;padding:12px 24px;">📧 Email Booking to Erik</a>
-            <p style="margin-top:12px;font-size:0.95rem;">This will open your email app with all details pre-filled. Just click send!</p>
-            <p style="margin-top:8px;color:#666;">Or contact me directly: <strong>(510) 978-0413</strong> or <strong>Erikquintanilla990@gmail.com</strong></p>
+            
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0;">
+                <a class="btn primary" href="${mailtoHref}" style="font-size:1rem;padding:10px 20px;">📧 Email Booking to Erik</a>
+                <button id="downloadCalendar" class="btn ghost" style="font-size:1rem;padding:10px 20px;">📅 Download Calendar Event</button>
+            </div>
+            
+            <p style="margin-top:8px;color:#666;font-size:0.9rem;">Or contact me directly: <strong>(510) 978-0413</strong> or <strong>Erikquintanilla990@gmail.com</strong></p>
         </div>
         ${referralMsg}
         <div style="margin-top:10px;">
@@ -251,6 +263,16 @@ async function handleBooking(e){
                 copyBtn.textContent = 'Copy failed';
                 setTimeout(()=> copyBtn.textContent = 'Copy booking details', 2500);
             });
+        });
+    }
+    
+    // Wire calendar download button
+    const calendarBtn = document.getElementById('downloadCalendar');
+    if (calendarBtn) {
+        calendarBtn.addEventListener('click', () => {
+            downloadICS(filename, ics);
+            calendarBtn.textContent = '✅ Downloaded!';
+            setTimeout(() => calendarBtn.textContent = '📅 Download Calendar Event', 2500);
         });
     }
     
@@ -448,9 +470,9 @@ function renderFormAvailabilityCalendar() {
             TIME_SLOTS.forEach(time => {
                 const status = isSlotAvailable(day.date, time);
                 const timeDisplay = formatTime(time);
-                const statusClass = status === 'available' ? 'slot-available' : status === 'booked' ? 'slot-booked' : 'slot-blocked';
-                const statusText = status === 'available' ? '✅' : status === 'booked' ? '❌' : '🚫';
-                const statusLabel = status === 'available' ? 'Available' : status === 'booked' ? 'Booked' : 'Blocked';
+                const statusClass = status === 'available' ? 'slot-available' : 'slot-booked';
+                const statusText = status === 'available' ? '✅' : '❌';
+                const statusLabel = status === 'available' ? 'Available' : 'Booked';
                 
                 // Make available slots clickable in form
                 const clickHandler = status === 'available' ? `onclick="selectFormSlot('${day.date}', '${time}', this)"` : '';
