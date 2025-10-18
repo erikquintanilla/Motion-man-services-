@@ -914,8 +914,8 @@ function handleNavigation() {
             const href = this.getAttribute('href');
             const targetId = href.substring(1); // Remove the #
             
-            // Don't prevent default for home link
-            if (targetId === 'home' || targetId === '') {
+            // Don't prevent default for home or services links (let anchor jump work)
+            if (targetId === 'home' || targetId === 'services' || targetId === '') {
                 return;
             }
             
