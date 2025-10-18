@@ -145,10 +145,21 @@ async function handleBooking(e){
     const service = document.getElementById('service').value;
     const date = document.getElementById('selectedDate').value; // Use hidden field
     const time = document.getElementById('selectedTime').value; // Use hidden field
-    const hours = parseFloat(document.getElementById('estimatedHours')?.value) || 1;
+    const bookingHours = document.getElementById('bookingHours')?.value;
+    const hours = parseFloat(bookingHours || document.getElementById('estimatedHours')?.value) || 1;
     const address = document.getElementById('address')?.value.trim() || '';
     const specialRequests = document.getElementById('specialRequests')?.value.trim() || '';
     const referral = document.getElementById('referral')?.value.trim().toUpperCase() || '';
+
+    if (!date || !time) {
+        alert('Please select a time slot from the calendar.');
+        return;
+    }
+
+    if (!bookingHours) {
+        alert('Please select how many hours you need for your booking.');
+        return;
+    }
 
     if (!isWeekend(date)){
         alert('Please select a Saturday or Sunday. I operate on weekends only.');
@@ -176,12 +187,8 @@ async function handleBooking(e){
     // Block consecutive time slots for multi-hour bookings
     blockConsecutiveSlots(date, time, hours);
 
-    // Offer ICS download and show confirmation
-    downloadICS(filename, ics);
-    // Also offer a plain-text fallback (some devices don't accept .ics)
-    const txtFilename = `motionman-${service.replace(/\s+/g,'-').toLowerCase()}-${date}.txt`;
-    const txtContent = `Booking request\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nPreferred Contact: ${contactMethod}\nAddress: ${address}\nDate: ${date} ${time}\nDuration(hrs): ${hours}${referralNote}${specialNote}`;
-    downloadTXT(txtFilename, txtContent);
+    // Prepare booking details for email
+    const txtContent = `Booking request\n\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nPreferred Contact: ${contactMethod}\nAddress: ${address}\nDate: ${date} ${time}\nDuration(hrs): ${hours}${referralNote}${specialNote}`;
 
     // Try to notify owner via webhook if configured
     let notifyStatus = 'no-endpoint';
@@ -217,11 +224,19 @@ async function handleBooking(e){
     const contactMsg = contactMethod === 'phone' ? 'I will call you' : contactMethod === 'text' ? 'I will text you' : 'I will email you';
 
     result.innerHTML = `
-        <div class="success">Thanks, <strong>${name}</strong> — your request for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> is recorded. An .ics file and a plain text file were downloaded for your calendar. ${notifyMsg} ${contactMsg} at <strong>${contactMethod === 'phone' || contactMethod === 'text' ? phone : email}</strong> within 24 hours.</div>
+        <div class="success">
+            <h3 style="margin-top:0;">✅ Booking Request Submitted!</h3>
+            <p>Thanks, <strong>${name}</strong>! Your request for <strong>${service}</strong> on <strong>${date}</strong> at <strong>${time}</strong> (${hours} hour${hours !== 1 ? 's' : ''}) has been saved.</p>
+            <div style="padding:12px;background:#fef3c7;border-radius:8px;margin:12px 0;">
+                <strong>⚠️ IMPORTANT:</strong> To complete your booking, please click the button below to email me your booking details. <strong>I won't receive your booking without this step!</strong>
+            </div>
+            <a class="btn primary" href="${mailtoHref}" style="font-size:1.1rem;padding:12px 24px;">📧 Email Booking to Erik</a>
+            <p style="margin-top:12px;font-size:0.95rem;">This will open your email app with all details pre-filled. Just click send!</p>
+            <p style="margin-top:8px;color:#666;">Or contact me directly: <strong>(510) 978-0413</strong> or <strong>Erikquintanilla990@gmail.com</strong></p>
+        </div>
         ${referralMsg}
-        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-            <button id="copyDetails" class="btn">Copy booking details</button>
-            <a class="btn ghost" href="${mailtoHref}">Email owner (open mail client)</a>
+        <div style="margin-top:10px;">
+            <button id="copyDetails" class="btn ghost">Copy booking details to clipboard</button>
         </div>
     `;
 
@@ -465,21 +480,53 @@ function selectFormSlot(date, time, el) {
     // Fill hidden form fields
     const dateInput = document.getElementById('selectedDate');
     const timeInput = document.getElementById('selectedTime');
-    const display = document.getElementById('selectedSlotDisplay');
-    const displayText = document.getElementById('selectedSlotText');
     
     if (dateInput) dateInput.value = date;
     if (timeInput) timeInput.value = time;
     
-    // Show selected slot with correct date display
-    if (display) {
-        display.style.display = 'block';
+    // Show hour selection panel
+    const hourPanel = document.getElementById('hourSelectionPanel');
+    const hourSelect = document.getElementById('bookingHours');
+    const summary = document.getElementById('selectedSlotSummary');
+    
+    if (hourPanel) {
+        hourPanel.style.display = 'block';
+        
+        // Format date display
         const [year, month, day] = date.split('-').map(Number);
         const selectedDate = new Date(year, month - 1, day);
-        const dayName = selectedDate.toLocaleDateString('en-US', {weekday: 'short'});
+        const dayName = selectedDate.toLocaleDateString('en-US', {weekday: 'long'});
         const monthName = selectedDate.toLocaleDateString('en-US', {month: 'short'});
         const dayNum = selectedDate.getDate();
-        displayText.textContent = `Selected: ${formatTime(time)} on ${dayName}, ${monthName} ${dayNum}`;
+        
+        // Update summary when hours are selected
+        if (hourSelect) {
+            // Pre-fill from service if available
+            const serviceHours = document.getElementById('estimatedHours')?.value;
+            if (serviceHours && !hourSelect.value) {
+                hourSelect.value = serviceHours;
+            }
+            
+            hourSelect.onchange = function() {
+                const hours = parseFloat(this.value);
+                if (hours && summary) {
+                    const startHour = parseInt(time.split(':')[0]);
+                    const endHour = startHour + hours;
+                    const endTime = `${endHour.toString().padStart(2, '0')}:00`;
+                    
+                    summary.innerHTML = `📅 <strong>${dayName}, ${monthName} ${dayNum}</strong><br>⏰ ${formatTime(time)} - ${formatTime(endTime)} (${hours} hour${hours !== 1 ? 's' : ''})`;
+                    
+                    // Update hidden estimatedHours field
+                    const hoursInput = document.getElementById('estimatedHours');
+                    if (hoursInput) hoursInput.value = hours;
+                }
+            };
+            
+            // Trigger change if value already set
+            if (hourSelect.value) {
+                hourSelect.onchange();
+            }
+        }
     }
 }
 
@@ -492,11 +539,13 @@ function clearSlotSelection() {
     // Clear hidden fields
     const dateInput = document.getElementById('selectedDate');
     const timeInput = document.getElementById('selectedTime');
-    const display = document.getElementById('selectedSlotDisplay');
+    const hourPanel = document.getElementById('hourSelectionPanel');
+    const hourSelect = document.getElementById('bookingHours');
     
     if (dateInput) dateInput.value = '';
     if (timeInput) timeInput.value = '';
-    if (display) display.style.display = 'none';
+    if (hourPanel) hourPanel.style.display = 'none';
+    if (hourSelect) hourSelect.value = '';
 }
 
 function formatTime(time) {

@@ -311,6 +311,25 @@
                         </div>
                         <input type="hidden" id="selectedDate" name="date" required />
                         <input type="hidden" id="selectedTime" name="time" required />
+                        
+                        <!-- Hour selection appears after clicking a time slot -->
+                        <div id="hourSelectionPanel" style="display:none;margin-top:16px;padding:16px;background:#f0f9ff;border-radius:8px;border:2px solid #0369a1;">
+                            <label for="bookingHours" style="font-weight:600;margin-bottom:8px;display:block;">How many hours do you need? *</label>
+                            <select id="bookingHours" name="bookingHours" required style="padding:8px;border:1px solid #ccc;border-radius:8px;width:100%;max-width:200px;">
+                                <option value="">Select hours...</option>
+                                <option value="1">1 hour</option>
+                                <option value="1.5">1.5 hours</option>
+                                <option value="2">2 hours</option>
+                                <option value="2.5">2.5 hours</option>
+                                <option value="3">3 hours</option>
+                                <option value="3.5">3.5 hours</option>
+                                <option value="4">4 hours</option>
+                                <option value="5">5 hours</option>
+                                <option value="6">6 hours</option>
+                            </select>
+                            <p class="form-hint" style="margin-top:8px;">⚠️ Selecting multiple hours will block consecutive time slots to reserve your full booking duration.</p>
+                            <div id="selectedSlotSummary" style="margin-top:12px;padding:8px;background:white;border-radius:6px;font-weight:600;"></div>
+                        </div>
                     </div>
 
                     <div class="form-row">
