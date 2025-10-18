@@ -138,31 +138,87 @@ function copyToClipboard(text){
 
 async function handleBooking(e){
     e.preventDefault();
+    
+    // Show loading state
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = '⏳ Processing...';
+    
+    // Validate all required fields
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
-    const contactMethod = document.getElementById('contactMethod')?.value || 'email';
+    const contactMethod = document.getElementById('contactMethod')?.value;
     const service = document.getElementById('service').value;
-    const date = document.getElementById('selectedDate').value; // Use hidden field
-    const time = document.getElementById('selectedTime').value; // Use hidden field
+    const date = document.getElementById('selectedDate').value;
+    const time = document.getElementById('selectedTime').value;
     const bookingHours = document.getElementById('bookingHours')?.value;
-    const hours = parseFloat(bookingHours || document.getElementById('estimatedHours')?.value) || 1;
-    const address = document.getElementById('address')?.value.trim() || '';
+    const address = document.getElementById('address')?.value.trim();
     const specialRequests = document.getElementById('specialRequests')?.value.trim() || '';
     const referral = document.getElementById('referral')?.value.trim().toUpperCase() || '';
-
+    
+    // Comprehensive validation with specific error messages
+    if (!name) {
+        alert('❌ Please enter your full name.');
+        document.getElementById('name').focus();
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        return;
+    }
+    
+    if (!email) {
+        alert('❌ Please enter your email address.');
+        document.getElementById('email').focus();
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        return;
+    }
+    
+    if (!phone) {
+        alert('❌ Please enter your phone number.');
+        document.getElementById('phone').focus();
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        return;
+    }
+    
+    if (!contactMethod) {
+        alert('❌ Please select your preferred contact method.');
+        document.getElementById('contactMethod').focus();
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        return;
+    }
+    
     if (!date || !time) {
-        alert('Please select a time slot from the calendar.');
+        alert('❌ Please select a time slot from the calendar below.');
+        document.getElementById('formAvailabilityCalendar').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        return;
+    }
+    
+    if (!bookingHours) {
+        alert('❌ Please select how many hours you need after choosing a time slot.');
+        document.getElementById('hourSelectionPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        return;
+    }
+    
+    if (!address) {
+        alert('❌ Please enter your service address.');
+        document.getElementById('address').focus();
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
         return;
     }
 
-    if (!bookingHours) {
-        alert('Please select how many hours you need for your booking.');
-        return;
-    }
+    const hours = parseFloat(bookingHours);
 
     if (!isWeekend(date)){
-        alert('Please select a Saturday or Sunday. I operate on weekends only.');
+        alert('❌ Please select a Saturday or Sunday. I operate on weekends only.');
         return;
     }
 
@@ -276,12 +332,22 @@ async function handleBooking(e){
         });
     }
     
+    // Scroll to success message
+    setTimeout(() => {
+        result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+    
     // Refresh availability calendar after booking
     if (typeof renderFormAvailabilityCalendar === 'function') {
         renderFormAvailabilityCalendar();
     }
     
+    // Clear form but keep service info
     e.target.reset();
+    
+    // Re-populate service fields
+    document.getElementById('service').value = service;
+    document.getElementById('estimatedHours').value = hours;
 }
 
 // Price calculator functionality
@@ -518,6 +584,11 @@ function selectFormSlot(date, time, el) {
     if (hourPanel) {
         hourPanel.style.display = 'block';
         console.log('Hour panel displayed');
+        
+        // Scroll to hour selection panel smoothly
+        setTimeout(() => {
+            hourPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
         
         // Format date display
         const [year, month, day] = date.split('-').map(Number);

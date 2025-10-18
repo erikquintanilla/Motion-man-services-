@@ -3,9 +3,12 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
         <title>Motion Man Services — Quick, Honest Help for Your Weekend Jobs (Oakland)</title>
         <meta name="description" content="Moving, yard cleanup, and car detailing across Oakland. Book in minutes. Weekend service only — I come to you." />
-    <link rel="stylesheet" href="./styles.css?v=2" />
+    <link rel="stylesheet" href="./styles.css?v=3" />
     </head>
     <body>
         <!-- This file mirrors motionmanservices/index.html to enable GitHub Pages from the /docs folder -->
@@ -425,6 +428,26 @@
             </div>
         </footer>
 
-        <script src="./script.js"></script>
+        <script src="./script.js?v=3"></script>
+        <script>
+            // Auto-refresh check for updates every 5 minutes
+            setInterval(function() {
+                fetch(window.location.href, { cache: 'no-store' })
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const newDoc = parser.parseFromString(html, 'text/html');
+                        const currentVersion = document.querySelector('link[rel="stylesheet"]')?.href;
+                        const newVersion = newDoc.querySelector('link[rel="stylesheet"]')?.href;
+                        
+                        // If version changed, reload page
+                        if (currentVersion && newVersion && currentVersion !== newVersion) {
+                            console.log('New version detected, reloading...');
+                            window.location.reload(true);
+                        }
+                    })
+                    .catch(err => console.log('Update check failed:', err));
+            }, 300000); // Check every 5 minutes
+        </script>
     </body>
 </html>
