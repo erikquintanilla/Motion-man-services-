@@ -344,6 +344,11 @@ function getBookedSlots() {
     return bookings.map(b => `${b.date}_${b.time}`);
 }
 
+// Return blocked slots from localStorage
+function getBlockedSlots() {
+    return JSON.parse(localStorage.getItem('mm_blocked_slots') || '[]');
+}
+
 function blockConsecutiveSlots(date, startTime, hours) {
     if (hours <= 1) return; // No need to block additional slots for 1-hour bookings
     
@@ -780,6 +785,8 @@ document.addEventListener('DOMContentLoaded', function(){
 function scrollToServices() {
     const servicesSection = document.getElementById('services');
     if (servicesSection) {
+        // Ensure section is visible before scrolling
+        servicesSection.style.display = 'block';
         servicesSection.scrollIntoView({ 
             behavior: 'smooth', 
             block: 'start' 
@@ -914,8 +921,14 @@ function handleNavigation() {
             const href = this.getAttribute('href');
             const targetId = href.substring(1); // Remove the #
             
-            // Don't prevent default for home or services links (let anchor jump work)
-            if (targetId === 'home' || targetId === 'services' || targetId === '') {
+            // Block access to services section - only accessible via hero button
+            if (targetId === 'services') {
+                e.preventDefault();
+                return; // Do nothing - services only accessible via hero button
+            }
+
+            // Allow default for home and empty anchors
+            if (targetId === 'home' || targetId === '') {
                 return;
             }
             
