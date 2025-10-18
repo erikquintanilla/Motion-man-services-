@@ -299,16 +299,16 @@ function getNextWeekends(count = 2, startOffset = 0) {
     const today = new Date();
     let currentDate = new Date(today);
     
-    // Skip current weekend - start from next weekend
+    // Get next weekend (upcoming Saturday/Sunday)
     let daysToNextWeekend = 0;
     const dayOfWeek = today.getDay();
     
-    if (dayOfWeek === 0) { // Sunday
-        daysToNextWeekend = 6; // Next Saturday
-    } else if (dayOfWeek === 6) { // Saturday
-        daysToNextWeekend = 7; // Next Saturday (skip this Saturday)
-    } else { // Weekday
-        daysToNextWeekend = 6 - dayOfWeek + 7; // Skip this weekend, get next Saturday
+    if (dayOfWeek === 0) { // Sunday - show next Saturday
+        daysToNextWeekend = 6;
+    } else if (dayOfWeek === 6) { // Saturday - show today
+        daysToNextWeekend = 0;
+    } else { // Weekday - show upcoming Saturday
+        daysToNextWeekend = 6 - dayOfWeek;
     }
     
     // Add offset to skip additional weekends
@@ -350,18 +350,18 @@ function getBlockedSlots() {
 }
 
 function blockConsecutiveSlots(date, startTime, hours) {
-    if (hours <= 1) return; // No need to block additional slots for 1-hour bookings
-    
+    // Block all consecutive hours for the booking duration
     const blockedSlots = getBlockedSlots();
     let slotsAdded = 0;
     
     // Convert start time to hour number for easier calculation
     const startHour = parseInt(startTime.split(':')[0]);
     
-    // Block consecutive hours starting from the next hour
-    for (let i = 1; i < hours; i++) {
-        const nextHour = startHour + i;
-        const timeString = `${nextHour.toString().padStart(2, '0')}:00`;
+    // Block all hours from start time through the duration
+    // For example: 2-hour booking at 10:00 blocks 10:00 and 11:00
+    for (let i = 0; i < hours; i++) {
+        const currentHour = startHour + i;
+        const timeString = `${currentHour.toString().padStart(2, '0')}:00`;
         
         // Check if this slot is already blocked or booked
         if (!blockedSlots.some(b => b.date === date && b.time === timeString)) {
@@ -377,7 +377,7 @@ function blockConsecutiveSlots(date, startTime, hours) {
     
     if (slotsAdded > 0) {
         localStorage.setItem('mm_blocked_slots', JSON.stringify(blockedSlots));
-        console.log(`Blocked ${slotsAdded} consecutive slots for ${hours}-hour booking on ${date} starting at ${startTime}`);
+        console.log(`Blocked ${slotsAdded} slots (including start time) for ${hours}-hour booking on ${date} starting at ${startTime}`);
     }
 }
 
