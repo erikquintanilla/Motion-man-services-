@@ -80,11 +80,11 @@ function toICSDate(dt){
 }
 
 function makeICS(summary, description, start, end) {
-    const uid = 'mm-' + Date.now() + '@motionman.local';
+    const uid = 'oc-' + Date.now() + '@oaklandcleanups.local';
     return [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
-        'PRODID:-//MotionMan//Booking//EN',
+        'PRODID:-//OaklandCleanups//Booking//EN',
         'BEGIN:VEVENT',
         'UID:' + uid,
         'DTSTAMP:' + toICSDate(new Date()),
@@ -228,12 +228,12 @@ async function handleBooking(e){
     const start = new Date(y, m-1, d, hh, mm, 0);
     const end = new Date(start.getTime() + hours*60*60*1000);
 
-    const summary = service + ' — Motion Man Booking';
+    const summary = service + ' — Oakland Cleanups Booking';
     const referralNote = referral ? `\nReferral Code: ${referral}` : '';
     const specialNote = specialRequests ? `\nSpecial Requests: ${specialRequests}` : '';
     const description = `Service: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nPreferred Contact: ${contactMethod}\nAddress: ${address}${referralNote}${specialNote}`;
     const ics = makeICS(summary, description, start, end);
-    const filename = `motionman-${service.replace(/\s+/g,'-').toLowerCase()}-${date}.ics`;
+    const filename = `oaklandcleanups-${service.replace(/\s+/g,'-').toLowerCase()}-${date}.ics`;
 
     // Save booking locally
     const stored = JSON.parse(localStorage.getItem('mm_bookings')||'[]');
@@ -273,7 +273,7 @@ async function handleBooking(e){
 
     // Create a mailto fallback link (opens user's mail client with prefilled message) so owner can be emailed manually
     const mailtoBody = encodeURIComponent(`Booking request\n\nService: ${service}\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nPreferred Contact: ${contactMethod}\nAddress: ${address}\nDate: ${date} ${time}\nDuration(hrs): ${hours}${referralNote}${specialNote}`);
-    const mailtoHref = `mailto:Erikquintanilla990@gmail.com?subject=${encodeURIComponent('New booking request - Motion Man')}&body=${mailtoBody}`;
+    const mailtoHref = `mailto:Erikquintanilla990@gmail.com?subject=${encodeURIComponent('New booking request - Oakland Cleanups')}&body=${mailtoBody}`;
     
     const referralMsg = referral ? `<div style="margin-top:8px;padding:8px;background:#dcfce7;border-radius:8px;"><strong>✅ Referral code applied:</strong> ${referral} — You'll get $10 off!</div>` : '';
 
@@ -875,7 +875,7 @@ function exportBookings() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `motionman-bookings-${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `oaklandcleanups-bookings-${new Date().toISOString().split('T')[0]}.csv`;
     document.body.appendChild(a);
     a.click();
     a.remove();
