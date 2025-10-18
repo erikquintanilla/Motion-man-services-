@@ -173,6 +173,9 @@ async function handleBooking(e){
     stored.push({name,email,phone,contactMethod,service,date,time,hours,address,specialRequests,referral,created:Date.now()});
     localStorage.setItem('mm_bookings', JSON.stringify(stored));
 
+    // Block consecutive time slots for multi-hour bookings
+    blockConsecutiveSlots(date, time, hours);
+
     // Offer ICS download and show confirmation
     downloadICS(filename, ics);
     // Also offer a plain-text fallback (some devices don't accept .ics)
@@ -291,10 +294,26 @@ function updatePriceCalculator() {
 const TIME_SLOTS = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00']; // 9am-4pm
 const SLOTS_PER_DAY = 8;
 
-function getNextWeekends(count = 2) {
+function getNextWeekends(count = 2, startOffset = 0) {
     const weekends = [];
     const today = new Date();
     let currentDate = new Date(today);
+    
+    // Skip current weekend - start from next weekend
+    let daysToNextWeekend = 0;
+    const dayOfWeek = today.getDay();
+    
+    if (dayOfWeek === 0) { // Sunday
+        daysToNextWeekend = 6; // Next Saturday
+    } else if (dayOfWeek === 6) { // Saturday
+        daysToNextWeekend = 7; // Next Saturday (skip this Saturday)
+    } else { // Weekday
+        daysToNextWeekend = 6 - dayOfWeek + 7; // Skip this weekend, get next Saturday
+    }
+    
+    // Add offset to skip additional weekends
+    const totalDaysToSkip = daysToNextWeekend + (startOffset * 7);
+    currentDate.setDate(today.getDate() + totalDaysToSkip);
     
     while (weekends.length < count) {
         const dayOfWeek = currentDate.getDay();
@@ -325,8 +344,36 @@ function getBookedSlots() {
     return bookings.map(b => `${b.date}_${b.time}`);
 }
 
-function getBlockedSlots() {
-    return JSON.parse(localStorage.getItem('mm_blocked_slots') || '[]');
+function blockConsecutiveSlots(date, startTime, hours) {
+    if (hours <= 1) return; // No need to block additional slots for 1-hour bookings
+    
+    const blockedSlots = getBlockedSlots();
+    let slotsAdded = 0;
+    
+    // Convert start time to hour number for easier calculation
+    const startHour = parseInt(startTime.split(':')[0]);
+    
+    // Block consecutive hours starting from the next hour
+    for (let i = 1; i < hours; i++) {
+        const nextHour = startHour + i;
+        const timeString = `${nextHour.toString().padStart(2, '0')}:00`;
+        
+        // Check if this slot is already blocked or booked
+        if (!blockedSlots.some(b => b.date === date && b.time === timeString)) {
+            const slotKey = `${date}_${timeString}`;
+            const bookedSlots = getBookedSlots();
+            
+            if (!bookedSlots.includes(slotKey)) {
+                blockedSlots.push({ date, time: timeString });
+                slotsAdded++;
+            }
+        }
+    }
+    
+    if (slotsAdded > 0) {
+        localStorage.setItem('mm_blocked_slots', JSON.stringify(blockedSlots));
+        console.log(`Blocked ${slotsAdded} consecutive slots for ${hours}-hour booking on ${date} starting at ${startTime}`);
+    }
 }
 
 function isSlotAvailable(date, time) {
@@ -343,11 +390,31 @@ function renderFormAvailabilityCalendar() {
     const calendar = document.getElementById('formAvailabilityCalendar');
     if (!calendar) return;
     
-    const weekends = getNextWeekends(2);
+    // Start with 2 weekends, but expand if needed
+    let weekends = getNextWeekends(2);
+    let allAvailableSlots = 0;
+    
+    // Count total available slots
+    weekends.forEach(weekend => {
+        weekend.forEach(day => {
+            TIME_SLOTS.forEach(time => {
+                if (isSlotAvailable(day.date, time) === 'available') {
+                    allAvailableSlots++;
+                }
+            });
+        });
+    });
+    
+    // If no slots available in first 2 weekends, get 2 more
+    if (allAvailableSlots === 0) {
+        const additionalWeekends = getNextWeekends(4, 2); // Get weekends 3-4
+        weekends = [...weekends, ...additionalWeekends];
+    }
+    
     let html = '';
     
     weekends.forEach((weekend, weekendIndex) => {
-        const weekendLabel = weekendIndex === 0 ? 'This Weekend' : 'Next Weekend';
+        const weekendLabel = weekendIndex === 0 ? 'Next Weekend' : weekendIndex === 1 ? 'Weekend After Next' : `Weekend ${weekendIndex + 1}`;
         const dateRange = `${weekend[0].fullDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})} - ${weekend[weekend.length-1].fullDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}`;
         
         html += `<div class="weekend-block">`;
@@ -461,9 +528,11 @@ function updateAvailabilitySummary() {
             if (index === 0) {
                 const urgencyBanner = document.getElementById('urgencyBanner');
                 if (urgencyBanner && availableCount <= 2) {
-                    urgencyBanner.innerHTML = `⚠️ <strong>Almost Full!</strong> Only ${availableCount} slot${availableCount !== 1 ? 's' : ''} left this weekend. Book now!`;
+                    urgencyBanner.innerHTML = `⚠️ <strong>Almost Full!</strong> Only ${availableCount} slot${availableCount !== 1 ? 's' : ''} left next weekend. Book by Friday to secure your spot!`;
                 } else if (urgencyBanner && availableCount <= 4) {
-                    urgencyBanner.innerHTML = `⏰ <strong>Filling Up Fast!</strong> Only ${availableCount} slots left this weekend. Book by Wednesday to secure your spot.`;
+                    urgencyBanner.innerHTML = `⏰ <strong>Filling Up Fast!</strong> Only ${availableCount} slots left next weekend. Book by Friday — spots fill up quickly!`;
+                } else if (urgencyBanner && availableCount <= 8) {
+                    urgencyBanner.innerHTML = `🔥 <strong>Book Now!</strong> ${availableCount} slots available next weekend. Reserve your spot before they're gone!`;
                 }
             }
         }

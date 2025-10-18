@@ -649,43 +649,63 @@ body{
   
   /* Progress indicator - mobile */
   .booking-progress{
-    flex-direction:column;
-    gap:12px;
+    display:flex;
+    justify-content:space-between;
     margin-bottom:20px;
-    align-items:flex-start;
-  }
-  .progress-step::before{
-    display:none;
-  }
-  .progress-number{
-    width:28px;
-    height:28px;
-    line-height:28px;
-    font-size:0.85rem;
-    margin-bottom:4px;
-  }
-  .progress-label{
-    font-size:0.85rem;
-    display:block;
-    margin-left:0;
-    line-height:1.3;
+    position:relative;
   }
   .progress-step{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    padding:10px;
-    text-align:left;
-    border-radius:8px;
-    transition:all 0.2s ease;
+    flex:1;
+    text-align:center;
+    padding:8px;
+    position:relative;
   }
-  .progress-step.completed{
-    background:linear-gradient(135deg,#dcfce7,#bbf7d0);
-    border-left:4px solid #16a34a;
+  .progress-step::before{
+    content:'';
+    position:absolute;
+    top:20px;
+    left:0;
+    right:0;
+    height:3px;
+    background:#e5e7eb;
+    z-index:0;
   }
-  .progress-step.active{
-    background:linear-gradient(135deg,#e0f2fe,#b3e5fc);
-    border-left:4px solid #0891b2;
+  .progress-step:first-child::before{
+    left:50%;
+  }
+  .progress-step:last-child::before{
+    right:50%;
+  }
+  .progress-number{
+    display:inline-block;
+    width:32px;
+    height:32px;
+    line-height:32px;
+    border-radius:50%;
+    background:#e5e7eb;
+    color:var(--muted);
+    font-weight:700;
+    position:relative;
+    z-index:1;
+    margin:0 auto 4px auto;
+  }
+  .progress-step.active .progress-number{
+    background:var(--accent);
+    color:#fff;
+  }
+  .progress-step.completed .progress-number{
+    background:#16a34a;
+    color:#fff;
+  }
+  .progress-label{
+    font-size:0.75rem;
+    color:var(--muted);
+    font-weight:600;
+    display:block;
+    line-height:1.2;
+  }
+  .progress-step.active .progress-label{
+    color:var(--accent);
   }
 
   /* Prominent service buttons - mobile */
