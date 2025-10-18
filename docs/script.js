@@ -490,6 +490,8 @@ function renderFormAvailabilityCalendar() {
 }
 
 function selectFormSlot(date, time, el) {
+    console.log('selectFormSlot called:', date, time);
+    
     // Remove previous selection
     document.querySelectorAll('.slot-available').forEach(slot => {
         slot.classList.remove('selected');
@@ -511,8 +513,11 @@ function selectFormSlot(date, time, el) {
     const hourSelect = document.getElementById('bookingHours');
     const summary = document.getElementById('selectedSlotSummary');
     
+    console.log('Hour panel element:', hourPanel);
+    
     if (hourPanel) {
         hourPanel.style.display = 'block';
+        console.log('Hour panel displayed');
         
         // Format date display
         const [year, month, day] = date.split('-').map(Number);
