@@ -62,43 +62,63 @@
                 <p class="section-sub" style="font-size:1.15rem;">Weekend service only — I come to you. No hidden fees, pay cash after the job is done.</p>
                 
                 <div class="pricing-cards-preview">
-                    <div class="price-preview-card">
-                        <div class="service-icon">📦</div>
+                    <div class="price-preview-card" onclick="toggleServiceDetails('garage')">
                         <h3>Garage Cleanup</h3>
                         <div class="preview-price">$50–70</div>
                         <p class="preview-desc">Complete sorting, sweeping, and organization</p>
+                        <div class="service-details" id="garage-details" style="display:none;">
+                            <hr style="margin:16px 0;border:none;border-top:1px solid #e5e7eb;">
+                            <p><strong>Includes:</strong> Sorting, sweeping, debris removal, and organizing items into bins</p>
+                            <p><strong>Perfect for:</strong> Seasonal cleanouts or finally tackling that cluttered garage</p>
+                            <p><strong>Duration:</strong> 1.5–2 hours of focused work</p>
+                        </div>
                     </div>
                     
-                    <div class="price-preview-card">
-                        <div class="service-icon">🌿</div>
+                    <div class="price-preview-card" onclick="toggleServiceDetails('yard')">
                         <h3>Yard Cleanup</h3>
                         <div class="preview-price">$50–60</div>
                         <p class="preview-desc">Debris removal, leaf pickup, and light pruning</p>
+                        <div class="service-details" id="yard-details" style="display:none;">
+                            <hr style="margin:16px 0;border:none;border-top:1px solid #e5e7eb;">
+                            <p><strong>Includes:</strong> Leaf & branch pickup and bagging, light pruning and trimming</p>
+                            <p><strong>Perfect for:</strong> Seasonal refreshes or getting ready for guests</p>
+                            <p><strong>Duration:</strong> 1–1.5 hours</p>
+                        </div>
                     </div>
                     
-                    <div class="price-preview-card">
-                        <div class="service-icon">🧹</div>
+                    <div class="price-preview-card" onclick="toggleServiceDetails('patio')">
                         <h3>Patio Sweeping</h3>
                         <div class="preview-price">$30</div>
                         <p class="preview-desc">Patio, driveway & walkway cleaning</p>
+                        <div class="service-details" id="patio-details" style="display:none;">
+                            <hr style="margin:16px 0;border:none;border-top:1px solid #e5e7eb;">
+                            <p><strong>Includes:</strong> Patio, driveway & walkway sweeping, cobweb removal, outdoor window wiping</p>
+                            <p><strong>Perfect for:</strong> Making outdoor spaces look fresh and inviting</p>
+                            <p><strong>Duration:</strong> 1 hour</p>
+                        </div>
                     </div>
                     
-                    <div class="price-preview-card">
-                        <div class="service-icon">🎉</div>
+                    <div class="price-preview-card" onclick="toggleServiceDetails('event')">
                         <h3>Event Helper</h3>
                         <div class="preview-price">$20/hr</div>
                         <p class="preview-desc">Setup & takedown for parties and events</p>
+                        <div class="service-details" id="event-details" style="display:none;">
+                            <hr style="margin:16px 0;border:none;border-top:1px solid #e5e7eb;">
+                            <p><strong>Includes:</strong> Table & chair setup/breakdown, decoration hanging & removal, trash collection</p>
+                            <p><strong>Perfect for:</strong> Birthdays, BBQs, community events, family gatherings</p>
+                            <p><strong>Minimum:</strong> 2-hour booking</p>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="bundle-preview-highlight">
-                    <div class="bundle-preview-badge">🔥 BEST DEAL</div>
-                    <h3>🏠 Home Refresh Bundle: <span class="bundle-preview-price">$120</span></h3>
+                    <div class="bundle-preview-badge">BEST DEAL</div>
+                    <h3>Home Refresh Bundle: <span class="bundle-preview-price">$120</span></h3>
                     <p>Get Garage + Yard + Patio all cleaned — <strong>Save $10–40!</strong></p>
                 </div>
                 
                 <div class="booking-cta-section">
-                    <button class="btn hero-primary" onclick="scrollToServices()" style="font-size:1.2rem;padding:16px 32px;">📅 View Full Details & Book Now →</button>
+                    <button class="btn hero-primary" onclick="scrollToServices()" style="font-size:1.2rem;padding:16px 32px;">View Full Details & Book Now</button>
                     <p class="cta-subtext">Click above to see full service details and choose your weekend time slot</p>
                 </div>
             </section>
@@ -107,22 +127,22 @@
                 <h2 class="section-title-gradient">Choose Your Service & Book</h2>
                 <p class="section-sub">One-person operation — affordable and direct. Weekend-only service focused on getting your property looking great.</p>
                 <div class="booking-instruction">
-                    <h3 style="margin-top:0;color:var(--accent);font-size:1.4rem;text-align:center;">📋 How to Book (3 Easy Steps)</h3>
+                    <h3 style="margin-top:0;color:var(--accent);font-size:1.4rem;text-align:center;">How to Book (3 Easy Steps)</h3>
                     <div style="background:#f0f9ff;padding:24px;border-radius:12px;margin-top:16px;">
                         <div style="font-size:1.2rem;margin:20px 0;padding:16px;background:white;border-radius:8px;border-left:4px solid var(--accent);">
                             <strong style="color:var(--accent);font-size:1.3rem;">STEP 1:</strong>
-                            <p style="margin:8px 0 0 0;font-size:1.15rem;">👇 Scroll down and read the service descriptions below</p>
+                            <p style="margin:8px 0 0 0;font-size:1.15rem;">Scroll down and read the service descriptions below</p>
                         </div>
                         <div style="font-size:1.2rem;margin:20px 0;padding:16px;background:white;border-radius:8px;border-left:4px solid var(--accent);">
                             <strong style="color:var(--accent);font-size:1.3rem;">STEP 2:</strong>
-                            <p style="margin:8px 0 0 0;font-size:1.15rem;">👆 Click the blue "Book" button on the service you want</p>
+                            <p style="margin:8px 0 0 0;font-size:1.15rem;">Click the blue "Book" button on the service you want</p>
                         </div>
                         <div style="font-size:1.2rem;margin:20px 0;padding:16px;background:white;border-radius:8px;border-left:4px solid var(--accent);">
                             <strong style="color:var(--accent);font-size:1.3rem;">STEP 3:</strong>
-                            <p style="margin:8px 0 0 0;font-size:1.15rem;">📅 Pick your weekend date & time, then fill out the form</p>
+                            <p style="margin:8px 0 0 0;font-size:1.15rem;">Pick your weekend date & time, then fill out the form</p>
                         </div>
                     </div>
-                    <p style="text-align:center;font-size:1.1rem;margin-top:16px;color:#666;">💡 <strong>Need help?</strong> Call or text me at <a href="tel:+15109780413" style="color:var(--accent);font-weight:bold;">(510) 978-0413</a></p>
+                    <p style="text-align:center;font-size:1.1rem;margin-top:16px;color:#666;"><strong>Need help?</strong> Call or text me at <a href="tel:+15109780413" style="color:var(--accent);font-weight:bold;">(510) 978-0413</a></p>
                 </div>
                 
                 <!-- Core Services Row -->
@@ -489,6 +509,19 @@
 
         <script src="./script.js?v=4"></script>
         <script>
+            function toggleServiceDetails(service) {
+                const details = document.getElementById(service + '-details');
+                const isVisible = details.style.display !== 'none';
+                
+                // Hide all other details first
+                document.querySelectorAll('.service-details').forEach(detail => {
+                    detail.style.display = 'none';
+                });
+                
+                // Toggle the clicked one
+                details.style.display = isVisible ? 'none' : 'block';
+            }
+            
             // Auto-refresh check for updates every 5 minutes
             setInterval(function() {
                 fetch(window.location.href, { cache: 'no-store' })

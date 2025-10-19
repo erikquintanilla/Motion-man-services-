@@ -479,15 +479,31 @@ body{
   text-align:center;
   transition:all 0.3s ease;
   box-shadow:0 4px 12px rgba(3,105,161,0.08);
+  cursor:pointer;
 }
 .price-preview-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 12px 28px rgba(3,105,161,0.15);
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(3,105,161,0.12);
   border-color:var(--accent);
 }
-.service-icon{
-  font-size:3rem;
-  margin-bottom:12px;
+.price-preview-card.expanded{
+  border-color:var(--accent);
+  background:linear-gradient(135deg,#ffffff,#f0f9ff);
+}
+.service-details{
+  margin-top:16px;
+  padding-top:16px;
+  border-top:1px solid #e5e7eb;
+  text-align:left;
+}
+.service-details p{
+  margin:8px 0;
+  font-size:0.9rem;
+  color:var(--muted);
+  line-height:1.5;
+}
+.service-details strong{
+  color:var(--accent);
 }
 .price-preview-card h3{
   margin:12px 0;
@@ -828,9 +844,6 @@ body{
   }
   .price-preview-card{
     padding:16px;
-  }
-  .service-icon{
-    font-size:2.5rem;
   }
   .preview-price{
     font-size:1.6rem;
