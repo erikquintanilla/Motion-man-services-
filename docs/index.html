@@ -8,7 +8,7 @@
         <meta http-equiv="Expires" content="0" />
         <title>Oakland Cleanups — Quick, Honest Help for Your Weekend Jobs</title>
         <meta name="description" content="Moving, yard cleanup, and car detailing across Oakland. Book in minutes. Weekend service only — I come to you." />
-    <link rel="stylesheet" href="./styles.css?v=3" />
+    <link rel="stylesheet" href="./styles.css?v=4" />
     </head>
     <body>
         <!-- This file mirrors motionmanservices/index.html to enable GitHub Pages from the /docs folder -->
@@ -56,14 +56,73 @@
                 </div>
             </section>
 
+            <!-- Pricing Preview Section - Always Visible -->
+            <section id="pricing-preview" class="container pricing-preview">
+                <h2 class="section-title-gradient">Our Services & Pricing</h2>
+                <p class="section-sub" style="font-size:1.15rem;">Weekend service only — I come to you. No hidden fees, pay cash after the job is done.</p>
+                
+                <div class="pricing-cards-preview">
+                    <div class="price-preview-card">
+                        <div class="service-icon">📦</div>
+                        <h3>Garage Cleanup</h3>
+                        <div class="preview-price">$50–70</div>
+                        <p class="preview-desc">Complete sorting, sweeping, and organization</p>
+                    </div>
+                    
+                    <div class="price-preview-card">
+                        <div class="service-icon">🌿</div>
+                        <h3>Yard Cleanup</h3>
+                        <div class="preview-price">$50–60</div>
+                        <p class="preview-desc">Debris removal, leaf pickup, and light pruning</p>
+                    </div>
+                    
+                    <div class="price-preview-card">
+                        <div class="service-icon">🧹</div>
+                        <h3>Patio Sweeping</h3>
+                        <div class="preview-price">$30</div>
+                        <p class="preview-desc">Patio, driveway & walkway cleaning</p>
+                    </div>
+                    
+                    <div class="price-preview-card">
+                        <div class="service-icon">🎉</div>
+                        <h3>Event Helper</h3>
+                        <div class="preview-price">$20/hr</div>
+                        <p class="preview-desc">Setup & takedown for parties and events</p>
+                    </div>
+                </div>
+                
+                <div class="bundle-preview-highlight">
+                    <div class="bundle-preview-badge">🔥 BEST DEAL</div>
+                    <h3>🏠 Home Refresh Bundle: <span class="bundle-preview-price">$120</span></h3>
+                    <p>Get Garage + Yard + Patio all cleaned — <strong>Save $10–40!</strong></p>
+                </div>
+                
+                <div class="booking-cta-section">
+                    <button class="btn hero-primary" onclick="scrollToServices()" style="font-size:1.2rem;padding:16px 32px;">📅 View Full Details & Book Now →</button>
+                    <p class="cta-subtext">Click above to see full service details and choose your weekend time slot</p>
+                </div>
+            </section>
+
             <section id="services" class="container services" style="display:none;">
-                <h2 class="section-title-gradient">Services I Offer</h2>
+                <h2 class="section-title-gradient">Choose Your Service & Book</h2>
                 <p class="section-sub">One-person operation — affordable and direct. Weekend-only service focused on getting your property looking great.</p>
                 <div class="booking-instruction">
-                    <h3 style="margin-top:0;color:var(--accent);font-size:1.2rem;">📋 Ready to Book? Follow the steps below:</h3>
-                    <p style="font-size:1.05rem;margin:12px 0;"><strong>Step 1:</strong> Browse the services below and choose what you need</p>
-                    <p style="font-size:1.05rem;margin:12px 0;"><strong>Step 2:</strong> Click any blue "Book" button for your chosen service</p>
-                    <p style="font-size:1.05rem;margin:12px 0;"><strong>Step 3:</strong> Select your preferred weekend time slot and complete booking</p>
+                    <h3 style="margin-top:0;color:var(--accent);font-size:1.4rem;text-align:center;">📋 How to Book (3 Easy Steps)</h3>
+                    <div style="background:#f0f9ff;padding:24px;border-radius:12px;margin-top:16px;">
+                        <div style="font-size:1.2rem;margin:20px 0;padding:16px;background:white;border-radius:8px;border-left:4px solid var(--accent);">
+                            <strong style="color:var(--accent);font-size:1.3rem;">STEP 1:</strong>
+                            <p style="margin:8px 0 0 0;font-size:1.15rem;">👇 Scroll down and read the service descriptions below</p>
+                        </div>
+                        <div style="font-size:1.2rem;margin:20px 0;padding:16px;background:white;border-radius:8px;border-left:4px solid var(--accent);">
+                            <strong style="color:var(--accent);font-size:1.3rem;">STEP 2:</strong>
+                            <p style="margin:8px 0 0 0;font-size:1.15rem;">👆 Click the blue "Book" button on the service you want</p>
+                        </div>
+                        <div style="font-size:1.2rem;margin:20px 0;padding:16px;background:white;border-radius:8px;border-left:4px solid var(--accent);">
+                            <strong style="color:var(--accent);font-size:1.3rem;">STEP 3:</strong>
+                            <p style="margin:8px 0 0 0;font-size:1.15rem;">📅 Pick your weekend date & time, then fill out the form</p>
+                        </div>
+                    </div>
+                    <p style="text-align:center;font-size:1.1rem;margin-top:16px;color:#666;">💡 <strong>Need help?</strong> Call or text me at <a href="tel:+15109780413" style="color:var(--accent);font-weight:bold;">(510) 978-0413</a></p>
                 </div>
                 
                 <!-- Core Services Row -->
@@ -428,7 +487,7 @@
             </div>
         </footer>
 
-        <script src="./script.js?v=3"></script>
+        <script src="./script.js?v=4"></script>
         <script>
             // Auto-refresh check for updates every 5 minutes
             setInterval(function() {
